@@ -11395,6 +11395,7 @@ body {
 .card:hover {
   box-shadow: 5px 6px 6px 2px #d9dde0;
   transform: scale(1.1);
+  z-index: 999;
 }
 
 .card-hover-disable {
@@ -11478,12 +11479,18 @@ body {
   font-family: SingaporeSling;
   src: url(/fonts/SingaporeSling-ez7O.otf?ce0485aff52e8dd6d12c90bceb887208);
 }
+.form-control {
+  font-family: SingaporeSling;
+}
+
 .placeholder-font::-moz-placeholder {
   font-family: SingaporeSling;
 }
+
 .placeholder-font:-ms-input-placeholder {
   font-family: SingaporeSling;
 }
+
 .placeholder-font::placeholder {
   font-family: SingaporeSling;
 }
