@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Rules\Uppercase;
 use App\Http\Requests\CreateValidationRequest;
+use App\Models\Asset;
+use Exception;
 
+// hi
 class TaskController extends Controller
 {
     public function index(){
@@ -27,21 +30,31 @@ class TaskController extends Controller
             'user_id' => 'required',
             'img' => 'mimes:jpg,jpeg,png'
         ]);
-        if ($request->img){
-            $newImgName = time() . '-' . $request->id . '.' . $request->img->extension();
-
-            $request->img->move(public_path('images'), $newImgName);
-        }
-        else {
-            $newImgName = '';
-        }
         
+        $picture = $request->input('img');
 
-        $task = new Task();
-        $task->description = $request->description;
-        $task->user_id = $request->user_id;
-        $task->img_path = $newImgName;
-        $task->save();
+        try {
+            $blob_controller = new BlobController();
+            $session_picture = $blob_controller->uploadImage($request, 'img');
+            $session_picture_url = json_decode($session_picture->getContent())->url;
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong while uploading the session picture!')->withInput();
+        }
+
+        // creates asset for session picture
+        $event_session_picture = Asset::create([
+            'asset_url'             => $session_picture_url
+        ]);
+
+        $asset_id_session_picture = $event_session_picture->id;
+           
+        $task_add = Task::create(
+            [
+                'description'       => trim($request->input('description')),
+                'user_id'           => trim($request->input('user_id')),
+                'img_path'          => $session_picture_url,
+            ]
+        );
 
         return redirect()->route('mainpage');
     }

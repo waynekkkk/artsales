@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddImgToTasksTable extends Migration
+class CreateMuseumsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,14 @@ class AddImgToTasksTable extends Migration
      */
     public function up()
     {
-        Schema::table('tasks', function (Blueprint $table) {
-            $table->string('img_path');
+        Schema::create('museums', function (Blueprint $table) {
+            $table->id();
+
+            $table->longText('name');
+            $table->decimal('lat', 10, 8);
+            $table->decimal('long', 11, 8);
+
+            $table->timestamps();
         });
     }
 
@@ -25,8 +31,6 @@ class AddImgToTasksTable extends Migration
      */
     public function down()
     {
-        Schema::table('tasks', function (Blueprint $table) {
-            $table->dropColumn('img_path');
-        });
+        Schema::dropIfExists('museums');
     }
 }

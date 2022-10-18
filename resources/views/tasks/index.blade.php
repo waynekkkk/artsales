@@ -90,7 +90,7 @@
                                 </div>
 
                                 @if ($task->img_path)
-                                    <img src="{{ asset('images/' . $task->img_path) }}" alt="" class="card-img-top card-img-top-square-edges">
+                                    <img src="{{ $task->img_path }}" alt="" class="card-img-top card-img-top-square-edges">
                                 @endif
 
                                 <div class="card-body">
