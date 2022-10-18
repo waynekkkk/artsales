@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Gallery;
-use Exception;
 use Illuminate\Http\Request;
 
-class ArtworkController extends Controller
+class MuseumController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,7 +21,7 @@ class ArtworkController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function add()
+    public function create()
     {
         //
     }
@@ -34,7 +32,7 @@ class ArtworkController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function updateAdd(Request $request, $user_id)
+    public function store(Request $request)
     {
         //
     }

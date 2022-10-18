@@ -15,6 +15,7 @@ class CreateArtworksTable extends Migration
     {
         Schema::create('artworks', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
 
             $table->foreignId('artist_id')
             ->constrained('users')
@@ -24,6 +25,7 @@ class CreateArtworksTable extends Migration
             ->constrained('assets')
             ->onDelete('no action');
 
+            $table->longText('description');
             $table->integer('votes')->default(0);
 
             $table->timestamps();
