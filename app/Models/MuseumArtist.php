@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 
-class Asset extends Model
+class MuseumArtist extends Model
 {
     use HasFactory;
-    protected $table = 'assets';
-    
+    protected $table = 'museum_artists';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -19,15 +19,17 @@ class Asset extends Model
      */
     protected $fillable = [
         'id',
-        'asset_url'
+        'museum_id',
+        'user_id',
+        'datetime_start',
+        'datetime_end'
     ];
 
-    public function artwork(){
-        return $this->hasOne('App\Models\Artwork');
+    public function museum(){
+        return $this->belongsTo('App\Models\Museum');
     }
 
-    public function user_profile_picture(){
-        return $this->hasOne('App\Models\User');
+    public function artist(){
+        return $this->belongsTo('App\Models\User', 'user_id');
     }
-
 }

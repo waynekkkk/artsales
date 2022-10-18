@@ -9,7 +9,7 @@
     </body>
 </div> --}}
 <div class="container-fluid px-0">
-    <div id="carousel-ferrari" class="carousel slide shadow-lg" data-bs-ride="carousel" data-bs-interval="5000" data-bs-pause="false">
+    <div id="carousel-ferrari" class="carousel slide shadow-lg" data-bs-ride="carousel" data-bs-interval="false" data-bs-pause="false">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#carousel-ferrari" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
           <button type="button" data-bs-target="#carousel-ferrari" data-bs-slide-to="1" aria-label="Slide 2"></button>

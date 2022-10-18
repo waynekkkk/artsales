@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGalleriesTable extends Migration
+class CreateMuseumArtistsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,19 @@ class CreateGalleriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('galleries', function (Blueprint $table) {
+        Schema::create('museum_artists', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name');
-            $table->longText('location')->nullable();
+            $table->foreignId('museum_id')
+            ->constrained('museums')
+            ->onDelete('no action');
 
-            $table->foreignId('owner_id')
+            $table->foreignId('user_id')
             ->constrained('users')
             ->onDelete('no action');
+
+            $table->dateTime('datetime_start');
+            $table->dateTime('datetime_end');
 
             $table->timestamps();
         });
@@ -34,6 +38,6 @@ class CreateGalleriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('galleries');
+        Schema::dropIfExists('museum_artists');
     }
 }

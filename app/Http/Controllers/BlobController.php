@@ -132,6 +132,70 @@ class BlobController extends Controller
         }
     }
 
+    public function uploadImages($file)
+    {
+        $errors = array();
+        
+        if ($file) {
+            $uploadFile = $file;
+            $name = $uploadFile->getClientOriginalName();
+            $tmp_name = $uploadFile;
+
+            $ext = pathinfo(strtolower($name), PATHINFO_EXTENSION);
+
+            if (empty($errors)) {
+                try {
+                    //check the file extension
+                    $filetype = $this->checkExtensionType($ext);
+                    $file_encoding = $this->checkExtensionEncoding($ext);
+            
+                    if(!$filetype){
+                        $errors['message'] = 'File type not supported! Please contact the administrator!';
+                    }
+            
+                    if(!$file_encoding){
+                        $errors['message'] = 'File encoding not supported! Please contact the administrator!';
+                    }
+                } catch (Exception $e) {
+                    $errors['message'] = "An error occured while uploading the image.";
+                }
+            }
+            
+            if($errors)
+            {
+                return response($errors,402);
+            }
+
+            $new_name = rand(111111111, 999999999) . "." . $ext;
+
+            try {
+                $accesskey = env('AZURE_BLOB_KEY');
+                $storageAccount = env('AZURE_BLOB_STORAGE_ACCOUNT');
+                $filetoUpload = realpath($tmp_name);
+                $containerName = 'wad2';
+                $destinationURL = "https://$storageAccount.blob.core.windows.net/$containerName/$new_name";
+
+                $this->uploadBlob($filetoUpload, $storageAccount, $containerName, $new_name, $destinationURL, $accesskey, $file_encoding);
+
+                $upload_destination = $destinationURL;
+            } catch (Exception $e) {
+                $out = new \Symfony\Component\Console\Output\ConsoleOutput();
+                $out->writeln($e->getMessage());
+                $errors['sql'] = $e->getMessage();
+                $errors['message'] = "An error occured while uploading the image.";
+            }
+
+            if($errors)
+            {
+                return response($errors, 402);
+            }
+            else 
+            {
+                return response(['url' => $upload_destination], 200);
+            }
+        }
+    }
+
     public function uploadBlob($filetoUpload, $storageAccount, $containerName, $blobName, $destinationURL, $accesskey, $file_encoding)
     {
         $currentDate = gmdate("D, d M Y H:i:s T", time());

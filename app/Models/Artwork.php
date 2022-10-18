@@ -19,7 +19,9 @@ class Artwork extends Model
      */
     protected $fillable = [
         'id',
+        'title',
         'artist_id',
+        'description',
         'asset_id',
         'votes'
     ];
