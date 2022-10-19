@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreateArtworksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,21 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('artworks', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->boolean('is_artist');
-            $table->rememberToken();
+            $table->string('title');
+
+            $table->foreignId('artist_id')
+            ->constrained('users')
+            ->onDelete('no action');
 
             $table->foreignId('asset_id')
-            ->nullable()
             ->constrained('assets')
             ->onDelete('no action');
-            
+
+            $table->longText('description');
+            $table->integer('votes')->default(0);
+
             $table->timestamps();
         });
     }
@@ -38,6 +39,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('artworks');
     }
-};
+}

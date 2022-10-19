@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTasksTable extends Migration
+class CreateGalleryArtworksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,17 @@ class CreateTasksTable extends Migration
      */
     public function up()
     {
-        Schema::create('tasks', function (Blueprint $table) {
+        Schema::create('gallery_artworks', function (Blueprint $table) {
             $table->id();
-            $table->string('description');
-            $table->integer('user_id')->unsigned()->index();
-            $table->longText('img_path');
+
+            $table->foreignId('gallery_id')
+            ->constrained('galleries')
+            ->onDelete('no action');
+
+            $table->foreignId('artwork_id')
+            ->constrained('artworks')
+            ->onDelete('no action');
+
             $table->timestamps();
         });
     }
@@ -29,6 +35,6 @@ class CreateTasksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('gallery_artworks');
     }
 }
