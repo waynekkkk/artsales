@@ -72,7 +72,7 @@ class User extends Authenticatable
     }
 
     public function profile_picture() {
-        return $this->belongsTo('App\Models\Asset');
+        return $this->belongsTo('App\Models\Asset', 'asset_id');
     }
 
     public function gallery() {

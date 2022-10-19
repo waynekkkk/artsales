@@ -99,15 +99,40 @@
                         @endguest --}}
 
                         <li class="nav-item dropdown">
-                            <a class="mt-2 mx-2 nav-link dropdown-toggle btn btn-light text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa-solid fa-user"></i> Account
-                            </a>
-                            <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ route('login') }}">Log In</a></li>
-                            <li><a class="dropdown-item" href="{{ route('register') }}">Sign Up</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
+                            @if (Auth::check())
+                            <div id="click-out"></div>
+                                <a class="mt-2 mx-2 nav-link dropdown-toggle btn btn-light text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-user"></i> {{ Auth::user()->name }}
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                            document.getElementById('logout-form').submit();">
+                                                {{ __('Logout') }}
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{{ route('user.account', Auth::user()->id) }}">Account</a></li>
+                                </ul>
+                            @else
+                                <a class="mt-2 mx-2 nav-link dropdown-toggle btn btn-light text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-user"></i> Guest
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ route('login') }}">Log In</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('register') }}">Sign Up</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                            @endif
+                            
                         </li>
 
                     </ul>
