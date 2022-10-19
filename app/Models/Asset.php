@@ -27,7 +27,7 @@ class Asset extends Model
     }
 
     public function user_profile_picture(){
-        return $this->hasOne('App\Models\User');
+        return $this->hasOne('App\Models\User', 'asset_id');
     }
 
 }

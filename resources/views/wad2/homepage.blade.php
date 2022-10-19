@@ -11,8 +11,7 @@
                         <h2>{{ $highest_voted_artwork->description }}</h2>
                         <h3>by {{ $artist_of_the_month->name }}</h3>
                         <div class="col mt-3">
-                            <button type="button" class="btn btn-dark btn-block rounded-pill  me-1">Explore</button>
-                            <button type="button" class="btn btn-light rounded-pill">Buy</button>
+                            <button type="button" class="btn btn-dark btn-block rounded-pill me-1" onclick="window.location.href='{{ route('user.account', $artist_of_the_month->id) }}';">Explore</button>
                         </div>
                     </div>
                 </div>
@@ -144,10 +143,6 @@
                         </div>
                     </div>
                 </div> --}}
-                <div>
-                    {{ $museum_collections[0]->artists_list[0]->images_list[0] }}
-                </div>
-                
 
                 <!--google maps script-->
                 <script>

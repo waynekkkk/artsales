@@ -18,28 +18,28 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-})->middleware('guest');
+// Route::get('/', function () {
+//     return view('auth.login');
+// })->middleware('guest');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('auth')->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-// Route::get('/main', [TaskController::class, 'index'])->middleware('auth')->name('mainpage');
+// // Route::get('/main', [TaskController::class, 'index'])->middleware('auth')->name('mainpage');
 
-Route::get('/add', [TaskController::class, 'add'])->middleware('auth')->name('add');
-Route::post('/task', [TaskController::class, 'create'])->middleware('auth')->name('create');
+// Route::get('/add', [TaskController::class, 'add'])->middleware('auth')->name('add');
+// Route::post('/task', [TaskController::class, 'create'])->middleware('auth')->name('create');
 
-Route::get('/tasks/{id}/edit', [TaskController::class, 'edit'])->middleware('auth')->name('edit');
-Route::post('/update/{id}', [TaskController::class, 'update'])->middleware('auth')->name('update');
+// Route::get('/tasks/{id}/edit', [TaskController::class, 'edit'])->middleware('auth')->name('edit');
+// Route::post('/update/{id}', [TaskController::class, 'update'])->middleware('auth')->name('update');
 
-Route::get('/delete', [TaskController::class, 'delete_id'])->middleware('auth')->name('delete_id');
-Route::get('/delete2', [TaskController::class, 'delete2'])->middleware('auth')->name('delete2');
-Route::get('/delete/{id}', [TaskController::class, 'delete'])->middleware('auth')->name('delete');
+// Route::get('/delete', [TaskController::class, 'delete_id'])->middleware('auth')->name('delete_id');
+// Route::get('/delete2', [TaskController::class, 'delete2'])->middleware('auth')->name('delete2');
+// Route::get('/delete/{id}', [TaskController::class, 'delete'])->middleware('auth')->name('delete');
 
-Route::get('/view/{id}', [TaskController::class, 'view'])->middleware('auth')->name('view');
+// Route::get('/view/{id}', [TaskController::class, 'view'])->middleware('auth')->name('view');
 
 
 // for wad2
@@ -61,9 +61,7 @@ Route::get('/about-us', function(){
 })->name('about_us'); 
 
 // about (user)
-Route::get('/user/account', function(){
-    return view('wad2.user.account');
-})->name('user.account'); 
+Route::get('/user/{user_id}/account', [UserController::class, 'show'])->name('user.account'); 
 
 // artworks (user)
 Route::get('/user/artworks', function(){
