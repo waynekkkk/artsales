@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Artwork;
 use App\Models\Asset;
 use App\Models\User;
 use Exception;
@@ -46,9 +47,33 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($user_id)
     {
-        //
+        $user = User::where('id', $user_id)->first();
+
+        $artworks = $user->artwork;
+
+        $museum_artists_involvement = $user->museum_artist;
+
+        $artwork_rankings = Artwork::orderBy('votes', 'DESC')->get();
+
+        $user_ranking = 1;
+        foreach ($artwork_rankings as $artwork_ranking) {
+            if ($artwork_ranking->artist_id == $user_id) {
+                break;
+            }
+            else {
+                $user_ranking++;
+            }
+        }
+
+        return view('wad2.user.account',
+            [
+                'user'                           => $user, 
+                'artworks'                       => $artworks, 
+                'museum_artists_involvement'     => $museum_artists_involvement, 
+                'user_ranking'                   => $user_ranking, 
+            ]);
     }
 
     /**
@@ -62,9 +87,9 @@ class UserController extends Controller
         $user = User::where('id', $id)->first();
 
         return view('wad2.user.edit',
-                    [
-                       'user'         => $user, 
-                    ]);
+            [
+                'user'         => $user, 
+            ]);
     }
 
     /**
@@ -83,7 +108,7 @@ class UserController extends Controller
 
         $validator = $request->validate([
             'name'               => ['required'],
-            'email'              => ['required', 'email', 'unique:users'],
+            'email'              => ['required', 'email', 'unique:users,email,'.$id],
             'profile_picture'    => ['nullable', 'mimes:jpg,jpeg,png'],
         ], $custom_error);
 
@@ -121,8 +146,16 @@ class UserController extends Controller
                 ]
             );
         }
+
+        $user = User::where('id', $id)->first();
+
+        $artworks = $user->artwork;
         
-        return "done";
+        return view('wad2.user.account',
+            [
+                'user'         => $user, 
+                'artworks'     => $artworks, 
+            ]);
     }
 
     /**
