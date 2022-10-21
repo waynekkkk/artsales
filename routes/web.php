@@ -44,6 +44,10 @@ Auth::routes();
 
 // for wad2
 
+Route::get('/', function () {
+    return redirect('/main');
+});
+
 // home
 Route::get('/main', [HomeController::class, 'index'])->name('home'); 
 

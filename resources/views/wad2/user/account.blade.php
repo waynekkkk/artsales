@@ -7,7 +7,7 @@
             <!-- Dynamic displaying of background img. See mini lab 2 and how they do it -->
 
             <!-- To make it dynamic and customisable to user -->
-            <img id="banner-image" src="https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80" alt="Banner Image">
+            <img id="banner-image" src="{{ $user->banner ? $user->banner->asset_url : 'https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80' }}" alt="Banner Image">
             
         </div>
 
@@ -52,7 +52,7 @@
     
             <div class="page-feature">
                 <ul class="nav nav-pills  nav-black nav-fill">
-                    <li class="nav-item mx-2">
+                    <li class="nav-item mx-2"> 
                         <a id="default-content" class="nav-link main-tabgroup" onclick="displayContent(event, 'artworks')">Artworks</a>
                     </li>
                     <li class="nav-item mx-2">
@@ -111,10 +111,10 @@
                           </ul>
                     </div>
         
-                    <div>
-                        <h5>Biography</h5>
+                    <div class="text-center">
+                        <h2 class="fw-bolder">Biography</h2>
                         <p class="mx-4 my-2">
-                            Titus Low is certainly an impactful social media influencer: he boasts over 500,000, 400,000 and 200,000 followers on TikTok, Twitter and Instagram respectively. The 22-year-old Singaporean also has a notorious OnlyFans account where he first saw his fame rise. And he has been making waves again with recent controversial posts.
+                            {{ $user->description }}
                         </p>
                     </div>
                 </div>
@@ -125,6 +125,9 @@
 
         <!--google maps script-->
         <script>
+            var events_collection = {{ Illuminate\Support\Js::from($events_details) }};
+            console.log(events_collection[0].images_list[0]);
+
             // Initialize and add the map
             function initMap() {
                 // The location of museum
