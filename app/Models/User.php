@@ -28,11 +28,12 @@ class User extends Authenticatable
     protected $fillable = [
         'id',
         'name',
+        'description',
         'email',
         'email_verified_at',
         'password',
-        'is_artist',
         'asset_id',
+        'banner_id',
         'remember_token',
         'two_factor_recovery_codes',
         'two_factor_secret',
@@ -73,6 +74,10 @@ class User extends Authenticatable
 
     public function profile_picture() {
         return $this->belongsTo('App\Models\Asset', 'asset_id');
+    }
+
+    public function banner() {
+        return $this->belongsTo('App\Models\Asset', 'banner_id');
     }
 
     public function gallery() {

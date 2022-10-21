@@ -88,7 +88,7 @@
                         <div class="text-center">
                         <!-- BRAND LOGO GOES HERE -->
                         <img src="{{ asset('images/logo.png') }}" style="width: 150px;" alt="logo">
-                        <h5 class="mt-1 mt-5 pb-1">Login</h5>
+                        <h3 class="mt-1 mt-5 pb-1">Login</h3>
     
                         </div>
                         <form action="{{ route('login') }}" method="POST">
@@ -117,7 +117,7 @@
                             </div>
             
                             <div class="text-center pt-1 mb-5 pb-1">
-                                <button type="submit" class="btn btn-danger">
+                                <button type="submit" class="btn btn-danger w-25">
                                     {{ __('Login') }}
                                 </button> &nbsp;
                                 <a class="text-muted" href="#!">  Forgot password?</a>
@@ -125,7 +125,7 @@
             
                             <div class="d-flex align-items-center justify-content-center pb-4">
                                 <p class="mb-0 me-2">New here? &nbsp; </p>
-                                <button type="button" onclick="window.location.href='{{ route('register') }}';" class="btn btn-outline-danger">Sign Up</button>
+                                <button type="button" onclick="window.location.href='{{ route('register') }}';" class="btn btn-outline-danger w-25">Sign Up</button>
                             </div>
                         </form>
         
