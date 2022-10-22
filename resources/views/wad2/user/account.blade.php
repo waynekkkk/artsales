@@ -76,7 +76,7 @@
 
                 <div class="row justify-content-center">
                     <div class="col-lg-6 offset-lg-6 text-end">
-                        @if (Auth::user()->id == $user->id)
+                        @if (Auth::check() && (Auth::user()->id == $user->id))
                             <button type="button" class="btn btn-outline-dark btn-block rounded-pill mt-5" onclick="window.location.href='{{ route('user.add_artwork', Auth::user()->id) }}';">Add More Wonderful Pieces!!</button>    
                         @endif
                     </div>
@@ -98,7 +98,7 @@
                                         <!-- FIGURE OUT HOW TO DO IT WITHOUT INLINE STYLR -->
                                         <small class="text-muted"><span style="margin-left:80%;">{{ $artwork->votes }}</span></small>
                                     </div>
-                                    @if (Auth::user()->id == $user->id)
+                                    @if (Auth::check() && (Auth::user()->id == $user->id))
                                         <div class="row">
                                             <div class="col-lg-4"></div>
                                             <div class="col-lg-4 text-end">
