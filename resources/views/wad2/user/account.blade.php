@@ -17,13 +17,21 @@
                 <!-- Nav bar too.  -->
                 <img id="profile-image" src="{{ $user->profile_picture ? $user->profile_picture->asset_url : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_21ZgcYYoO9HR-eNc_kIDEsO2hXUh1FKbhg&usqp=CAU' }}" alt="Profile Image">
             </div>
+
+            @error('artwork_error')
+                <div class="row justify-content-center text-center col-lg-6 offset-lg-3">
+                    <div class="alert alert-danger text-center">                      
+                        {{ $message }}
+                    </div> 
+                </div>
+            @enderror
     
             <div class="artist-name text-center">
                 <p class="my-3 mx-auto text-center fs-2 fw-bold">{{ $user->name }}</p>
 
                 @if (Auth::check())
                     @if (Auth::user()->id == $user->id)
-                        <button type="button" class="btn btn-dark btn-block rounded-pill mb-5" onclick="window.location.href='{{ route('edit_particulars', Auth::user()->id) }}';">Edit Details</button>    
+                        <button type="button" class="btn btn-dark btn-block rounded-pill mb-5" onclick="window.location.href='{{ route('user.edit_particulars', Auth::user()->id) }}';">Edit Details</button>    
                     @endif
                 @endif
                 
@@ -65,7 +73,17 @@
             </div>
     
             <div id="artworks" class="tabcontent mb-5">
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 offset-lg-6 text-end">
+                        @if (Auth::user()->id == $user->id)
+                            <button type="button" class="btn btn-outline-dark btn-block rounded-pill mt-5" onclick="window.location.href='{{ route('user.add_artwork', Auth::user()->id) }}';">Add More Wonderful Pieces!!</button>    
+                        @endif
+                    </div>
+                </div>
+
                 <div class=" mt-3 mx-4 row row-cols-1 row-cols-md-3 g-4">
+
                     @foreach ($artworks as $artwork)
                         <div class="col">
                             <div class="card h-100">
@@ -75,9 +93,30 @@
                                     <p class="card-text">{{ $artwork->description }}</p>
                                 </div>
                                 <div class="card-footer">
-                                    <small class="text-muted">Votes: </small>
-                                    <!-- FIGURE OUT HOW TO DO IT WITHOUT INLINE STYLR -->
-                                    <small class="text-muted"><span style="margin-left:80%;">{{ $artwork->votes }}</span></small>
+                                    <div class="row">
+                                        <small class="text-muted">Votes: </small>
+                                        <!-- FIGURE OUT HOW TO DO IT WITHOUT INLINE STYLR -->
+                                        <small class="text-muted"><span style="margin-left:80%;">{{ $artwork->votes }}</span></small>
+                                    </div>
+                                    @if (Auth::user()->id == $user->id)
+                                        <div class="row">
+                                            <div class="col-lg-4"></div>
+                                            <div class="col-lg-4 text-end">
+                                                <form action="{{ route('user.edit_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="get">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-outline-dark btn-block rounded-pill mt-5">Edit this piece?</button>
+                                                </form>
+                                            </div>
+                                            <div class="col-lg-4 text-end">
+                                                <form action="{{ route('user.delete_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="post">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-outline-dark btn-block rounded-pill mt-5">Delete this piece?</button>
+                                                </form>
+                                            </div>
+                                            
+                                        </div>
+                                    @endif
+                                    
                                 </div>
                             </div>
                         </div>
