@@ -284,13 +284,272 @@ class UserController extends Controller
     }
 
     /**
+     * Show the form for adding artworks.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function addArtwork($user_id)
+    {
+        return view('wad2.artwork.add',
+            [
+                'user_id'                   => $user_id
+            ]
+        );
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateArtworkAdd(Request $request, $user_id)
+    {
+        $custom_error = [
+            'title.required'                => "The title of the artwork to be uploaded is required.",
+            'description.required'          => "The description of the artwork to be uploaded is required.",
+            'artwork.required'              => "An artwork to be uploaded is required.",
+            'artwork.dimensions'            => "The artwork must measure 1080px x 1080px in dimensions.",
+        ];
+
+        $validator = $request->validate([
+            'title'                 => ['required'],
+            'description'           => ['required'],
+            'artwork'               => ['required', 'mimes:jpg,jpeg,png', 'dimensions:min_width=1080,min_height=1080,max_width=1080,max_height=1080'],
+        ], $custom_error);
+
+        $artwork = $request->file('profile_picture');
+
+        try {
+            $blob_controller = new BlobController();
+            $user_artwork = $blob_controller->uploadImage($request, 'artwork');
+            $artwork_url = json_decode($user_artwork->getContent())->url;
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong while uploading your artwork!')->withInput();
+        }
+
+        // creates asset for banner picture
+        $artwork_picture_upload = Asset::create([
+            'asset_url'             => $artwork_url
+        ]);
+
+        $asset_id_artwork = $artwork_picture_upload->id;
+        
+        $user_artwork_add = Artwork::create(
+            [
+                'title'                 => trim($request->input('title')),
+                'artist_id'             => $user_id,
+                'asset_id'              => $asset_id_artwork,
+                'description'           => trim($request->input('description')),
+            ]
+        );
+
+        $user = User::where('id', $user_id)->first();
+
+        $artworks = $user->artwork;
+
+        $museum_artists_involvement = $user->museum_artist;
+
+        $artwork_rankings = Artwork::orderBy('votes', 'DESC')->get();
+
+        $user_ranking = 1;
+        foreach ($artwork_rankings as $artwork_ranking) {
+            if ($artwork_ranking->artist_id == $user_id) {
+                break;
+            }
+            else {
+                $user_ranking++;
+            }
+        }
+
+        $events_details = [];
+
+        foreach ($museum_artists_involvement as $involvement) {
+            $museum = $involvement->museum;
+
+            $museum_details = new stdClass();
+            $museum_details->museum_name = $museum->name;
+            $museum_details->long = $museum->long;
+            $museum_details->lat = $museum->lat;
+
+            $artwork_urls = [];
+            foreach ($artwork_rankings as $artwork) {
+                $artwork_urls[] = $artwork->asset->asset_url;
+            }
+
+            $museum_details->images_list = $artwork_urls;
+
+            $events_details[] = $museum_details;
+        }
+        
+        return view('wad2.user.account',
+            [
+                'user'                              => $user, 
+                'artworks'                          => $artworks, 
+                'museum_artists_involvement'        => $museum_artists_involvement, 
+                'user_ranking'                      => $user_ranking, 
+                'events_details'                    => $events_details, 
+            ]);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroyArtwork($user_id, $artwork_id)
     {
-        //
+        $artwork_delete = Artwork::where('id', $artwork_id)->delete();
+
+        if (!$artwork_delete) {
+            return redirect()->back()->withErrors(['artwork_error' => 'Something went wrong while trying to delete this artwork. Please try again.']);
+        }
+
+        $user = User::where('id', $user_id)->first();
+
+        $artworks = $user->artwork;
+
+        $museum_artists_involvement = $user->museum_artist;
+
+        $artwork_rankings = Artwork::orderBy('votes', 'DESC')->get();
+
+        $user_ranking = 1;
+        foreach ($artwork_rankings as $artwork_ranking) {
+            if ($artwork_ranking->artist_id == $user_id) {
+                break;
+            }
+            else {
+                $user_ranking++;
+            }
+        }
+
+        $events_details = [];
+
+        foreach ($museum_artists_involvement as $involvement) {
+            $museum = $involvement->museum;
+
+            $museum_details = new stdClass();
+            $museum_details->museum_name = $museum->name;
+            $museum_details->long = $museum->long;
+            $museum_details->lat = $museum->lat;
+
+            $artwork_urls = [];
+            foreach ($artwork_rankings as $artwork) {
+                $artwork_urls[] = $artwork->asset->asset_url;
+            }
+
+            $museum_details->images_list = $artwork_urls;
+
+            $events_details[] = $museum_details;
+        }
+        
+        return view('wad2.user.account',
+            [
+                'user'                              => $user, 
+                'artworks'                          => $artworks, 
+                'museum_artists_involvement'        => $museum_artists_involvement, 
+                'user_ranking'                      => $user_ranking, 
+                'events_details'                    => $events_details, 
+            ]);
+
+    }
+
+    /**
+     * Show the form for editing artworks.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function editArtwork($user_id, $artwork_id)
+    {
+        $artwork = Artwork::where('id', $artwork_id)->first();
+
+        return view('wad2.artwork.edit',
+            [
+                'user_id'                   => $user_id,
+                'artwork'                   => $artwork,
+            ]
+        );
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateArtworkEdit(Request $request, $user_id, $artwork_id)
+    {
+        $custom_error = [
+            'title.required'                => "The title of the artwork is required.",
+            'description.required'          => "The description of the artwork is required.",
+        ];
+
+        $validator = $request->validate([
+            'title'                     => ['required'],
+            'description'               => ['required'],
+        ], $custom_error);
+
+        $artwork_edit = Artwork::where('id', $artwork_id)->update(
+            [
+                'title'             => trim($request->input('title')),
+                'description'       => trim($request->input('description')),
+            ]
+        );
+
+        if (!$artwork_edit) {
+            return redirect()->back()->withErrors(['artwork_error' => 'Something went wrong while trying to edit this artwork. Please try again.']);
+        }
+
+        $user = User::where('id', $user_id)->first();
+
+        $artworks = $user->artwork;
+
+        $museum_artists_involvement = $user->museum_artist;
+
+        $artwork_rankings = Artwork::orderBy('votes', 'DESC')->get();
+
+        $user_ranking = 1;
+        foreach ($artwork_rankings as $artwork_ranking) {
+            if ($artwork_ranking->artist_id == $user_id) {
+                break;
+            }
+            else {
+                $user_ranking++;
+            }
+        }
+
+        $events_details = [];
+
+        foreach ($museum_artists_involvement as $involvement) {
+            $museum = $involvement->museum;
+
+            $museum_details = new stdClass();
+            $museum_details->museum_name = $museum->name;
+            $museum_details->long = $museum->long;
+            $museum_details->lat = $museum->lat;
+
+            $artwork_urls = [];
+            foreach ($artwork_rankings as $artwork) {
+                $artwork_urls[] = $artwork->asset->asset_url;
+            }
+
+            $museum_details->images_list = $artwork_urls;
+
+            $events_details[] = $museum_details;
+        }
+        
+        return view('wad2.user.account',
+            [
+                'user'                              => $user, 
+                'artworks'                          => $artworks, 
+                'museum_artists_involvement'        => $museum_artists_involvement, 
+                'user_ranking'                      => $user_ranking, 
+                'events_details'                    => $events_details, 
+            ]);
+
     }
 }
