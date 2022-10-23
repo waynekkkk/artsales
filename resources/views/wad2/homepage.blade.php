@@ -71,16 +71,17 @@
         <div class="row"> 
             <div class="col d-flex justify-content-center align-items-center">
                 <div class="">
-                    <h1>Artist of the Month</h1>
-                    <h2>This is a description of the test artwork 2.</h2>
-                    <h3>by Wayne Khoo</h3>
+                    <h1 class="mb-4">Artist of the Month</h1>
+                    <h3 class="mb-2">{{ $highest_voted_artwork->title }}</h3>
+                    <h3 class="mb-3">{{ $highest_voted_artwork->description }}</h3>
+                    <h5 class="mb-2">by {{ $artist_of_the_month->name }}</h5>
                     <div class="col mt-3">
-                        <button type="button" class="btn btn-dark btn-block rounded-pill me-1" onclick="window.location.href='http://127.0.0.1:8000/user/1/account';">Explore</button>
+                        <button type="button" class="btn btn-dark btn-block rounded-pill me-1" onclick="window.location.href={{ route('user.account', $artist_of_the_month->id) }}">Explore</button>
                     </div>
                 </div>
             </div>
             <div class="col d-flex justify-content-center">
-                <img src="https://stateoftheart.blob.core.windows.net/wad2/logo.png" class="rounded w-50 img-fluid">
+                <img src="{{ $highest_voted_artwork_asset }}" class="rounded w-50 img-fluid">
             </div>
         </div>
     </div>
@@ -114,12 +115,13 @@
             <!--carousel-->
             <div class="d-flex justify-content-center pt-2">
                 <div class="owl-carousel owl-theme">
-                @foreach($all_artworks_by_votes as $artwork)
+
+                    @foreach($all_artworks_by_votes as $artwork)
                         <div class="card card_wrapper">
                             <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
                             <div class="card-body">
-                                <h3 class="card-title">{{ $artwork -> title}}</h3>
-                                <p class="card-text">{{ $artwork -> title}}</p>
+                                <h3 class="card-title">{{ $artwork->title }}</h3>
+                                <p class="card-text">{{ $artwork->description }}</p>
                                 <div class="d-flex justify-content-end">
                                     <div class="heart"></div>
                                 </div>
@@ -157,33 +159,19 @@
             <div class="d-flex justify-content-center pt-2 position-relative">
                 <div class="owl-carousel owl-theme">
                     @foreach($all_artworks_by_recommendations as $artwork)
-                                            <!-- <div class="item">
-                        <div style="width: 200px;">
-                            <img src="https://stateoftheart.blob.core.windows.net/wad2/logo.png" style="width:100%; border-radius:25px 25px 0px 0px">
-                            <div class="container border">
-                                <h2>Test Artwork 2</h2>
-                                <p>This is a description of the test artwork 2.</p>
-                                <div class="container justify-content-end d-flex">
-                                    <button class="btn border border-dark rounded-circle border-3 mb-4">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                                        </svg>
-                                    </button>
-                                </div>
+
+                    <div class="card card_wrapper">
+                        <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
+                        <div class="card-body">
+                            <h3 class="card-title">{{ $artwork->title }}</h3>
+                            <p class="card-text">{{ $artwork->description }}</p>
+                            <div class="d-flex justify-content-end">
+                                <div class="heart"></div>
                             </div>
                         </div>
-                    </div> -->
-                    <div class="card card_wrapper">
-                            <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
-                            <div class="card-body">
-                                <h3 class="card-title">{{ $artwork -> title}}</h3>
-                                <p class="card-text">{{ $artwork -> title}}</p>
-                                <div class="d-flex justify-content-end">
-                                    <div class="heart"></div>
-                                </div>
-                            </div>
-                        </div> 
+                    </div> 
                     @endforeach
+
                 </div>
             </div>
 
@@ -198,7 +186,7 @@
 
             <!--google maps script-->
             <script>
-                var museum_collection = JSON.parse('[{\u0022name\u0022:\u0022National Museum of Singapore\u0022,\u0022long\u0022:\u0022103.84850000\u0022,\u0022lat\u0022:\u00221.29660000\u0022,\u0022artists_list\u0022:[{\u0022name\u0022:\u0022Wayne Khoo\u0022,\u0022start_date\u0022:\u00222022-11-15T00:00:00.000000Z\u0022,\u0022start_end\u0022:\u00222022-11-16T00:00:00.000000Z\u0022,\u0022images_list\u0022:[\u0022https:\\\/\\\/stateoftheart.blob.core.windows.net\\\/wad2\\\/logo.png\u0022,\u0022https:\\\/\\\/stateoftheart.blob.core.windows.net\\\/wad2\\\/logo.png\u0022,\u0022https:\\\/\\\/stateoftheart.blob.core.windows.net\\\/wad2\\\/393762818.png\u0022,\u0022https:\\\/\\\/stateoftheart.blob.core.windows.net\\\/wad2\\\/347459043.png\u0022]}]}]');
+                var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};
                 console.log(museum_collection[0].artists_list[0].images_list[0]);
                 document.getElementById("test").innerText = JSON.stringify(museum_collection)
                 
