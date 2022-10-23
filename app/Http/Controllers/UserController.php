@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Artwork;
 use App\Models\Asset;
+use App\Models\Notification;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -347,6 +348,18 @@ class UserController extends Controller
         );
 
         $user = User::where('id', $user_id)->first();
+
+        foreach (User::all() as $user_to_notify) {
+            if ($user_to_notify->id != $user_id) {
+                $new_artwork_notification = Notification::create(
+                    [
+                        'description'           => "$user->name has just uploaded a new stunning piece titled \"$user_artwork_add->title\"!",
+                        'artwork_id'            => $user_artwork_add->id,
+                        'user_id'               => $user_to_notify->id,
+                    ]
+                );
+            }
+        }
 
         $artworks = $user->artwork;
 

@@ -123,7 +123,7 @@
                                 <h3 class="card-title">{{ $artwork->title }}</h3>
                                 <p class="card-text">{{ $artwork->description }}</p>
                                 <div class="d-flex justify-content-end">
-                                    <div class="heart"></div>
+                                    <div class="heart" onclick="postLike({{ $artwork->id, Auth::check() ? Auth::user()->id }})"></div>
                                 </div>
                             </div>
                         </div> 
