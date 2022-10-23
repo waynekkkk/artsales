@@ -31,7 +31,7 @@
 
                 @if (Auth::check())
                     @if (Auth::user()->id == $user->id)
-                        <button type="button" class="btn btn-dark btn-block rounded-pill mb-5" onclick="window.location.href='{{ route('edit_particulars', Auth::user()->id) }}';">Edit Details</button>    
+                        <button type="button" class="btn btn-dark btn-block rounded-pill mb-5" onclick="window.location.href='{{ route('user.edit_particulars', Auth::user()->id) }}';">Edit Details</button>    
                     @endif
                 @endif
                 
