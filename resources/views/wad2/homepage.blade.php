@@ -3,6 +3,8 @@
 @section('content')
 <!-- axios -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
 <body>
 <style>
     .heart {
@@ -117,7 +119,6 @@
     </div>
     
 
-    
 
     <!--Voting-->
     <div class="container mt-5 position-relative">
@@ -153,7 +154,7 @@
                     
                 </div>
             </div>
-            
+
             <!--Recommended-->
     <div class="container mt-5 ">
         <div class="row justify-content-between  align-items-center">
