@@ -77,7 +77,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-6 offset-lg-6 text-end">
                         @if (Auth::check() && (Auth::user()->id == $user->id))
-                            <button type="button" class="btn btn-outline-dark btn-block rounded-pill mt-5" onclick="window.location.href='{{ route('user.add_artwork', Auth::user()->id) }}';">Add More Wonderful Pieces!!</button>    
+                            <button type="button" class="btn btn-outline-dark btn-block rounded-pill mt-5" onclick="window.location.href='{{ route('user.add_artwork', Auth::user()->id) }}';"><i class="fa-solid fa-plus"></i> Add More Wonderful Pieces!!</button>    
                         @endif
                     </div>
                 </div>
@@ -93,11 +93,39 @@
                                     <p class="card-text">{{ $artwork->description }}</p>
                                 </div>
                                 <div class="card-footer">
-                                    <div class="row">
+                                    <div class="d-flex">
                                         <small class="text-muted">Votes: </small>
                                         <!-- FIGURE OUT HOW TO DO IT WITHOUT INLINE STYLR -->
-                                        <small class="text-muted"><span style="margin-left:80%;">{{ $artwork->votes }}</span></small>
+                                        <small class="text-muted"><span style="margin-left:5px;">{{ $artwork->votes }}</span></small>
                                     </div>
+                                    {{-- <div class="row">
+                                        <button class="btn btn-dark rounded-pill btn-block mt-4 text-end col-lg-4"type="submit">
+                                            <a href="#" class="cd-popup-trigger text-decoration-none">Details</a>
+                                        </button>
+                                    </div>
+
+                                    <div class="cd-popup" role="alert">
+                                        <div class="cd-popup-container">
+                                            <div class="card h-50">
+                                                <img src="{{ $artwork->asset->asset_url }}" class="card-img-top" alt="...">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{ $artwork->title }}</h5>
+                                                    <p class="card-text">{{ $artwork->description }}</p>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <div class="d-flex">
+                                                        <small class="text-muted">Votes: </small>
+                                                        <small class="text-muted"><span style="margin-left:5px%;">{{ $artwork->votes }}</span></small>
+                                                    </div>
+                                              </div>
+                                                <ul class="cd-buttons">
+                                                    <li><a href="#">Edit</a></li>
+                                                    <li><a href="#">Delete</a></li>
+                                                </ul>
+                                                <a href="#" class="cd-popup-close img-replace">Close</a>
+                                            </div>
+                                        </div>
+                                    </div> --}}
                                     @if (Auth::check() && (Auth::user()->id == $user->id))
                                         <div class="row">
                                             <div class="col-lg-4"></div>
@@ -129,7 +157,7 @@
             <div id="events" class="tabcontent">
                 <!--google maps-->
                 <div class="m-5">
-                    <h4 class="mb-2">Past Events</h4>
+                    <h4 class="mb-2">No. of Events: <span id="totalEvent"></span></h4>
                     <br>
                     <div id="map" class="mx-3 w-100"></div>
                 </div>
@@ -138,7 +166,7 @@
     
             <div id="about" class="tabcontent">
                 <div id="artist-bio" class="mt-3 mb-5 mx-4">
-                    <div class="mb-4">
+                    {{-- <div class="mb-4">
                         <h5>Categories</h5>
                         <ul class="nav nav-pills">
                             <li class="nav-item">
@@ -148,10 +176,10 @@
                               <a class="nav-link" href="#">Film Star</a>
                             </li>
                           </ul>
-                    </div>
-        
+                    </div> --}}
+
                     <div class="text-center">
-                        <h2 class="fw-bolder">Biography</h2>
+                        <h2 class="fw-bolder mt-4">Biography</h2>
                         <p class="mx-4 my-2">
                             {{ $user->description }}
                         </p>
@@ -165,44 +193,82 @@
         <!--google maps script-->
         <script>
             var events_collection = {{ Illuminate\Support\Js::from($events_details) }};
-            console.log(events_collection[0].images_list[0]);
+            // console.log('----------------------------------------');
+            // console.log(events_collection);
+            // console.log('----------------------------------------');
 
-            // Initialize and add the map
-            function initMap() {
-                // The location of museum
-                var museum = {lat: 1.2966, lng: 103.8485};
-                // The map, centered at museum
-                var map = new google.maps.Map(
-                  document.getElementById('map'), {zoom: 44, center: museum});
-                // The marker, positioned at museum
-                var marker = new google.maps.Marker({
-                    position: museum, 
-                    map: map,
-                    title: "Event Today",
-                    icon:{
-                        url:"https://www.freeiconspng.com/thumbs/museum-icon/art-history-museum-icon--4.png",
-                        scaledSize: new google.maps.Size(40,40)
-                    }
-                });
-                //   Type string here
-                const contentString =
-                    "<img src='https://assets.teenvogue.com/photos/6154af0f6b45838253b06d59/master/w_1600%2Cc_limit/GettyImages-1343576753.jpg' style='width:160px; height:240px';> <strong>testing testing</strong>"
-                ;
-                // make it on click
-                google.maps.event.addListener(marker, "click", () => {
-                    var infowindow = new google.maps.InfoWindow({
-                        content: contentString
+            // returning total event the artist is involved in
+            var totalEvent = events_collection.length;
+
+            // produce map only if the artist is involved in events
+            if (typeof totalEvent == 'number') {
+                document.getElementById('totalEvent').innerText = totalEvent;
+
+                // Initialize and add the map
+                function initMap() {
+                    var events_collection = {{ Illuminate\Support\Js::from($events_details) }};
+                    // for (events of events_collection){
+                        // console.log(events['museum_name']);
+                        // console.log(events['long']);
+                        // console.log(events['lat']);
+                        // console.log(events['images_list']);
+
+                    // }
+                    // Creating map with a view of Singapore
+                    var map = new google.maps.Map(
+                    document.getElementById('map'), {zoom: 11.5, center: {lat: 1.3521, lng: 103.8198}});
+
+                    // The marker, positioned at museum
+                    for (events of events_collection){
+                        let marker = new google.maps.Marker({
+                        position: {lat: events['lat'], lng: events['long']}, 
+                        map: map,
+                        title: events['museum_name'],
+                        icon:{
+                            url:"https://cdn-icons-png.flaticon.com/512/4874/4874738.png",
+                            scaledSize: new google.maps.Size(40,40)
+                        }
                         });
-                            
-                        infowindow.open(map,marker);
-                    })
-                };
+
+                    //   Type string here
+                        let museum = events['museum_name'];
+                        
+                        let contentString = "<h5>" + museum + "</h5>";
+                        let eventsImage = events['images_list'];
+
+                        for (img of eventsImage){
+                            console.log(img);
+                            // add carousel template from bobby to display each image
+                        }                        
+// "<img src='https://assets.teenvogue.com/photos/6154af0f6b45838253b06d59/master/w_1600%2Cc_limit/GettyImages-1343576753.jpg' 
+// style='width:160px; height:240px';> <strong>testing testing</strong>"
+
+                        ;
+                        // make it on click
+                        google.maps.event.addListener(marker, "click", () => {
+                            var infowindow = new google.maps.InfoWindow({
+                                content: contentString
+                                });
+                                infowindow.open(map,marker);
+                            })
+                    };
+
+                    }
+                    
+                    
+
+            } else {
+                document.getElementById('totalEvent').innerText = 0;
+            }
+
+           
                 
             </script>
 
 
             <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDO3zBsHYh0v5BB1T4mAosSJHNWIxcpk5k&callback=initMap"></script>
 
+            {{-- Tab Scripts --}}
             <script>
                 document.getElementById('default-content').click();
                 
@@ -221,6 +287,33 @@
                     e.currentTarget.classList.add('active');
                 }
             </script>
+
+            {{-- Artwork Popup Script --}}
+            {{-- <script>
+                jQuery(document).ready(function($){
+                    console.log('pop up created')
+
+                    //open popup
+                    $('.cd-popup-trigger').on('click', function(event){
+                        event.preventDefault();
+                        $('.cd-popup').addClass('is-visible');
+                    });
+                    
+                    //close popup
+                    $('.cd-popup').on('click', function(event){
+                        if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
+                            event.preventDefault();
+                            $(this).removeClass('is-visible');
+                        }
+                    });
+                    //close popup when clicking the esc keyboard button
+                    $(document).keyup(function(event){
+                        if(event.which=='27'){
+                            $('.cd-popup').removeClass('is-visible');
+                        }
+                    });
+                });
+            </script> --}}
 
     </body>
 @endsection
