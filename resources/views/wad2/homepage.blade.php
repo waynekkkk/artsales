@@ -101,16 +101,17 @@
         <div class="row"> 
             <div class="col d-flex justify-content-center align-items-center">
                 <div class="">
-                    <h1>Artist of the Month</h1>
-                    <h2>This is a description of the test artwork 2.</h2>
-                    <h3>by Wayne Khoo</h3>
+                    <h1 class="mb-4">Artist of the Month</h1>
+                    <h3 class="mb-2">{{ $highest_voted_artwork->title }}</h3>
+                    <h3 class="mb-3">{{ $highest_voted_artwork->description }}</h3>
+                    <h5 class="mb-2">by {{ $artist_of_the_month->name }}</h5>
                     <div class="col mt-3">
-                        <button type="button" class="btn btn-dark btn-block rounded-pill me-1" onclick="window.location.href='http://127.0.0.1:8000/user/1/account';">Explore</button>
+                        <button type="button" class="btn btn-dark btn-block rounded-pill me-1" onclick="window.location.href={{ route('user.account', $artist_of_the_month->id) }}">Explore</button>
                     </div>
                 </div>
             </div>
             <div class="col d-flex justify-content-center">
-                <img src="https://stateoftheart.blob.core.windows.net/wad2/logo.png" class="rounded w-50 img-fluid">
+                <img src="{{ $highest_voted_artwork_asset }}" class="rounded w-50 img-fluid">
             </div>
         </div>
     </div>
@@ -135,10 +136,12 @@
             <!--carousel-->
             <div class="d-flex justify-content-center pt-2">
                 <div class="owl-carousel owl-theme">
-                @foreach($all_artworks_by_votes as $artwork)
+
+                    @foreach($all_artworks_by_votes as $artwork)
                         <div class="card card_wrapper">
                             <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
                             <div class="card-body">
+
                                 <h3 class="card-title">{{ $artwork -> title}}</h3>
                                 <p class="card-text">{{ $artwork -> description}}</p>
                                 <div class="d-flex justify-content-end">
@@ -169,6 +172,7 @@
             <div class="d-flex justify-content-center pt-2 position-relative">
                 <div class="owl-carousel owl-theme">
                     @foreach($all_artworks_by_recommendations as $artwork)
+
                     <div class="card card_wrapper">
                             <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
                             <div class="card-body">
@@ -178,8 +182,10 @@
                                     <div class="heart"></div>{{$artwork -> vote}}
                                 </div>
                             </div>
-                        </div> 
+                        </div>
+                    </div> 
                     @endforeach
+
                 </div>
             </div>
 
@@ -197,9 +203,8 @@
             
             var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};
                 // console.log(museum_collection[0].artists_list[0].images_list[0]);
-                // document.getElementById("test").innerText = JSON.stringify(museum_collection)
+                // document.getElementById("test").innerText = JSON.stringify(museum_collection)          
                 
-
                 // Initialize and add the map
                 var weather_icons = {
                     "thunderstorm":"http://openweathermap.org/img/wn/11d@2x.png",

@@ -44,12 +44,24 @@ Auth::routes();
 
 // for wad2
 
+Route::get('/', function () {
+    return redirect('/main');
+});
+
 // home
 Route::get('/main', [HomeController::class, 'index'])->name('home'); 
 
 // user
-Route::get('/user/{id}/edit', [UserController::class, 'edit'])->middleware('auth')->name('edit_particulars');
-Route::post('/user/{id}/update', [UserController::class, 'update'])->middleware('auth')->name('update_particulars');
+Route::get('/user/{id}/edit', [UserController::class, 'edit'])->middleware('auth')->name('user.edit_particulars');
+Route::post('/user/{id}/update', [UserController::class, 'update'])->middleware('auth')->name('user.update_particulars');
+
+Route::get('/user/{id}/addArtwork', [UserController::class, 'addArtwork'])->middleware('auth')->name('user.add_artwork');
+Route::post('/user/{id}/updateArtworkAdd', [UserController::class, 'updateArtworkAdd'])->middleware('auth')->name('user.update_artwork_add');
+
+Route::get('/user/{user_id}/artwork/{artwork_id}/edit', [UserController::class, 'editArtwork'])->middleware('auth')->name('user.edit_artwork');
+Route::post('/user/{user_id}/artwork/{artwork_id}/updateEdit', [UserController::class, 'updateArtworkEdit'])->middleware('auth')->name('user.update_edit_artwork');
+
+Route::post('/user/{user_id}/artwork/{artwork_id}/delete', [UserController::class, 'destroyArtwork'])->middleware('auth')->name('user.delete_artwork');
 
 // gallery
 Route::get('/gallery/new', [GalleryController::class, 'add'])->middleware('auth')->name('add_new_gallery');

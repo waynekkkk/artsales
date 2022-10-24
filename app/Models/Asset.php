@@ -30,4 +30,8 @@ class Asset extends Model
         return $this->hasOne('App\Models\User', 'asset_id');
     }
 
+    public function user_banner(){
+        return $this->hasOne('App\Models\User', 'banner_id');
+    }
+
 }

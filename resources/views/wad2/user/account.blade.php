@@ -7,7 +7,7 @@
             <!-- Dynamic displaying of background img. See mini lab 2 and how they do it -->
 
             <!-- To make it dynamic and customisable to user -->
-            <img id="banner-image" src="https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80" alt="Banner Image">
+            <img id="banner-image" src="{{ $user->banner ? $user->banner->asset_url : 'https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80' }}" alt="Banner Image">
             
         </div>
 
@@ -17,13 +17,21 @@
                 <!-- Nav bar too.  -->
                 <img id="profile-image" src="{{ $user->profile_picture ? $user->profile_picture->asset_url : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_21ZgcYYoO9HR-eNc_kIDEsO2hXUh1FKbhg&usqp=CAU' }}" alt="Profile Image">
             </div>
+
+            @error('artwork_error')
+                <div class="row justify-content-center text-center col-lg-6 offset-lg-3">
+                    <div class="alert alert-danger text-center">                      
+                        {{ $message }}
+                    </div> 
+                </div>
+            @enderror
     
             <div class="artist-name text-center">
                 <p class="my-3 mx-auto text-center fs-2 fw-bold">{{ $user->name }}</p>
 
                 @if (Auth::check())
                     @if (Auth::user()->id == $user->id)
-                        <button type="button" class="btn btn-dark btn-block rounded-pill mb-5" onclick="window.location.href='{{ route('edit_particulars', Auth::user()->id) }}';">Edit Details</button>    
+                        <button type="button" class="btn btn-dark btn-block rounded-pill mb-5" onclick="window.location.href='{{ route('user.edit_particulars', Auth::user()->id) }}';">Edit Details</button>    
                     @endif
                 @endif
                 
@@ -52,7 +60,7 @@
     
             <div class="page-feature">
                 <ul class="nav nav-pills  nav-black nav-fill">
-                    <li class="nav-item mx-2">
+                    <li class="nav-item mx-2"> 
                         <a id="default-content" class="nav-link main-tabgroup" onclick="displayContent(event, 'artworks')">Artworks</a>
                     </li>
                     <li class="nav-item mx-2">
@@ -65,7 +73,17 @@
             </div>
     
             <div id="artworks" class="tabcontent mb-5">
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 offset-lg-6 text-end">
+                        @if (Auth::check() && (Auth::user()->id == $user->id))
+                            <button type="button" class="btn btn-outline-dark btn-block rounded-pill mt-5" onclick="window.location.href='{{ route('user.add_artwork', Auth::user()->id) }}';">Add More Wonderful Pieces!!</button>    
+                        @endif
+                    </div>
+                </div>
+
                 <div class=" mt-3 mx-4 row row-cols-1 row-cols-md-3 g-4">
+
                     @foreach ($artworks as $artwork)
                         <div class="col">
                             <div class="card h-100">
@@ -75,9 +93,30 @@
                                     <p class="card-text">{{ $artwork->description }}</p>
                                 </div>
                                 <div class="card-footer">
-                                    <small class="text-muted">Votes: </small>
-                                    <!-- FIGURE OUT HOW TO DO IT WITHOUT INLINE STYLR -->
-                                    <small class="text-muted"><span style="margin-left:80%;">{{ $artwork->votes }}</span></small>
+                                    <div class="row">
+                                        <small class="text-muted">Votes: </small>
+                                        <!-- FIGURE OUT HOW TO DO IT WITHOUT INLINE STYLR -->
+                                        <small class="text-muted"><span style="margin-left:80%;">{{ $artwork->votes }}</span></small>
+                                    </div>
+                                    @if (Auth::check() && (Auth::user()->id == $user->id))
+                                        <div class="row">
+                                            <div class="col-lg-4"></div>
+                                            <div class="col-lg-4 text-end">
+                                                <form action="{{ route('user.edit_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="get">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-outline-dark btn-block rounded-pill mt-5">Edit this piece?</button>
+                                                </form>
+                                            </div>
+                                            <div class="col-lg-4 text-end">
+                                                <form action="{{ route('user.delete_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="post">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-outline-dark btn-block rounded-pill mt-5">Delete this piece?</button>
+                                                </form>
+                                            </div>
+                                            
+                                        </div>
+                                    @endif
+                                    
                                 </div>
                             </div>
                         </div>
@@ -111,10 +150,10 @@
                           </ul>
                     </div>
         
-                    <div>
-                        <h5>Biography</h5>
+                    <div class="text-center">
+                        <h2 class="fw-bolder">Biography</h2>
                         <p class="mx-4 my-2">
-                            Titus Low is certainly an impactful social media influencer: he boasts over 500,000, 400,000 and 200,000 followers on TikTok, Twitter and Instagram respectively. The 22-year-old Singaporean also has a notorious OnlyFans account where he first saw his fame rise. And he has been making waves again with recent controversial posts.
+                            {{ $user->description }}
                         </p>
                     </div>
                 </div>
@@ -125,6 +164,9 @@
 
         <!--google maps script-->
         <script>
+            var events_collection = {{ Illuminate\Support\Js::from($events_details) }};
+            console.log(events_collection[0].images_list[0]);
+
             // Initialize and add the map
             function initMap() {
                 // The location of museum
