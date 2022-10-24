@@ -194,7 +194,7 @@
         <script>
             var events_collection = {{ Illuminate\Support\Js::from($events_details) }};
             // console.log('----------------------------------------');
-            // console.log(events_collection);
+            console.log(events_collection);
             // console.log('----------------------------------------');
 
             // returning total event the artist is involved in
@@ -231,15 +231,42 @@
                         });
 
                     //   Type string here
+                        let count = 0;
                         let museum = events['museum_name'];
                         
-                        let contentString = "<h5>" + museum + "</h5>";
-                        let eventsImage = events['images_list'];
+                        var contentString = `<h5>${museum}</h5>
+                        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">`;
 
-                        for (img of eventsImage){
-                            console.log(img);
-                            // add carousel template from bobby to display each image
-                        }                        
+                        let eventsImage = events['images_list'];
+                        for (imgLink of eventsImage){
+                            if (count == 0){
+                                contentString+= `
+                                <div class="carousel-item active">
+                                <img src="${imgLink}" style="height:250px; width:300px;">
+                                </div>`;    
+                            } else{
+                                contentString += `
+                                <div class="carousel-item">
+                                <img src="${imgLink}" style="height:250px; width:300px;">
+                                </div>
+                                `;
+                            }
+                            count++;
+                        }
+                        console.log(count);
+                        contentString += `
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                            </div>`; 
+
 // "<img src='https://assets.teenvogue.com/photos/6154af0f6b45838253b06d59/master/w_1600%2Cc_limit/GettyImages-1343576753.jpg' 
 // style='width:160px; height:240px';> <strong>testing testing</strong>"
 
@@ -247,7 +274,8 @@
                         // make it on click
                         google.maps.event.addListener(marker, "click", () => {
                             var infowindow = new google.maps.InfoWindow({
-                                content: contentString
+                                content: contentString,
+                                maxWidth: 300
                                 });
                                 infowindow.open(map,marker);
                             })
@@ -264,8 +292,6 @@
            
                 
             </script>
-
-
             <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDO3zBsHYh0v5BB1T4mAosSJHNWIxcpk5k&callback=initMap"></script>
 
             {{-- Tab Scripts --}}
