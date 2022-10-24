@@ -221,12 +221,13 @@ var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};
         "tornado":"http://openweathermap.org/img/wn/50d@2x.png",
     }
     function initMap() {
+        // The map, centered at museum
+        var map = new google.maps.Map(
+        document.getElementById('map'), {zoom: 18, center: new google.maps.LatLng(1.2966, 103.8485)});
         museum_collection.forEach(museum =>{       
         // The location of museum
         var location = {lat: parseFloat(museum.lat), lng: parseFloat(museum.long)};
-        // The map, centered at museum
-        var map = new google.maps.Map(
-        document.getElementById('map'), {zoom: 44, center: location});
+
         // The marker, positioned at museum
         var marker = new google.maps.Marker({
             position: location, 
@@ -299,6 +300,7 @@ var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};
         //  // process error object
         //      return error.message;
         //  }); 
+        // make it on click
         google.maps.event.addListener(marker, "click", () => {
             var infowindow = new google.maps.InfoWindow({
                 content: contentString
@@ -308,7 +310,6 @@ var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};
             })
         })
 
-        // make it on click
         };
 var myCarousel = document.querySelector('#myCarousel')
 var carousel = new bootstrap.Carousel(myCarousel)
