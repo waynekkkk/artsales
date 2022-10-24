@@ -73,7 +73,7 @@
         padding: 5px;
         background: white;
         left: -20px;
-        top:35%;
+        top:50%;
         position: absolute;
         color: grey;
     }
@@ -86,7 +86,7 @@
         padding: 5px;
         background: white;
         right: -20px;
-        top:35%;
+        top:50%;
         position: absolute;
         color: grey;
     }
@@ -213,7 +213,7 @@
 
             <script>
             
-                var museum_collection = JSON.parse('[{\u0022name\u0022:\u0022National Museum of Singapore\u0022,\u0022long\u0022:\u0022103.84850000\u0022,\u0022lat\u0022:\u00221.29660000\u0022,\u0022artists_list\u0022:[{\u0022name\u0022:\u0022Wayne Khoo\u0022,\u0022start_date\u0022:\u00222022-11-15T00:00:00.000000Z\u0022,\u0022start_end\u0022:\u00222022-11-16T00:00:00.000000Z\u0022,\u0022images_list\u0022:[\u0022https:\\\/\\\/stateoftheart.blob.core.windows.net\\\/wad2\\\/logo.png\u0022,\u0022https:\\\/\\\/stateoftheart.blob.core.windows.net\\\/wad2\\\/logo.png\u0022,\u0022https:\\\/\\\/stateoftheart.blob.core.windows.net\\\/wad2\\\/393762818.png\u0022,\u0022https:\\\/\\\/stateoftheart.blob.core.windows.net\\\/wad2\\\/347459043.png\u0022]}]}]');
+            var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};
                 // console.log(museum_collection[0].artists_list[0].images_list[0]);
                 
 
