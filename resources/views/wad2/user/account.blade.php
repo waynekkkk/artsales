@@ -83,9 +83,16 @@
                 </div>
 
                 <div class=" mt-3 mx-4 row row-cols-1 row-cols-md-3 g-4">
-
+                    <script>
+                        var countId = 0;
+                    </script>
                     @foreach ($artworks as $artwork)
-                        <div class="col">
+                        <div class="col-lg-4 col-md-6 col-sm-12" id="artist-artwork">
+                            <script>
+                                artworkId = document.getElementById('artist-artwork').id;
+                                artworkId += countId;
+                                document.getElementById('artist-artwork').id = artworkId;
+                            </script>
                             <div class="card h-100">
                                 <img src="{{ $artwork->asset->asset_url }}" class="card-img-top" alt="...">
                                 <div class="card-body">
@@ -98,11 +105,19 @@
                                         <!-- FIGURE OUT HOW TO DO IT WITHOUT INLINE STYLR -->
                                         <small class="text-muted"><span style="margin-left:5px;">{{ $artwork->votes }}</span></small>
                                     </div>
+
+                                    {{-- START OF POPUP --}}
                                     {{-- <div class="row">
-                                        <button class="btn btn-dark rounded-pill btn-block mt-4 text-end col-lg-4"type="submit">
-                                            <a href="#" class="cd-popup-trigger text-decoration-none">Details</a>
+                                        <button class="btn btn-dark rounded-pill btn-block mt-4 text-end col-lg-4"  type="submit">
+                                            <a href="#" class="cd-popup-trigger text-decoration-none text-white" id="popup">Details</a>
                                         </button>
                                     </div>
+
+                                    <script>
+                                        popupId = document.getElementById('popup').id;
+                                        popupId += countId;
+                                        document.getElementById('popup').id = popupId;
+                                    </script>
 
                                     <div class="cd-popup" role="alert">
                                         <div class="cd-popup-container">
@@ -115,7 +130,7 @@
                                                 <div class="card-footer">
                                                     <div class="d-flex">
                                                         <small class="text-muted">Votes: </small>
-                                                        <small class="text-muted"><span style="margin-left:5px%;">{{ $artwork->votes }}</span></small>
+                                                        <small class="text-muted"><span style="margin-left:5px;">{{ $artwork->votes }}</span></small>
                                                     </div>
                                               </div>
                                                 <ul class="cd-buttons">
@@ -126,6 +141,7 @@
                                             </div>
                                         </div>
                                     </div> --}}
+                                    {{-- END OF POPUP --}}
                                     @if (Auth::check() && (Auth::user()->id == $user->id))
                                         <div class="row">
                                             <div class="col-lg-4"></div>
@@ -148,6 +164,9 @@
                                 </div>
                             </div>
                         </div>
+                        <script>
+                            artworkId++;
+                        </script>
                     @endforeach
         
                     <div class="spacing"><br></div>
@@ -159,7 +178,7 @@
                 <div class="m-5">
                     <h4 class="mb-2">No. of Events: <span id="totalEvent"></span></h4>
                     <br>
-                    <div id="map" class="mx-3 w-100"></div>
+                    <div id="map" class="mx-3 w-100 border border-dark p-5"></div>
                 </div>
     
             </div>
@@ -193,9 +212,7 @@
         <!--google maps script-->
         <script>
             var events_collection = {{ Illuminate\Support\Js::from($events_details) }};
-            // console.log('----------------------------------------');
             console.log(events_collection);
-            // console.log('----------------------------------------');
 
             // returning total event the artist is involved in
             var totalEvent = events_collection.length;
@@ -212,8 +229,8 @@
                         // console.log(events['long']);
                         // console.log(events['lat']);
                         // console.log(events['images_list']);
-
                     // }
+
                     // Creating map with a view of Singapore
                     var map = new google.maps.Map(
                     document.getElementById('map'), {zoom: 11.5, center: {lat: 1.3521, lng: 103.8198}});
@@ -267,10 +284,6 @@
                             </button>
                             </div>`; 
 
-// "<img src='https://assets.teenvogue.com/photos/6154af0f6b45838253b06d59/master/w_1600%2Cc_limit/GettyImages-1343576753.jpg' 
-// style='width:160px; height:240px';> <strong>testing testing</strong>"
-
-                        ;
                         // make it on click
                         google.maps.event.addListener(marker, "click", () => {
                             var infowindow = new google.maps.InfoWindow({
@@ -315,9 +328,10 @@
             </script>
 
             {{-- Artwork Popup Script --}}
+            <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+
             {{-- <script>
                 jQuery(document).ready(function($){
-                    console.log('pop up created')
 
                     //open popup
                     $('.cd-popup-trigger').on('click', function(event){

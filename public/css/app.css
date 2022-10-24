@@ -11279,6 +11279,7 @@ https://www.codeply.com/go/WJdJv71mhX/bootstrap-4-tab-pills-with-custom-color
 
 .tabcontent {
   display: none;
+  color: #f8fafc;
 }
 
 .main-tabgroup {
