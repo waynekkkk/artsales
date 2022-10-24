@@ -124,15 +124,6 @@
             <div class="col-12 col-lg-4 pb-3">
                 <h1>Voting</h1>
             </div>
-            <!--radio group-->
-            <!-- <div class="col-3  d-flex pb-3">
-                <div class="radio_background">
-                    <input type="radio" value="value1" name="radio_group" id="button1" class="radio_hide" checked>
-                    <label for="button1" class="radio_style">Trending</label>
-                    <input type="radio" value="value2" name="radio_group" id="button2" class="radio_hide">
-                    <label for="button2" class="radio_style">New</label>
-                </div>
-            </div> -->
             <!--see more-->
             <div class="col-3 justify-content-end d-flex pb-3">
                 <a class="btn border-secondary border rounded-pill">Discover more
@@ -166,15 +157,6 @@
             <div class="col-12 col-lg-4 pb-3">
                 <h1>Recommended</h1>
             </div>
-            <!--radio group-->
-            <!-- <div class="col-3  d-flex pb-3">
-                <div class="radio_background">
-                    <input type="radio" value="value1" name="radio_group2" id="button3" class="radio_hide" checked>
-                    <label for="button3" class="radio_style">Trending</label>
-                    <input type="radio" value="value2" name="radio_group2" id="button4" class="radio_hide">
-                    <label for="button4" class="radio_style">New</label>
-                </div>
-            </div> -->
             <!--see more-->
             <div class="col-3 justify-content-end d-flex pb-3">
                 <a class="btn border-secondary border rounded-pill" href="images/img1.jpg">Discover more
