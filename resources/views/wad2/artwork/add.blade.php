@@ -31,7 +31,7 @@
                 <label class="form-label fs-6 fw-bolder text-dark float-start">Description</label>
                 <input class="form-control form-control-md form-control-solid @error('description') is-invalid @enderror" type="text" name='description' placeholder="Enter the description of your artwork here!">
 
-                @error('desription')
+                @error('description')
                     <span class="invalid-feedback text-start" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
