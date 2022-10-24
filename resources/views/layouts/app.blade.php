@@ -35,7 +35,7 @@
             <div class="container">
                 
                 <a class="navbar-brand" href="{{ route('home') }}">
-                    <span id="nav-sot">STATE OF THE </span> <span id="nav-art"> ART </span 
+                    <span id="nav-sot">STATE OF THE </span> <span id="nav-art"> ART </span> 
                     {{-- <span class="ms-4 fw-bold fs-3 ">State of the Art</span> --}}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
