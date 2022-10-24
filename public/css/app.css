@@ -11179,9 +11179,36 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.navbar {
+  background-image: linear-gradient(to right, #1d242e 0%, #324153 46%, #50708d 100%);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 25px;
+}
+
+#nav-sot {
+  text-decoration: line-through;
+}
+
+#nav-art {
+  background-color: #4e1112;
+  border: 1px solid white;
+  font-size: 27px;
+}
+
+footer {
+  background-image: linear-gradient(to left, #1d242e 0%, #324153 46%, #50708d 100%);
+}
+
+.underlineHover:hover {
+  text-decoration: underline;
+}
+
 body {
   font-family: "Inter", sans-serif;
-  background-color: white;
+  background-color: #f8fafc;
 }
 
 #map {
