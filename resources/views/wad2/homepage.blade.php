@@ -140,7 +140,7 @@
                             <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
                             <div class="card-body">
                                 <h3 class="card-title">{{ $artwork -> title}}</h3>
-                                <p class="card-text">{{ $artwork -> title}}</p>
+                                <p class="card-text">{{ $artwork -> description}}</p>
                                 <div class="d-flex justify-content-end">
                                     <div class="heart"></div>
                                 </div>
@@ -173,7 +173,7 @@
                             <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
                             <div class="card-body">
                                 <h3 class="card-title">{{ $artwork -> title}}</h3>
-                                <p class="card-text">{{ $artwork -> title}}</p>
+                                <p class="card-text">{{ $artwork -> description}}</p>
                                 <div class="d-flex justify-content-end">
                                     <div class="heart"></div>{{$artwork -> vote}}
                                 </div>
@@ -197,6 +197,7 @@
             
             var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};
                 // console.log(museum_collection[0].artists_list[0].images_list[0]);
+                // document.getElementById("test").innerText = JSON.stringify(museum_collection)
                 
 
                 // Initialize and add the map
@@ -353,7 +354,7 @@
             }
             }
         })
-        
+
     </script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script defer
