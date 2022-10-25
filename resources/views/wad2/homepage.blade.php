@@ -32,7 +32,13 @@
     
     .card_wrapper{
         border-radius: 15px;
-        margin-bottom: 50px;
+        height: 550px;
+        margin: 20px 10px 20px 10px;
+        transition: all .2s ease-in-out;
+    }
+
+    .card_wrapper:hover{
+        transform: scale(1.05); 
     }
 
     .img_wrapper{
@@ -42,10 +48,6 @@
 
     /* for carousel nav button */
     .owl-carousel .prev-slide{
-        border: 2px solid;
-        border-radius: 50%;
-        padding: 5px;
-        background: white;
         left: -37px;
         top:35%;
         position: absolute;
@@ -55,10 +57,6 @@
         color: black;
     }
     .owl-carousel .next-slide{
-        border: 2px solid;
-        border-radius: 50%;
-        padding: 5px;
-        background: white;
         right: -37px;
         top:35%;
         position: absolute;
@@ -70,10 +68,6 @@
 
     /* for carousel nav button */
     .carousel-control-prev-style{
-        border: 2px solid;
-        border-radius: 50%;
-        padding: 5px;
-        background: white;
         left: -20px;
         top:50%;
         position: absolute;
@@ -83,10 +77,6 @@
         color: black;
     }
     .carousel-control-next-style{
-        border: 2px solid;
-        border-radius: 50%;
-        padding: 5px;
-        background: white;
         right: -20px;
         top:50%;
         position: absolute;
@@ -95,13 +85,16 @@
     .carousel-control-next-style:hover{
         color: black;
     }
+    /* body{
+        min-width:600px;
+    } */
 
 </style>
 <body>
     <!--spotlight-->
-    <div class="container pt-5">
-        <div class="row"> 
-            <div class="col d-flex justify-content-center align-items-center">
+    <div class="container d-flex justify-content-around pt-5">
+        <!-- <div class="row">  -->
+            <span class="d-flex align-items-center" style="display: inline-block;">
                 <div class="">
                     <h1 class="mb-4">Artist of the Month</h1>
                     <h3 class="mb-2">{{ $highest_voted_artwork->title }}</h3>
@@ -111,23 +104,23 @@
                         <button type="button" class="btn btn-dark btn-block rounded-pill me-1" onclick="window.location.href={{ route('user.account', $artist_of_the_month->id) }}">Explore</button>
                     </div>
                 </div>
-            </div>
-            <div class="col d-flex justify-content-center">
-                <img src="{{ $highest_voted_artwork_asset }}" class="rounded w-50 img-fluid">
-            </div>
-        </div>
+            </span>
+            <!-- <span> -->
+                <img src="{{ $highest_voted_artwork_asset }}" class="rounded img-fluid" style="width: 400px;">
+            <!-- </span> -->
+        <!-- </div> -->
     </div>
     
 
 
     <!--Voting-->
-    <div class="container mt-5 position-relative">
-        <div class="row justify-content-between  align-items-center">
-            <div class="col-12 col-lg-4 pb-3">
+    <div class="container mt-5 mx-5">
+        <div class="row justify-content-between align-items-center">
+            <div class="col pb-3">
                 <h1>Voting</h1>
             </div>
             <!--see more-->
-            <div class="col-3 justify-content-end d-flex pb-3">
+            <div class="col justify-content-end d-flex pb-3">
                 <a class="btn border-secondary border rounded-pill" href="./discover.blade.php">Discover
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
@@ -163,7 +156,7 @@
             </div>
             <!--see more-->
             <div class="col-3 justify-content-end d-flex pb-3">
-                <a class="btn border-secondary border rounded-pill" href="images/img1.jpg">Discover more
+                <a class="btn border-secondary border rounded-pill" href="images/img1.jpg">Discover
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                     </svg>
@@ -202,7 +195,6 @@
 <script>
 
 var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};      
-    
     // Initialize and add the map
     var weather_icons = {
         "thunderstorm":"http://openweathermap.org/img/wn/11d@2x.png",
@@ -279,16 +271,16 @@ var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};
                     </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon carousel-control-prev-style">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
                                 </svg>
                             </span>
                             <span class="visually-hidden">Previous</span>
                         </button>
                         <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
                             <span class="carousel-control-next-icon carousel-control-next-style">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
                                 </svg>
                             </span>
                             <span class="visually-hidden">Next</span>
@@ -297,10 +289,10 @@ var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};
                 });
             })                   
             // console.log(contentString)
-        //  .catch(error => {
-        //  // process error object
-        //      return error.message;
-        //  }); 
+         .catch(error => {
+         // process error object
+             return error.message;
+         }); 
         // make it on click
         google.maps.event.addListener(marker, "click", () => {
             var infowindow = new google.maps.InfoWindow({
@@ -334,17 +326,17 @@ var carousel = new bootstrap.Carousel(myCarousel)
         loop: false,
         navText:[`
         <div class='nav-btn prev-slide'>
-        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-    </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+            </svg>
         </div>`,`
         <div class='nav-btn next-slide'>
-        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-        </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+            </svg>
         </div>`],
         responsive: {
-        0: {
+        1: {
             items: 1,
             nav: true
         },
