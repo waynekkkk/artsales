@@ -16,6 +16,7 @@
                 <!-- Dynamic displaying of dp. Similar to profileBackground --> 
                 <!-- Nav bar too.  -->
                 <img id="profile-image" src="{{ $user->profile_picture ? $user->profile_picture->asset_url : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_21ZgcYYoO9HR-eNc_kIDEsO2hXUh1FKbhg&usqp=CAU' }}" alt="Profile Image">
+                <div class="profile-image-animation"></div>
             </div>
 
             @error('artwork_error')
@@ -165,7 +166,7 @@
                             </div>
                         </div>
                         <script>
-                            artworkId++;
+                            countId++;
                         </script>
                     @endforeach
         
