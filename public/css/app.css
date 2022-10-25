@@ -11179,9 +11179,36 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.navbar {
+  background-image: linear-gradient(to right, #1d242e 0%, #324153 46%, #50708d 100%);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 25px;
+}
+
+#nav-sot {
+  text-decoration: line-through;
+}
+
+#nav-art {
+  background-color: #4e1112;
+  border: 1px solid white;
+  font-size: 27px;
+}
+
+footer {
+  background-image: linear-gradient(to left, #1d242e 0%, #324153 46%, #50708d 100%);
+}
+
+.underlineHover:hover {
+  text-decoration: underline;
+}
+
 body {
   font-family: "Inter", sans-serif;
-  background-color: white;
+  background-color: #f8fafc;
 }
 
 #map {
@@ -11215,11 +11242,9 @@ https://www.codeply.com/go/WJdJv71mhX/bootstrap-4-tab-pills-with-custom-color
   margin: auto;
   width: 100px;
   height: 100px;
-  /* FIGURE OUT HOW TO USE BOTTOM */
-  margin-top: 8.5rem;
+  margin-top: 11.5rem;
 }
 
-/* CLASSES */
 /* LOGO */
 .logo-img {
   width: 3em;
@@ -11259,12 +11284,13 @@ https://www.codeply.com/go/WJdJv71mhX/bootstrap-4-tab-pills-with-custom-color
   color: white;
 }
 
+/* ARTWORK POPUP */
 /* BANNER */
 #banner-image {
   position: absolute;
   z-index: -1;
   width: 100%;
-  height: 200px;
+  height: 250px;
   display: block;
   -o-object-fit: cover;
      object-fit: cover;
@@ -11284,6 +11310,11 @@ https://www.codeply.com/go/WJdJv71mhX/bootstrap-4-tab-pills-with-custom-color
 
 .main-tabgroup {
   cursor: pointer;
+  background-color: #f8fafc;
+}
+
+.nav-item .main-tabgroup {
+  background-color: #f8fafc;
 }
 
 .main-tabgroup:hover {
