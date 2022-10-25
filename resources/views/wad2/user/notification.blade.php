@@ -4,12 +4,12 @@
     
     <body>
         <section class="section-50">
-            <div class="container">
-                <h3 class="m-b-50 heading-line">Notifications</h3>
+            <div class="container vh-50 my-auto">
+                <h2 class="m-b-50 heading-line">Activity</h2>
 
-                <div class="notification-ui_dd-content">
+                <div class="notification-ui_dd-content my-auto">
                     @if (count($notifications) == 0)
-                        <div class="row text-center">
+                        <div class="text-center my-auto">
                             <h5>There are currently no new notifications. Check back later!</h5>
                         </div>
                     @else
