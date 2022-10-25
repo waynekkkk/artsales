@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Artwork;
 use App\Models\Asset;
+use App\Models\Museum;
+use App\Models\MuseumArtist;
+use App\Models\Notification;
 use App\Models\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use stdClass;
@@ -348,6 +352,18 @@ class UserController extends Controller
 
         $user = User::where('id', $user_id)->first();
 
+        foreach (User::all() as $user_to_notify) {
+            if ($user_to_notify->id != $user_id) {
+                $new_artwork_notification = Notification::create(
+                    [
+                        'description'           => "$user->name has just uploaded a new stunning piece titled \"$user_artwork_add->title\"!",
+                        'artwork_id'            => $user_artwork_add->id,
+                        'user_id'               => $user_to_notify->id,
+                    ]
+                );
+            }
+        }
+
         $artworks = $user->artwork;
 
         $museum_artists_involvement = $user->museum_artist;
@@ -476,7 +492,7 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Update the specified artwork in storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -552,4 +568,188 @@ class UserController extends Controller
             ]);
 
     }
+
+    /**
+     * Show the form for adding artworks.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function addEvent($user_id)
+    {
+        $museums = Museum::all();
+
+        return view('wad2.user.user_event_add',
+            [
+                'user_id'                   => $user_id,
+                'museums'                   => $museums
+            ]
+        );
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateEventAdd(Request $request, $user_id)
+    {
+        $custom_error = [
+            'museum_id.required'                    => "A museum has to be selected in order to join an event.",
+            'datetime_start.required'               => "A date and time for the event's start is needed.",
+            'datetime_end.required'                 => "A date and time for the event's end is needed.",
+            'datetime_end.after'                    => "The date and time for the end of the event must be before its starting date and time.",
+        ];
+
+        $validator = $request->validate([
+            'museum_id'                      => ['required'],
+            'datetime_start'                 => ['required', 'date'],
+            'datetime_end'                   => ['required', 'date', 'after:datetime_start'],
+        ], $custom_error);
+
+        $datetime_start = Carbon::parse($request->input('datetime_start'));
+        $datetime_end = Carbon::parse($request->input('datetime_end'));
+
+        $datetime_start_format = $datetime_start->format('d M Y H:i');
+        $datetime_end_format = $datetime_end->format('d M Y H:i');
+
+        $museum_artist_exists = MuseumArtist::where('museum_id', $request->input('museum_id'))
+                                            ->where('user_id', $user_id)
+                                            ->exists();
+
+        if ($museum_artist_exists) {
+            $museum_artist_current = MuseumArtist::where('museum_id', $request->input('museum_id'))
+                                            ->where('user_id', $user_id)
+                                            ->first();
+
+            $museum_artist_current_start = Carbon::parse($museum_artist_current->datetime_start)->format('d M Y H:i');
+            $museum_artist_current_end = Carbon::parse($museum_artist_current->datetime_end)->format('d M Y H:i');
+            
+            if (($datetime_start_format >= $museum_artist_current_start) && ($datetime_start_format <= $museum_artist_current_end)) {
+                return redirect()->back()->with('invalid_date', 'Shucks! You have another event here that clashes with your new start and end datetime!')->withInput();
+            }
+        }
+
+        $musuem_artist_add = MuseumArtist::create(
+            [
+                'museum_id'             => $request->input('museum_id'),
+                'user_id'               => $user_id,
+                'datetime_start'        => $datetime_start,
+                'datetime_end'          => $datetime_end,
+            ]
+        );
+
+        $museum = Museum::where('id', $request->input('museum_id'))->first();
+        $user = User::where('id', $user_id)->first();
+
+        foreach (User::all() as $user_to_notify) {
+            if ($user_to_notify->id != $user_id) {
+                $new_artwork_notification = Notification::create(
+                    [
+                        'description'           => "$user->name will be taking part in an event at $museum->name from $datetime_start_format H to $datetime_end_format H!",
+                        'user_id'               => $user_to_notify->id,
+                    ]
+                );
+            }
+        }
+
+        $artworks = $user->artwork;
+
+        $museum_artists_involvement = $user->museum_artist;
+
+        $artwork_rankings = Artwork::orderBy('votes', 'DESC')->get();
+
+        $user_ranking = 1;
+        foreach ($artwork_rankings as $artwork_ranking) {
+            if ($artwork_ranking->artist_id == $user_id) {
+                break;
+            }
+            else {
+                $user_ranking++;
+            }
+        }
+
+        $events_details = [];
+
+        foreach ($museum_artists_involvement as $involvement) {
+            $museum = $involvement->museum;
+
+            $museum_details = new stdClass();
+            $museum_details->museum_name = $museum->name;
+            $museum_details->long = $museum->long;
+            $museum_details->lat = $museum->lat;
+
+            $artwork_urls = [];
+            foreach ($artwork_rankings as $artwork) {
+                $artwork_urls[] = $artwork->asset->asset_url;
+            }
+
+            $museum_details->images_list = $artwork_urls;
+
+            $events_details[] = $museum_details;
+        }
+        
+        return view('wad2.user.account',
+            [
+                'user'                              => $user, 
+                'artworks'                          => $artworks, 
+                'museum_artists_involvement'        => $museum_artists_involvement, 
+                'user_ranking'                      => $user_ranking, 
+                'events_details'                    => $events_details, 
+            ]);
+    }
+    public function destroyEvent($user_id, $event_id)
+    {
+        $museum_artist_delete = MuseumArtist::where('id', $event_id)->delete();
+        
+        $user = User::where('id', $user_id)->first();
+
+        $artworks = $user->artwork;
+
+        $museum_artists_involvement = $user->museum_artist;
+
+        $artwork_rankings = Artwork::orderBy('votes', 'DESC')->get();
+
+        $user_ranking = 1;
+        foreach ($artwork_rankings as $artwork_ranking) {
+            if ($artwork_ranking->artist_id == $user_id) {
+                break;
+            }
+            else {
+                $user_ranking++;
+            }
+        }
+
+        $events_details = [];
+
+        foreach ($museum_artists_involvement as $involvement) {
+            $museum = $involvement->museum;
+
+            $museum_details = new stdClass();
+            $museum_details->museum_name = $museum->name;
+            $museum_details->long = $museum->long;
+            $museum_details->lat = $museum->lat;
+
+            $artwork_urls = [];
+            foreach ($artwork_rankings as $artwork) {
+                $artwork_urls[] = $artwork->asset->asset_url;
+            }
+
+            $museum_details->images_list = $artwork_urls;
+
+            $events_details[] = $museum_details;
+        }
+        
+        return view('wad2.user.account',
+            [
+                'user'                              => $user, 
+                'artworks'                          => $artworks, 
+                'museum_artists_involvement'        => $museum_artists_involvement, 
+                'user_ranking'                      => $user_ranking, 
+                'events_details'                    => $events_details, 
+            ]);
+    }
+
 }

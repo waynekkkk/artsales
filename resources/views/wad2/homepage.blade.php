@@ -101,7 +101,7 @@
                     <h3 class="mb-3">{{ $highest_voted_artwork->description }}</h3>
                     <h5 class="mb-2">by {{ $artist_of_the_month->name }}</h5>
                     <div class="col mt-3">
-                        <button type="button" class="btn btn-dark btn-block rounded-pill me-1" onclick="window.location.href={{ route('user.account', $artist_of_the_month->id) }}">Explore</button>
+                        <button type="button" class="btn btn-dark btn-block rounded-pill me-1" onclick="window.location.href='{{ route('user.account', $artist_of_the_month->id) }}';">Explore</button>
                     </div>
                 </div>
             </span>
@@ -136,10 +136,10 @@
                             <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
                             <div class="card-body">
 
-                                <h3 class="card-title">{{ $artwork -> title}}</h3>
-                                <p class="card-text">{{ $artwork -> description}}</p>
+                                <h3 class="card-title">{{ $artwork->title}}</h3>
+                                <p class="card-text">{{ $artwork->description}}</p>
                                 <div class="d-flex justify-content-end">
-                                    <div class="heart"></div>
+                                    <div class="heart" onclick="postLike()"></div>
                                 </div>
                             </div>
                         </div> 
@@ -170,8 +170,8 @@
                             <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
                             <div class="card-body">
 
-                                <h3 class="card-title">{{ $artwork -> title}}</h3>
-                                <p class="card-text">{{ $artwork -> description}}</p>
+                                <h3 class="card-title">{{ $artwork->title}}</h3>
+                                <p class="card-text">{{ $artwork->description}}</p>
                                 <div class="d-flex justify-content-end">
                                     <div class="heart"></div>
                                 </div>

@@ -174,6 +174,15 @@
             </div>
     
             <div id="events" class="tabcontent">
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 offset-lg-6 text-end">
+                        @if (Auth::check() && (Auth::user()->id == $user->id))
+                            <button type="button" class="btn btn-outline-dark btn-block rounded-pill mt-5" onclick="window.location.href='{{ route('user.add_event', Auth::user()->id) }}';">Join an event here!!</button>    
+                        @endif
+                    </div>
+                </div>
+
                 <!--google maps-->
                 <div class="m-5">
                     <h4 class="mb-2">No. of Events: <span id="totalEvent"></span></h4>

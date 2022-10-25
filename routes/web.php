@@ -4,7 +4,7 @@ use App\Http\Controllers\ArtworkController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TaskController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -62,6 +62,12 @@ Route::get('/user/{user_id}/artwork/{artwork_id}/edit', [UserController::class, 
 Route::post('/user/{user_id}/artwork/{artwork_id}/updateEdit', [UserController::class, 'updateArtworkEdit'])->middleware('auth')->name('user.update_edit_artwork');
 
 Route::post('/user/{user_id}/artwork/{artwork_id}/delete', [UserController::class, 'destroyArtwork'])->middleware('auth')->name('user.delete_artwork');
+
+Route::get('/user/{id}/addEvent', [UserController::class, 'addEvent'])->middleware('auth')->name('user.add_event');
+Route::post('/user/{id}/updateEventAdd', [UserController::class, 'updateEventAdd'])->middleware('auth')->name('user.update_event_add');
+
+// notifications
+Route::get('/user/{user_id}/notifications', [NotificationController::class, 'index'])->middleware('auth')->name('user.notifications');
 
 // gallery
 Route::get('/gallery/new', [GalleryController::class, 'add'])->middleware('auth')->name('add_new_gallery');
