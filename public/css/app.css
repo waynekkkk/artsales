@@ -11179,9 +11179,67 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #4e1112;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-item {
+  color: #fff;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  color: #4e1112;
+}
+
+.dropdown:hover .btn {
+  color: #4e1112 !important;
+}
+
+.dropdown-item:active {
+  background-color: #fff;
+}
+
+.navbar {
+  background-image: linear-gradient(to right, #1d242e 0%, #324153 46%, #50708d 100%);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 25px;
+}
+
+#nav-sot {
+  text-decoration: line-through;
+}
+
+#nav-art {
+  background-color: #4e1112;
+  border: 1px solid white;
+  font-size: 27px;
+}
+
+footer {
+  background-image: linear-gradient(to left, #1d242e 0%, #324153 46%, #50708d 100%);
+}
+
+.underlineHover:hover {
+  border-bottom: #fff 2px solid;
+}
+
 body {
   font-family: "Inter", sans-serif;
-  background-color: white;
+  background-color: #f8fafc;
 }
 
 #map {
@@ -11210,16 +11268,47 @@ https://www.codeply.com/go/WJdJv71mhX/bootstrap-4-tab-pills-with-custom-color
 
 /* Profile Pictures */
 #profile-image {
-  border: 4px black solid;
   border-radius: 12%;
   margin: auto;
   width: 100px;
   height: 100px;
-  /* FIGURE OUT HOW TO USE BOTTOM */
-  margin-top: 8.5rem;
+  margin-top: 11.5rem;
 }
 
-/* CLASSES */
+.profile-image-animation {
+  margin: auto;
+  width: 102px;
+  height: 104px;
+  margin-top: -102px;
+  position: relative;
+  z-index: -1;
+}
+
+.profile-image-animation:before, .profile-image-animation:after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  background: linear-gradient(60deg, #324153, #50708d, #9ba6b0, #f3f4f5, #d3e2ef, #a4afbb, #9ba6b0, #50708d, #324153);
+  background-size: 400%;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  z-index: -1;
+  animation: steam 20s linear infinite;
+  border-radius: 12%;
+}
+
+@keyframes steam {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
 /* LOGO */
 .logo-img {
   width: 3em;
@@ -11259,12 +11348,21 @@ https://www.codeply.com/go/WJdJv71mhX/bootstrap-4-tab-pills-with-custom-color
   color: white;
 }
 
+/* ARTWORK POPUP */
+.min-vh-50 {
+  min-height: 50vh;
+}
+
+.min-vh-65 {
+  min-height: 65vh;
+}
+
 /* BANNER */
 #banner-image {
   position: absolute;
   z-index: -1;
   width: 100%;
-  height: 200px;
+  height: 250px;
   display: block;
   -o-object-fit: cover;
      object-fit: cover;
@@ -11284,12 +11382,25 @@ https://www.codeply.com/go/WJdJv71mhX/bootstrap-4-tab-pills-with-custom-color
 
 .main-tabgroup {
   cursor: pointer;
+  background-color: #f8fafc;
+}
+
+.nav-item .main-tabgroup {
+  background-color: #f8fafc;
 }
 
 .main-tabgroup:hover {
   color: white;
   background-color: #28231d;
   transition-duration: 0.4s;
+}
+
+.artwork-card {
+  transition: all 0.2s ease-in-out;
+}
+
+.artwork-card:hover {
+  transform: scale(1.05);
 }
 
 /* SEPRATOR BETWEEN SEARCH AND EXPLORE BUTTONS. PLEASE CHANGE OR EXPLORE */
@@ -11468,4 +11579,163 @@ https://www.codeply.com/go/WJdJv71mhX/bootstrap-4-tab-pills-with-custom-color
   background: black;
   border-color: black;
   cursor: pointer;
+}
+
+.section-50 {
+  padding: 50px 0;
+}
+
+.m-b-50 {
+  margin-bottom: 50px;
+}
+
+.dark-link {
+  color: #333;
+}
+
+.heading-line {
+  position: relative;
+  padding-bottom: 5px;
+}
+
+.heading-line:after {
+  content: "";
+  height: 4px;
+  width: 75px;
+  background-color: #29B6F6;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.notification-ui_dd-content {
+  margin-bottom: 30px;
+}
+
+.notification-list {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  margin-bottom: 7px;
+  background: #fff;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+.notification-list--unread {
+  border-left: 2px solid #29B6F6;
+}
+
+.notification-list .notification-list_content {
+  display: flex;
+}
+
+.notification-list .notification-list_content .notification-list_img img {
+  height: 48px;
+  width: 48px;
+  border-radius: 50px;
+  margin-right: 20px;
+}
+
+.notification-list .notification-list_content .notification-list_detail p {
+  margin-bottom: 5px;
+  line-height: 1.2;
+}
+
+.notification-list .notification-list_feature-img img {
+  height: 48px;
+  width: 48px;
+  border-radius: 5px;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 3rem;
+  height: 1.5rem;
+  margin: 0 2rem 0 2rem;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  background-color: #E0E0E0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 1.5rem;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  background-color: #FFFFFF;
+  height: 1rem;
+  width: 1rem;
+  left: 0.25rem;
+  bottom: 0.25rem;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+input:checked + .slider:before {
+  transform: translateX(1.5rem);
+}
+
+input:checked + .slider-1-1 {
+  background-color: #29B6F6;
+}
+
+.card a {
+  color: #000;
+  text-decoration: none;
+}
+
+.artist-events {
+  border-right: 2px grey solid;
+}
+
+.event-btn {
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+svg {
+  margin: auto;
+  text-align: center;
+}
+
+.monkey {
+  stroke: #324153;
+  max-width: 150px;
+  stroke-width: 3px;
+  stroke-dashoffset: -2000;
+  stroke-dasharray: 2000;
+  animation-name: monkey;
+  animation-duration: 5s;
+  animation-iteration-count: 1;
+  animation-direction: reverse;
+  animation-timing-function: ease-ease;
+  animation-fill-mode: forwards;
+}
+@keyframes monkey {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke: red;
+  }
+  100% {
+    stroke-dashoffset: 2000;
+    stroke: purple;
+  }
 }

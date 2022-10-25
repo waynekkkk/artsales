@@ -19,16 +19,16 @@ class CreateNotificationsTable extends Migration
             $table->longText('description');
 
             $table->foreignId('artwork_id')
+            ->nullable()
             ->constrained('artworks')
             ->onDelete('no action');
 
             $table->foreignId('user_id')
+            ->nullable()
             ->constrained('users')
             ->onDelete('no action');
 
-            $table->foreignId('museum_id')
-            ->constrained('museums')
-            ->onDelete('no action');
+            $table->boolean('is_read')->default(0);
 
             $table->timestamps();
         });

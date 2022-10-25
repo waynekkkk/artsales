@@ -83,4 +83,8 @@ class User extends Authenticatable
     public function gallery() {
         return $this->hasMany('App\Models\Gallery', 'owner_id');
     }
+
+    public function notification(){
+        return $this->hasMany('App\Models\Notification');
+    }
 }

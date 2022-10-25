@@ -3,6 +3,8 @@
 @section('content')
 <!-- axios -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
 <body>
 <style>
     .heart {
@@ -161,6 +163,7 @@
 </style>
 <body>
     <!--spotlight-->
+
     
     <div class="container d-flex justify-content-between pt-5 mx-auto">
         <div class="row justify-content-md-between w-100"> 
@@ -182,6 +185,7 @@
     </div>  
     
 
+
     <!--Voting-->
     <div class="container mt-5 mx-auto">
         <div class="row justify-content-between align-items-center">
@@ -190,9 +194,9 @@
             </div>
             <!--see more-->
             <div class="col justify-content-end d-flex pb-3">
-                <a class="btn border-secondary border rounded-pill" href="./discover.blade.php">Discover
+                <a class="btn border-secondary border rounded-pill" href="{{ route('explore') }}">Discover
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                     </svg>
                 </a>
             </div>
@@ -203,6 +207,7 @@
 
                     @foreach($all_artworks_by_votes as $artwork)
                         <div class="card card_wrapper">
+
                             <a href="{{ route('user.account', $artwork->artist_id) }}">
                                 <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
                             </a>
@@ -228,6 +233,7 @@
                                     </div>
                                 </div>
                             </div> 
+
                         </div> 
                     @endforeach                
                     
@@ -236,6 +242,7 @@
     </div>
             
             
+
             <!--Recommended-->
     <div class="container mt-5 reveal">
         <div class="row justify-content-between  align-items-center">
@@ -243,8 +250,10 @@
                 <h1>Recommended</h1>
             </div>
             <!--see more-->
+
             <div class="col justify-content-end d-flex pb-3">
                 <a class="btn border-secondary border rounded-pill">Discover
+
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                     </svg>
@@ -256,8 +265,6 @@
                 <div class="owl-carousel owl-theme w-100">
                     @foreach($all_artworks_by_recommendations as $artwork)
                         <div class="card card_wrapper">
-                            <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
-                            <div class="card-body">
 
                                 <h3 class="card-title">{{ $artwork -> title}}</h3>
                                 <p class="card-text">{{ $artwork -> description}}</p>
@@ -274,9 +281,12 @@
                                         @else
                                             onclick="alert('Please log in to start casting your votes!')"
                                         @endif>
+
                                     </div>
                                 </div>
-                            </div>
+
+                            </a>
+                            
                         </div> 
                     @endforeach  
 
@@ -296,6 +306,30 @@
 
 
 <script>
+
+function postLike(event, artwork_id, user_id) {
+
+    confirm("Are you sure you want to vote for this artwork?");
+
+    axios.post("http://localhost:8000/api/artwork/like", {
+                    user_id:        user_id,
+                    artwork_id:     artwork_id
+                })
+        .then(response => {
+            var new_votes = response.data.result;
+            var msg = response.data.message;
+
+            event.target.classList.remove('heart');
+            event.target.classList.add('text-success');
+            event.target.innerText = msg;
+
+            console.log(response.data.message);
+        })
+        .catch(error => {
+            console.log(response.data.message);
+        })
+
+}
 
 var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};      
     // Initialize and add the map

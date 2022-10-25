@@ -215,9 +215,69 @@
 //     background-color: #000;
 // }
 
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #4e1112;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-item {
+  color: #fff;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  color: #4e1112;
+}
+
+.dropdown:hover .btn {
+  color: #4e1112 !important;
+}
+
+.dropdown-item:active {
+  background-color: #fff;
+}
+         
+.navbar {
+  background-image: linear-gradient(to right,  #1d242e 0%, #324153  46%, #50708d  100%);
+}
+
+.navbar-brand{
+  font-weight: 700;
+  font-size: 25px;
+
+}
+
+#nav-sot{
+  text-decoration: line-through;
+}
+
+#nav-art{
+  background-color: #4e1112;
+  border: 1px solid white;
+  font-size: 27px;
+}
+
+footer {
+  background-image: linear-gradient(to left,  #1d242e 0%, #324153  46%, #50708d  100%);
+}
+
+// NAVBAR
+.underlineHover:hover {
+  border-bottom: #fff 2px solid;
+}
+
 body{
     font-family: 'Inter', sans-serif;
-    background-color: white;
+    background-color: #f8fafc;
 }
 
 #map {
@@ -245,16 +305,51 @@ https://www.codeply.com/go/WJdJv71mhX/bootstrap-4-tab-pills-with-custom-color
 
 /* Profile Pictures */
 #profile-image{
-    border: 4px black solid;
+    // border: 4px black solid;
     border-radius: 12%;
     margin: auto;
     width: 100px;
     height: 100px;
-    /* FIGURE OUT HOW TO USE BOTTOM */
-    margin-top: 8.5rem;
+    margin-top: 11.5rem;
 }
 
-/* CLASSES */
+.profile-image-animation{
+  margin: auto;
+  width: 102px;
+  height: 104px;
+  margin-top: -102px;
+  position: relative;
+  z-index: -1;
+}
+
+.profile-image-animation:before, .profile-image-animation:after{
+  content: '';
+	position: absolute;
+	left: -2px;
+	top: -2px;
+  background: linear-gradient(60deg, #324153, #50708d,#9ba6b0, #f3f4f5, #d3e2ef, 
+  #a4afbb, #9ba6b0, #50708d, #324153,);
+    background-size: 400%;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+	z-index: -1;
+	animation: steam 20s linear infinite;
+  border-radius: 12%;
+}
+
+@keyframes steam {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+// END OF PROFILE PIC
 
 /* LOGO */
 .logo-img{
@@ -295,12 +390,157 @@ https://www.codeply.com/go/WJdJv71mhX/bootstrap-4-tab-pills-with-custom-color
     color: white;
 }
 
+/* ARTWORK POPUP */
+// .cd-popup-trigger {
+//   display: block;
+//   width: 170px;
+//   height: 50px;
+//   line-height: 50px;
+//   margin: 3em auto;
+//   text-align: center;
+//   color: #FFF;
+//   font-size: 14px;
+//   font-size: 0.875rem;
+//   font-weight: bold;
+//   text-transform: uppercase;
+//   border-radius: 50em;
+//   background: #35a785;
+// }
+
+// .cd-popup {
+//     position: fixed;
+//     left: 0;
+//     top: 0;
+//     height: 100%;
+//     width: 100%;
+//     background-color: rgba(94, 110, 141, 0.9);
+//     opacity: 0;
+//     visibility: hidden;
+//     -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+//     -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+//     transition: opacity 0.3s 0s, visibility 0s 0.3s;
+// }
+// .cd-popup.is-visible {
+//     opacity: 1;
+//     visibility: visible;
+//     -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
+//     -moz-transition: opacity 0.3s 0s, visibility 0s 0s;
+//     transition: opacity 0.3s 0s, visibility 0s 0s;
+// }
+
+// .cd-popup-container {
+//     position: relative;
+//     width: 90%;
+//     max-width: 400px;
+//     margin: 4em auto;
+//     background: #FFF;
+//     border-radius: .25em .25em .4em .4em;
+//     text-align: center;
+//     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+//     -webkit-transform: translateY(-40px);
+//     -moz-transform: translateY(-40px);
+//     -ms-transform: translateY(-40px);
+//     -o-transform: translateY(-40px);
+//     transform: translateY(-40px);
+//     /* Force Hardware Acceleration in WebKit */
+//     -webkit-backface-visibility: hidden;
+//     -webkit-transition-property: -webkit-transform;
+//     -moz-transition-property: -moz-transform;
+//     transition-property: transform;
+//     -webkit-transition-duration: 0.3s;
+//     -moz-transition-duration: 0.3s;
+//     transition-duration: 0.3s;
+// }
+// .cd-popup-container p {
+//     padding: 3em 1em;
+// }
+// .cd-popup-container .cd-buttons:after {
+//     content: "";
+//     display: table;
+//     clear: both;
+//     }
+// .cd-popup-container .cd-buttons li {
+//     float: left;
+//     width: 50%;
+//     list-style: none;
+// }
+// .cd-popup-container .cd-buttons a {
+//     display: block;
+//     height: 60px;
+//     line-height: 60px;
+//     text-transform: uppercase;
+//     color: #FFF;
+//     -webkit-transition: background-color 0.2s;
+//     -moz-transition: background-color 0.2s;
+//     transition: background-color 0.2s;
+// }
+// .cd-popup-container .cd-buttons li:first-child a {
+//     background: #fc7169;
+//     border-radius: 0 0 0 .25em;
+// }
+// .no-touch .cd-popup-container .cd-buttons li:first-child a:hover {
+//     background-color: #fc8982;
+// }
+// .cd-popup-container .cd-buttons li:last-child a {
+//     background: #b6bece;
+//     border-radius: 0 0 .25em 0;
+// }
+// .no-touch .cd-popup-container .cd-buttons li:last-child a:hover {
+//     background-color: #c5ccd8;   
+// }
+// .cd-popup-container .cd-popup-close {
+//     position: absolute;
+//     top: 8px;
+//     right: 8px;
+//     width: 30px;
+//     height: 30px;
+// }
+// .cd-popup-container .cd-popup-close::before, .cd-popup-container .cd-popup-close::after {
+//     content: '';
+//     position: absolute;
+//     top: 12px;
+//     width: 14px;
+//     height: 3px;
+//     background-color: #8f9cb5;
+// }
+// .cd-popup-container .cd-popup-close::before {
+//     -webkit-transform: rotate(45deg);
+//     -moz-transform: rotate(45deg);
+//     -ms-transform: rotate(45deg);
+//     -o-transform: rotate(45deg);
+//     transform: rotate(45deg);
+//     left: 8px;
+// }
+// .cd-popup-container .cd-popup-close::after {
+//     -webkit-transform: rotate(-45deg);
+//     -moz-transform: rotate(-45deg);
+//     -ms-transform: rotate(-45deg);
+//     -o-transform: rotate(-45deg);
+//     transform: rotate(-45deg);
+//     right: 8px;
+// }
+// .is-visible .cd-popup-container {
+//     -webkit-transform: translateY(0);
+//     -moz-transform: translateY(0);
+//     -ms-transform: translateY(0);
+//     -o-transform: translateY(0);
+//     transform: translateY(0);
+// }
+
+.min-vh-50 {
+  min-height: 50vh;
+}
+
+.min-vh-65 {
+  min-height: 65vh;
+}
+
 /* BANNER */
 #banner-image{
     position: absolute;
     z-index: -1;
     width: 100%;
-    height: 200px;
+    height: 250px;
     display: block;
     object-fit: cover;
     object-position: 50% 50%;
@@ -318,12 +558,26 @@ https://www.codeply.com/go/WJdJv71mhX/bootstrap-4-tab-pills-with-custom-color
 
 .main-tabgroup {
     cursor: pointer;
+    background-color: #f8fafc;
+}
+
+.nav-item .main-tabgroup {
+    background-color: #f8fafc;
 }
 
 .main-tabgroup:hover {
     color: white;
     background-color: #28231d;
     transition-duration: 0.4s;
+}
+
+// Artist cards
+.artwork-card{
+  transition: all .2s ease-in-out;
+}
+
+.artwork-card:hover{
+  transform: scale(1.05); 
 }
 
 /* SEPRATOR BETWEEN SEARCH AND EXPLORE BUTTONS. PLEASE CHANGE OR EXPLORE */
@@ -498,3 +752,271 @@ https://www.codeply.com/go/WJdJv71mhX/bootstrap-4-tab-pills-with-custom-color
     border-color: black;
     cursor: pointer;
   }
+
+  // start notifications
+
+  .section-50 {
+    padding: 50px 0;
+  }
+  
+  .m-b-50 {
+    margin-bottom: 50px;
+  }
+  
+  .dark-link {
+    color: #333;
+  }
+  
+  .heading-line {
+    position: relative;
+    padding-bottom: 5px;
+  }
+  
+  .heading-line:after {
+    content: "";
+    height: 4px;
+    width: 75px;
+    background-color: #29B6F6;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+  
+  .notification-ui_dd-content {
+    margin-bottom: 30px;
+  }
+  
+  .notification-list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    padding: 20px;
+    margin-bottom: 7px;
+    background: #fff;
+    -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+  }
+  
+  .notification-list--unread {
+    border-left: 2px solid #29B6F6;
+  }
+  
+  .notification-list .notification-list_content {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  
+  .notification-list .notification-list_content .notification-list_img img {
+    height: 48px;
+    width: 48px;
+    border-radius: 50px;
+    margin-right: 20px;
+  }
+  
+  .notification-list .notification-list_content .notification-list_detail p {
+    margin-bottom: 5px;
+    line-height: 1.2;
+  }
+  
+  .notification-list .notification-list_feature-img img {
+    height: 48px;
+    width: 48px;
+    border-radius: 5px;
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+
+  .switch  {
+    position: relative;
+    display: inline-block;
+    width: 3rem;
+    height: 1.5rem;
+    margin: 0 2rem 0 2rem;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer; 
+    background-color: #E0E0E0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 1.5rem;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: '';
+    background-color: #FFFFFF;
+    height: 1rem;
+    width: 1rem;
+    left: .25rem;
+    bottom: .25rem;
+    border-radius: 50%;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(1.5rem);
+    -ms-transform: translateX(1.5rem);
+    transform: translateX(1.5rem);
+  }
+
+  input:checked + .slider-1-1 {
+    background-color: #29B6F6;
+  }
+
+  // end notifications
+
+  // for card anchor tag
+
+  .card a {
+    color: #000;
+    text-decoration: none;
+  }
+
+  // end anchor tag code
+
+  .artist-events {
+    border-right: 2px grey solid;
+}
+
+  .event-btn {
+    padding-right: 1rem ;
+    padding-left: 1rem ;
+  }
+
+  // Start monkey animation
+  svg {
+    margin: auto;
+    text-align: center;
+  }
+  
+  .monkey {
+    stroke: #324153;
+    max-width: 150px;
+    stroke-width: 3px;
+    stroke-dashoffset: -2000;
+    stroke-dasharray: 2000;
+    -webkit-animation-name: monkey;
+            animation-name: monkey;
+    -webkit-animation-duration: 5s;
+            animation-duration: 5s;
+    -webkit-animation-iteration-count: 1;
+            animation-iteration-count: 1;
+    animation-direction: reverse;
+    -webkit-animation-timing-function: ease-ease;
+            animation-timing-function: ease-ease;
+    -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+  }
+  
+  @-webkit-keyframes monkey {
+    0% {
+      stroke-dashoffset: 0;
+    }
+    50% {
+      stroke: red;
+    }
+    100% {
+      stroke-dashoffset: 2000;
+      stroke: purple;
+    }
+  }
+  
+  @keyframes monkey {
+    0% {
+      stroke-dashoffset: 0;
+    }
+    50% {
+      stroke: red;
+    }
+    100% {
+      stroke-dashoffset: 2000;
+      stroke: purple;
+    }
+  }
+
+  // end monkey animation
+
+  // Start state of the art animation
+  // .sota-animate {
+  //   position: relative;
+  // }
+  
+  // .sota-animate h1 {
+  //   color: #fff;
+  //   font-size: 8em;
+  //   position: absolute;
+  //   transform: translate(-50%, -50%);
+  // }
+  
+  // .sota-animate h1:nth-child(1) {
+  //   color: transparent;
+  //   -webkit-text-stroke: 2px black;
+  // }
+  
+  // .content h1:nth-child(2) {
+  //   color: black;
+  //   animation: animate 4s ease-in-out infinite;
+  // }
+  
+  // @keyframes animate {
+  //   0%{
+  //       clip-path: polygon(
+  //         0% 45%,
+  //         16% 44%,
+  //         33% 50%,
+  //         54% 60%,
+  //         70% 61%,
+  //         84% 59%,
+  //         100% 52%,
+  //         100% 100%,
+  //         0% 100%
+  //       );
+  //   }
+
+  //   100% {
+  //     clip-path: polygon(
+  //       0% 45%,
+  //       16% 44%,
+  //       33% 50%,
+  //       54% 60%,
+  //       70% 61%,
+  //       84% 59%,
+  //       100% 52%,
+  //       100% 100%,
+  //       0% 100%
+  //     );
+  //   }
+  
+  //   50% {
+  //     clip-path: polygon(
+  //       0% 60%,
+  //       15% 65%,
+  //       34% 66%,
+  //       51% 62%,
+  //       67% 50%,
+  //       84% 45%,
+  //       100% 46%,
+  //       100% 100%,
+  //       0% 100%
+  //     );
+  //   }
+  // }
+  
+//end state of the art animation

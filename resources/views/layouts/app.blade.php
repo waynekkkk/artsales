@@ -28,6 +28,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <link rel="shortcut icon" href="{{ asset('images/logo.ico') }}" type="image/x-icon">
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <div id="app">
@@ -35,8 +37,8 @@
             <div class="container">
                 
                 <a class="navbar-brand" href="{{ route('home') }}">
-                    <img src="{{ asset('images/logo.png') }}" alt="" height="50">
-                    <span class="ms-4 fw-bold fs-3 ">State of the Art</span>
+                    <span id="nav-sot">STATE OF THE </span> <span id="nav-art"> ART </span>
+                    {{-- <span class="ms-4 fw-bold fs-3 ">State of the Art</span> --}}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -62,7 +64,17 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
+
                     <ul class="navbar-nav ms-auto">
+                        <a class="nav-link my-2 mx-2 fs-6 text-light" href="{{ route('home') }}"> <span class="underlineHover">Home</span></a>
+                        <a class="nav-link my-2 mx-2 fs-6 text-light" href="{{ route('explore') }}"> <span class="underlineHover">Explore</span></a>
+                        <a class="nav-link my-2 mx-2 fs-6 text-light" href="{{ route('about_us') }}"><span class="underlineHover"> About Us</span></a>
+
+                        {{-- <a class="nav-link mt-2 btn btn-light mx-2 fs-6 text-dark" href="#"><i class="fa-solid fa-palette"></i> Explore</a>
+                        <a class="nav-link mt-2 btn btn-light mx-2 fs-6 text-dark" href="#"> About Us</a>
+                         --}}
+
+
                         <!-- Authentication Links -->
                         {{-- @guest
                             @if (Route::has('login'))
@@ -98,46 +110,52 @@
                             </li>
                         @endguest --}}
 
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown my-auto">
                             @if (Auth::check())
-                            <div id="click-out"></div>
-                                <a class="mt-2 mx-2 nav-link dropdown-toggle btn btn-light text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa-solid fa-user"></i> {{ Auth::user()->name }}
+                                <div id="click-out"></div>
+                                <a class="my-1 my-sm-0 mx-2 nav-link dropdown-toggle btn text-light my-auto" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img class="rounded-circle display-pic me-2" src="{{ Auth::user()->profile_picture ? Auth::user()->profile_picture->asset_url : '' }}" alt="" style="width: 30px">{{ Auth::user()->name }}
                                 </a>
 
                                 <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item py-2" href="{{ route('user.account', Auth::user()->id) }}">Account</a></li>
+                                    {{-- to include activity here --}}
+                                    <li><a class="dropdown-item py-2" href="{{ route('user.notifications', Auth::user()->id) }}">Activity</a></li> 
+
+                                    
+
+                                    <li><hr class="dropdown-divider m-0"></li>
                                     <li>
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                        <a class="dropdown-item py-2" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                             document.getElementById('logout-form').submit();">
+                                                <i class="fa-solid fa-right-from-bracket"></i> 
                                                 {{ __('Logout') }}
+
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                             @csrf
                                         </form>
                                     </li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="{{ route('user.account', Auth::user()->id) }}">Account</a></li>
+
                                 </ul>
                             @else
-                                <a class="mt-2 mx-2 nav-link dropdown-toggle btn btn-light text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="my-1 my-sm-0 nav-link dropdown-toggle btn text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fa-solid fa-user"></i> Guest
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="{{ route('login') }}">Log In</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('register') }}">Sign Up</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    <li><a class="dropdown-item py-2" href="{{ route('login') }}">Log In</a></li>
+                                    <li><a class="dropdown-item py-2" href="{{ route('register') }}">Sign Up</a></li>
+                                    <li><hr class="dropdown-divider m-0"></li>
+                                    <li><a class="dropdown-item py-2" href="#">Something else here</a></li>
                                 </ul>
                             @endif
                             
                         </li>
 
                     </ul>
-
-                    <a class="nav-link mt-2 btn btn-light mx-2 fs-6 text-dark" href="#"><i class="fa-solid fa-palette"></i> Explore</a>
 
                 </div>
             </div>
@@ -223,100 +241,64 @@
 
 </body>
 
-<footer class="text-center text-lg-start bg-light text-light bg-dark">
-    <!-- Section: Social media -->
-    <section class="container d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-      <!-- Left -->
-      <div class="me-5 d-none d-lg-block">
-        <span>Get connected with us on social networks:</span>
-      </div>
-      <!-- Left -->
-  
-      <!-- Right -->
-      <div>
-        <a href="" class="me-4 text-reset">
-          <i class="fab fa-twitter"></i>
-        </a>
-        <a href="" class="me-4 text-reset">
-          <i class="fab fa-instagram"></i>
-        </a>
-        <a href="" class="me-4 text-reset">
-          <i class="fab fa-github"></i>
-        </a>
-      </div>
-      <!-- Right -->
-    </section>
-    <!-- Section: Social media -->
-  
+<footer class="text-center text-lg-start bg-light text-light bg-dark p-1">  
     <!-- Section: Links  -->
-    <section class="">
+    <section class="" p-5>
       <div class="container text-center text-md-start mt-5">
         <!-- Grid row -->
-        <div class="row mt-3">
+        <div class="row p-3">
           <!-- Grid column -->
-          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
             <!-- Content -->
-            <h6 class="text-uppercase fw-bold mb-4">
-              <i class="fas fa-gem me-3"></i>State Of The Art
-            </h6>
+            <h5 class="text-uppercase fw-bold">
+                State Of The Art
+            </h5>
             <p>
-              Here you can use rows and columns to organize your footer content. Lorem ipsum
-              dolor sit amet, consectetur adipisicing elit.
+              State of the Art was founded by a group of four monkeys as part of their coding project. They were unified by one common purpose - to bring art to everyone, everywhere, beyond the frames.
             </p>
           </div>
           <!-- Grid column -->
+          <div class="col-sm-3 col-md-4 mx-auto mb-md-0"></div>
   
           <!-- Grid column -->
-          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-            
-          </div>
-          <!-- Grid column -->
-  
-          <!-- Grid column -->
-          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+          <div class="col-sm-3 col-md-2 mx-auto mb-md-0">
             <!-- Links -->
-            <h6 class="text-uppercase fw-bold mb-4">
-              Useful links
-            </h6>
-            <p>
-              <a href="#!" class="text-reset">Explore</a>
-            </p>
-            <p>
-              <a href="#!" class="text-reset">Settings</a>
-            </p>
-            <p>
-              <a href="#!" class="text-reset">Orders</a>
-            </p>
-            <p>
-              <a href="#!" class="text-reset">Help</a>
-            </p>
+            <h6 class="text-uppercase fw-bold my-2">Company</h6>
+            <a class="text-light" href="{{ route('home') }}"> <span class="underlineHover"> Home</span></a>
+            <br>
+            <a class="text-light" href="{{ route('about_us') }}"> <span class="underlineHover"> About Us</span></a>
+            <br>
+            <a class="text-light" href="#"> <span class="underlineHover"> Explore</span></a>
           </div>
-          <!-- Grid column -->
-  
-          <!-- Grid column -->
-          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-            <!-- Links -->
-            <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-            <p><i class="fas fa-home me-3"></i> Singapore</p>
-            <p>
-              <i class="fas fa-envelope me-3"></i>
-              info@state.art
-            </p>
-            <p><i class="fas fa-phone me-3"></i> + 65 6565 6565</p>
+
+          <div class="col-sm-3 col-md-2 mx-auto mb-md-0">
+            <!-- Contact -->
+            <h6 class="text-uppercase fw-bold my-2">Contact</h6>
+            <a class="text-light" href="#"> <span class="underlineHover"> Facebook</span></a>
+            <br>
+            <a class="text-light" href="#"> <span class="underlineHover"> Instagram</span></a>
+            <br>
+            <a class="text-light" href="#"> <span class="underlineHover"> Twitter</span></a>
+            <br>
+            <a class="text-light" href="#"> <span class="underlineHover"> Email</span></a>
           </div>
+
+          <div class="col-sm-3 col-md-0 mx-auto mb-md-0"></div>
           <!-- Grid column -->
         </div>
         <!-- Grid row -->
       </div>
+
+
+
+    <!-- Copyright -->
+      <div class="text-center p-2" style="color: white;">
+        © 2022 Copyright: State of The Art
+      </div>
+    <!-- Copyright -->
+
     </section>
-    <!-- Section: Links  -->
-  
-    <!-- Copyright -->
-    <div class="text-center p-4 text-dark" style="background-color: white">
-      © 2022 Copyright:
-      <a class="text-reset fw-bold" href="#">State of The Art</a>
-    </div>
-    <!-- Copyright -->
+
   </footer>
   <!-- Footer -->
 
