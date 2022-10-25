@@ -136,8 +136,8 @@
                             <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
                             <div class="card-body">
 
-                                <h3 class="card-title">{{ $artwork -> title}}</h3>
-                                <p class="card-text">{{ $artwork -> description}}</p>
+                                <h3 class="card-title">{{ $artwork->title}}</h3>
+                                <p class="card-text">{{ $artwork->description}}</p>
                                 <div class="d-flex justify-content-end">
                                     <div class="heart" onclick="postLike()"></div>
                                 </div>
@@ -170,8 +170,8 @@
                             <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
                             <div class="card-body">
 
-                                <h3 class="card-title">{{ $artwork -> title}}</h3>
-                                <p class="card-text">{{ $artwork -> description}}</p>
+                                <h3 class="card-title">{{ $artwork->title}}</h3>
+                                <p class="card-text">{{ $artwork->description}}</p>
                                 <div class="d-flex justify-content-end">
                                     <div class="heart"></div>
                                 </div>
