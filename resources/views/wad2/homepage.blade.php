@@ -171,7 +171,7 @@
                     <h3 class="mb-3 from-left-3">{{ $highest_voted_artwork->description }}</h3>
                     <h5 class="mb-2 from-left-4">by {{ $artist_of_the_month->name }}</h5>
                     <div class="col mt-3 from-left-5 justify-content-center">
-                        <button type="button" class="btn btn-dark btn-block rounded-pill me-1 from-left-5" onclick="window.location.href=http://127.0.0.1:8000/user/3/account">Explore</button>
+                        <button type="button" class="btn btn-dark btn-block rounded-pill me-1 from-left-5" onclick="window.location.href='{{ route('user.account', $artist_of_the_month->id) }}';">Explore</button>
                     </div>
                 </div>
             </div>
@@ -203,18 +203,29 @@
 
                     @foreach($all_artworks_by_votes as $artwork)
                         <div class="card card_wrapper">
-                            <a href="http://127.0.0.1:8000/user/{{$artwork->artist_id}}/account">
+                            <a href="{{ route('user.account', $artwork->artist_id) }}">
                                 <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
                             </a>
                             <div class="card-body">
 
                                 <h3 class="card-title">{{ $artwork->title}}</h3>
                                 <p class="card-text">{{ $artwork->description}}</p>
-                                <div class="d-flex justify-content-end">
+                                <!-- <div class="d-flex justify-content-end">
                                 <div class="d-flex justify-content-end">
                                         <div class="heart"></div>
                                         <div style="position: absolute;bottom: 22px; right: 15px;">Like <span style="color: grey;">{{$artwork->votes}}</span></div>
                                 </div>
+                                </div> -->
+                                <div class="d-flex justify-content-end">
+                                    <div class="heart" 
+                                        @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
+                                            onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
+                                        @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
+                                            onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
+                                        @else
+                                            onclick="alert('Please log in to start casting your votes!')"
+                                        @endif>
+                                    </div>
                                 </div>
                             </div> 
                         </div> 
@@ -222,7 +233,7 @@
                     
                 </div>
             </div>
-        </div>
+    </div>
             
             
             <!--Recommended-->
@@ -250,9 +261,20 @@
 
                                 <h3 class="card-title">{{ $artwork -> title}}</h3>
                                 <p class="card-text">{{ $artwork -> description}}</p>
-                                <div class="d-flex justify-content-end">
+                                <!-- <div class="d-flex justify-content-end">
                                         <div class="heart"></div>
                                         <div style="position: absolute;bottom: 22px; right: 15px;">Like <span style="color: grey;">{{$artwork->votes}}</span></div>
+                                </div> -->
+                                <div class="d-flex justify-content-end">
+                                    <div class="heart" 
+                                        @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
+                                            onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
+                                        @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
+                                            onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
+                                        @else
+                                            onclick="alert('Please log in to start casting your votes!')"
+                                        @endif>
+                                    </div>
                                 </div>
                             </div>
                         </div> 
