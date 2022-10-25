@@ -11264,7 +11264,6 @@ https://www.codeply.com/go/WJdJv71mhX/bootstrap-4-tab-pills-with-custom-color
 
 /* Profile Pictures */
 #profile-image {
-  border: 4px black solid;
   border-radius: 12%;
   margin: auto;
   width: 100px;
@@ -11272,6 +11271,40 @@ https://www.codeply.com/go/WJdJv71mhX/bootstrap-4-tab-pills-with-custom-color
   margin-top: 11.5rem;
 }
 
+.profile-image-animation {
+  margin: auto;
+  width: 102px;
+  height: 104px;
+  margin-top: -102px;
+  position: relative;
+  z-index: -1;
+}
+
+.profile-image-animation:before, .profile-image-animation:after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  background: linear-gradient(60deg, #324153, #50708d, #9ba6b0, #f3f4f5, #d3e2ef, #a4afbb, #9ba6b0, #50708d, #324153);
+  background-size: 400%;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  z-index: -1;
+  animation: steam 20s linear infinite;
+  border-radius: 12%;
+}
+
+@keyframes steam {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
 /* LOGO */
 .logo-img {
   width: 3em;
@@ -11352,6 +11385,14 @@ https://www.codeply.com/go/WJdJv71mhX/bootstrap-4-tab-pills-with-custom-color
   color: white;
   background-color: #28231d;
   transition-duration: 0.4s;
+}
+
+.card {
+  transition: all 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.05);
 }
 
 /* SEPRATOR BETWEEN SEARCH AND EXPLORE BUTTONS. PLEASE CHANGE OR EXPLORE */
