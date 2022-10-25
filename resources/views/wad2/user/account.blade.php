@@ -94,7 +94,7 @@
                                 artworkId += countId;
                                 document.getElementById('artist-artwork').id = artworkId;
                             </script>
-                            <div class="card h-100">
+                            <div class="card h-100 artwork-card">
                                 <img src="{{ $artwork->asset->asset_url }}" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $artwork->title }}</h5>

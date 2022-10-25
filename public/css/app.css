@@ -11395,11 +11395,11 @@ https://www.codeply.com/go/WJdJv71mhX/bootstrap-4-tab-pills-with-custom-color
   transition-duration: 0.4s;
 }
 
-.card {
+.artwork-card {
   transition: all 0.2s ease-in-out;
 }
 
-.card:hover {
+.artwork-card:hover {
   transform: scale(1.05);
 }
 
@@ -11707,4 +11707,35 @@ input:checked + .slider-1-1 {
 .event-btn {
   padding-right: 1rem;
   padding-left: 1rem;
+}
+
+svg {
+  margin: auto;
+  text-align: center;
+}
+
+.monkey {
+  stroke: #324153;
+  max-width: 150px;
+  stroke-width: 3px;
+  stroke-dashoffset: -2000;
+  stroke-dasharray: 2000;
+  animation-name: monkey;
+  animation-duration: 5s;
+  animation-iteration-count: 1;
+  animation-direction: reverse;
+  animation-timing-function: ease-ease;
+  animation-fill-mode: forwards;
+}
+@keyframes monkey {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke: red;
+  }
+  100% {
+    stroke-dashoffset: 2000;
+    stroke: purple;
+  }
 }

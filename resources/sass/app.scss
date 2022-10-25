@@ -572,11 +572,11 @@ https://www.codeply.com/go/WJdJv71mhX/bootstrap-4-tab-pills-with-custom-color
 }
 
 // Artist cards
-.card{
+.artwork-card{
   transition: all .2s ease-in-out;
 }
 
-.card:hover{
+.artwork-card:hover{
   transform: scale(1.05); 
 }
 
@@ -899,3 +899,124 @@ https://www.codeply.com/go/WJdJv71mhX/bootstrap-4-tab-pills-with-custom-color
     padding-right: 1rem ;
     padding-left: 1rem ;
   }
+
+  // Start monkey animation
+  svg {
+    margin: auto;
+    text-align: center;
+  }
+  
+  .monkey {
+    stroke: #324153;
+    max-width: 150px;
+    stroke-width: 3px;
+    stroke-dashoffset: -2000;
+    stroke-dasharray: 2000;
+    -webkit-animation-name: monkey;
+            animation-name: monkey;
+    -webkit-animation-duration: 5s;
+            animation-duration: 5s;
+    -webkit-animation-iteration-count: 1;
+            animation-iteration-count: 1;
+    animation-direction: reverse;
+    -webkit-animation-timing-function: ease-ease;
+            animation-timing-function: ease-ease;
+    -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+  }
+  
+  @-webkit-keyframes monkey {
+    0% {
+      stroke-dashoffset: 0;
+    }
+    50% {
+      stroke: red;
+    }
+    100% {
+      stroke-dashoffset: 2000;
+      stroke: purple;
+    }
+  }
+  
+  @keyframes monkey {
+    0% {
+      stroke-dashoffset: 0;
+    }
+    50% {
+      stroke: red;
+    }
+    100% {
+      stroke-dashoffset: 2000;
+      stroke: purple;
+    }
+  }
+
+  // end monkey animation
+
+  // Start state of the art animation
+  // .sota-animate {
+  //   position: relative;
+  // }
+  
+  // .sota-animate h1 {
+  //   color: #fff;
+  //   font-size: 8em;
+  //   position: absolute;
+  //   transform: translate(-50%, -50%);
+  // }
+  
+  // .sota-animate h1:nth-child(1) {
+  //   color: transparent;
+  //   -webkit-text-stroke: 2px black;
+  // }
+  
+  // .content h1:nth-child(2) {
+  //   color: black;
+  //   animation: animate 4s ease-in-out infinite;
+  // }
+  
+  // @keyframes animate {
+  //   0%{
+  //       clip-path: polygon(
+  //         0% 45%,
+  //         16% 44%,
+  //         33% 50%,
+  //         54% 60%,
+  //         70% 61%,
+  //         84% 59%,
+  //         100% 52%,
+  //         100% 100%,
+  //         0% 100%
+  //       );
+  //   }
+
+  //   100% {
+  //     clip-path: polygon(
+  //       0% 45%,
+  //       16% 44%,
+  //       33% 50%,
+  //       54% 60%,
+  //       70% 61%,
+  //       84% 59%,
+  //       100% 52%,
+  //       100% 100%,
+  //       0% 100%
+  //     );
+  //   }
+  
+  //   50% {
+  //     clip-path: polygon(
+  //       0% 60%,
+  //       15% 65%,
+  //       34% 66%,
+  //       51% 62%,
+  //       67% 50%,
+  //       84% 45%,
+  //       100% 46%,
+  //       100% 100%,
+  //       0% 100%
+  //     );
+  //   }
+  // }
+  
+//end state of the art animation
