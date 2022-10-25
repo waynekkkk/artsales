@@ -13,11 +13,21 @@
     background-position: left;
     background-repeat:no-repeat;
     background-size:2900%;
+    position: absolute;
+    bottom: 10px;
+    right: 50px;
+    
     }
 
     .heart:hover {
     background-position:right;
     }
+
+    .heart:active{
+        background-position:right;
+    }
+
+
 
     .is_animating {
     animation: heart-burst .8s steps(28) 1;
@@ -31,6 +41,7 @@
     .card_wrapper{
         border-radius: 15px;
         height: 550px;
+        /* width: 370px; */
         margin: 20px 10px 20px 10px;
         transition: all .2s ease-in-out;
     }
@@ -64,9 +75,9 @@
         color: black;
     }
 
-    /* for carousel nav button */
+    /* for infowindow carousel nav button */
     .carousel-control-prev-style{
-        left: -20px;
+        left: -30px;
         top:50%;
         position: absolute;
         color: grey;
@@ -75,7 +86,7 @@
         color: black;
     }
     .carousel-control-next-style{
-        right: -20px;
+        right: -30px;
         top:50%;
         position: absolute;
         color: grey;
@@ -87,33 +98,92 @@
         min-width:600px;
     } */
 
+    /* for spotlight slide */
+    @keyframes slide-in-left {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0%);
+      opacity: 1;
+    }
+  }
+    @keyframes slide-in-right {
+        from {
+        transform: translateX(150%);
+        opacity: 0.25;
+        }
+        to {
+        transform: translateX(0%);
+        opacity: 1;
+        }
+    }
+
+
+    /* ...and then apply it: */
+    .from-left {
+        animation: slide-in-left 1000ms;
+        
+    }
+    .from-left-1 {
+        animation: slide-in-left 1000ms;
+    }
+    .from-left-2 {
+        animation: slide-in-left 1150ms;
+    }
+    .from-left-3 {
+        animation: slide-in-left 1300ms;
+    }
+    .from-left-4 {
+        animation: slide-in-left 1400ms;
+    }
+    .from-left-5 {
+        animation: slide-in-left 1500ms;
+    }
+    .from-right {
+        animation: slide-in-right 1500ms;
+    }
+
+    /* reveal when scroll */
+    .reveal{
+    position: relative;
+    transform: translateY(150px);
+    opacity: 0;
+    transition: 1s all ease;
+    }
+
+    .reveal.active{
+    transform: translateY(0);
+    opacity: 1;
+    }
+
 </style>
 <body>
     <!--spotlight-->
-    <div class="container d-flex justify-content-around pt-5">
-        <!-- <div class="row">  -->
-            <span class="d-flex align-items-center" style="display: inline-block;">
+    
+    <div class="container d-flex justify-content-between pt-5 mx-auto">
+        <div class="row justify-content-md-between w-100"> 
+            <div class="d-flex align-items-center text-center text-md-start justify-content-center mb-3 col-12 col-md-6">
                 <div class="">
-                    <h1 class="mb-4">Artist of the Month</h1>
-                    <h3 class="mb-2">{{ $highest_voted_artwork->title }}</h3>
-                    <h3 class="mb-3">{{ $highest_voted_artwork->description }}</h3>
-                    <h5 class="mb-2">by {{ $artist_of_the_month->name }}</h5>
-                    <div class="col mt-3">
-                        <button type="button" class="btn btn-dark btn-block rounded-pill me-1" onclick="window.location.href={{ route('user.account', $artist_of_the_month->id) }}">Explore</button>
+                    <h1 class="mb-4 from-left-1"><strong>Artist of the Month</strong></h1>
+                    <h3 class="mb-2 from-left-2"><strong>{{ $highest_voted_artwork->title }}</strong></h3>
+                    <h3 class="mb-3 from-left-3">{{ $highest_voted_artwork->description }}</h3>
+                    <h5 class="mb-2 from-left-4">by {{ $artist_of_the_month->name }}</h5>
+                    <div class="col mt-3 from-left-5 justify-content-center">
+                        <button type="button" class="btn btn-dark btn-block rounded-pill me-1 from-left-5" onclick="window.location.href=http://127.0.0.1:8000/user/3/account">Explore</button>
                     </div>
                 </div>
-            </span>
-            <!-- <span> -->
-                <img src="{{ $highest_voted_artwork_asset }}" class="rounded img-fluid" style="width: 400px;">
-            <!-- </span> -->
-        <!-- </div> -->
-    </div>
-    
-
+            </div>
+            <div class="d-flex col-12 col-md-5 justify-content-center">
+                <img src="{{$highest_voted_artwork->asset->asset_url}}" class="rounded img-fluid display from-right" style="width: 400px;">
+            </div>
+        </div>
+    </div>  
     
 
     <!--Voting-->
-    <div class="container mt-5 mx-5">
+    <div class="container mt-5 mx-auto">
         <div class="row justify-content-between align-items-center">
             <div class="col pb-3">
                 <h1>Voting</h1>
@@ -126,44 +196,53 @@
                     </svg>
                 </a>
             </div>
+        </div>
             <!--carousel-->
-            <div class="d-flex justify-content-center pt-2">
-                <div class="owl-carousel owl-theme">
+            <div class="d-flex justify-content-center pt-2" style="margin-left: 30px; margin-right:30px;">
+                <div class="owl-carousel owl-theme d-flex-justify-content-center w-100">
 
                     @foreach($all_artworks_by_votes as $artwork)
                         <div class="card card_wrapper">
-                            <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
+                            <a href="http://127.0.0.1:8000/user/{{$artwork->artist_id}}/account">
+                                <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
+                            </a>
                             <div class="card-body">
 
-                                <h3 class="card-title">{{ $artwork -> title}}</h3>
-                                <p class="card-text">{{ $artwork -> description}}</p>
+                                <h3 class="card-title">{{ $artwork->title}}</h3>
+                                <p class="card-text">{{ $artwork->description}}</p>
                                 <div class="d-flex justify-content-end">
-                                    <div class="heart"></div>
+                                <div class="d-flex justify-content-end">
+                                        <div class="heart"></div>
+                                        <div style="position: absolute;bottom: 22px; right: 15px;">Like <span style="color: grey;">{{$artwork->votes}}</span></div>
                                 </div>
-                            </div>
+                                </div>
+                            </div> 
                         </div> 
                     @endforeach                
                     
                 </div>
             </div>
+        </div>
+            
             
             <!--Recommended-->
-    <div class="container mt-5 ">
+    <div class="container mt-5 reveal">
         <div class="row justify-content-between  align-items-center">
-            <div class="col-12 col-lg-4 pb-3">
+            <div class="col pb-3">
                 <h1>Recommended</h1>
             </div>
             <!--see more-->
-            <div class="col-3 justify-content-end d-flex pb-3">
-                <a class="btn border-secondary border rounded-pill" href="images/img1.jpg">Discover
+            <div class="col justify-content-end d-flex pb-3">
+                <a class="btn border-secondary border rounded-pill">Discover
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                     </svg>
                 </a>
             </div>
+        </div>
             <!--carousel-->
-            <div class="d-flex justify-content-center pt-2 position-relative">
-                <div class="owl-carousel owl-theme">
+            <div class="d-flex justify-content-center pt-2" style="margin-left: 30px; margin-right:30px;">
+                <div class="owl-carousel owl-theme w-100">
                     @foreach($all_artworks_by_recommendations as $artwork)
                         <div class="card card_wrapper">
                             <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
@@ -172,7 +251,8 @@
                                 <h3 class="card-title">{{ $artwork -> title}}</h3>
                                 <p class="card-text">{{ $artwork -> description}}</p>
                                 <div class="d-flex justify-content-end">
-                                    <div class="heart"></div>
+                                        <div class="heart"></div>
+                                        <div style="position: absolute;bottom: 22px; right: 15px;">Like <span style="color: grey;">{{$artwork->votes}}</span></div>
                                 </div>
                             </div>
                         </div> 
@@ -180,12 +260,13 @@
 
                 </div>
             </div>
+        </div>
 
 
             <!--google maps-->
-            <div class="my-5">
+            <div class="my-5 reveal">
                 <h1 class="mb-2">Maps</h1>
-                <div id="map" class="w-100"></div>
+                <div id="map" class="" style="height: 600px;"></div>
             </div>
 
             <!--google maps script-->
@@ -216,6 +297,13 @@ var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};
         // The map, centered at museum
         var map = new google.maps.Map(
         document.getElementById('map'), {zoom: 18, center: new google.maps.LatLng(1.2966, 103.8485)});
+        var museum_image = {
+            "National Museum of Singapore":"https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_720/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/e75d2145-National-Museum-of-Singapore/NationalMuseumofSingapore.jpg",
+            "Asian Civilisations Museum":"https://media.tacdn.com/media/attractions-splice-spp-674x446/06/f1/36/5b.jpg",
+            "ArtScience Museum":"https://images.fineartamerica.com/images-medium-large-5/artscience-museum-singapore-john-harper.jpg",
+            "National Gallery Singapore":"https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_720/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/a7af46f6-%E6%96%B0%E5%8A%A0%E5%9D%A1%E5%9B%BD%E5%AE%B6%E7%BE%8E%E6%9C%AF%E9%A6%86---Klook%E5%AE%A2%E8%B7%AF/NationalGallerySingapore.jpg",
+            "Singapore Art Museum":"https://www.artnews.com/wp-content/uploads/2020/12/about-1920px-x-960px.png"
+        }
         museum_collection.forEach(museum =>{       
         // The location of museum
         var location = {lat: parseFloat(museum.lat), lng: parseFloat(museum.long)};
@@ -226,29 +314,36 @@ var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};
             map: map,
             title: "Event Today",
             icon:{
-                url:"https://www.freeiconspng.com/thumbs/museum-icon/art-history-museum-icon--4.png",
+                url:"https://cdn-icons-png.flaticon.com/512/4874/4874738.png",
                 scaledSize: new google.maps.Size(40,40)
             }
         });
         //   Type string here
-        var contentString = "<h3 style = 'display:inline;'>" + museum.name + "</h3>";
-
+        var contentString = `
+        <div class="container-fluid" style="position:relative; height:200px;">
+        <img src="${museum_image[museum.name]}" style="position:relative; height:100%; width:100%; object-fit:cover;">
+        <div style = 'position:absolute; bottom:10px; left:30px;color:white; font-size:20px; font-family:poppins; font-weight:bold;'>${museum.name}</div>
+        </div>
+        `;
+        console.log(museum.name)
         // make it have weather info
         var key = "19c53dfa53a7b4e96f444976cf4f5152"
         var url = "https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather"
         var param = {
             lat:museum.lat,
             lon:museum.long,
-            appid:key
+            appid:key,
+            units:'metric'
         }
         
         axios.get(url,{params:param})
         .then(response => {
             // process response.dataobject
             var weather = response.data.weather[0].main
-            contentString += "<img src='" + weather_icons[weather.toLowerCase()] + "' style='width:38px;'>";
+            console.log(response.data.main.temp)
+            contentString += "<div class='from-left-3'><img class='from-left-1' src='" + weather_icons[weather.toLowerCase()] + "' style='width:38px;'><span>" + response.data.main.temp +"°C</span></div> <div style:'text-align:center'><div style = 'color:black; font-size:20px; font-family:copperplate; font-weight:bold; text-align:center;'>Current Galleries</div></div>";
             museum.artists_list.forEach(artist =>{
-                contentString += `<h5>${artist.name}</h5>`
+                contentString += `<br><div style='text-align:center;'><h5 style:'text-align:center;'>by ${artist.name}</h5></div>`
                 contentString += `
                 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="margin:10px 40px 10px 40px;">
                     <div class="carousel-inner">`;
@@ -304,9 +399,9 @@ var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};
 
         };
 var myCarousel = document.querySelector('#myCarousel')
-var carousel = new bootstrap.Carousel(myCarousel)
+// var carousel = new bootstrap.Carousel(myCarousel)
 
-</script>
+// </script>
 
 <!-- <owlcarousel -->
 <script src="https://owlcarousel2.github.io/OwlCarousel2/assets/vendors/jquery.min.js"></script>
@@ -335,7 +430,7 @@ var carousel = new bootstrap.Carousel(myCarousel)
             </svg>
         </div>`],
         responsive: {
-        1: {
+        0: {
             items: 1,
             nav: true
         },
@@ -349,6 +444,33 @@ var carousel = new bootstrap.Carousel(myCarousel)
         }
         }
     })
+    // like button
+    $(".heart").on('click touchstart', function(){
+    $(this).toggleClass('is_animating');
+    });
+
+    /*when the animation is over, remove the class*/
+    $(".heart").on('animationend', function(){
+    $(this).toggleClass('is_animating');
+    });
+
+    // reveal js
+    function reveal() {
+    var reveals = document.querySelectorAll(".reveal");
+
+    for (var i = 0; i < reveals.length; i++) {
+        var windowHeight = window.innerHeight;
+        var elementTop = reveals[i].getBoundingClientRect().top;
+        var elementVisible = 150;
+
+        if (elementTop < windowHeight - elementVisible) {
+        reveals[i].classList.add("active");
+        } else {
+        reveals[i].classList.remove("active");
+        }
+    }
+    }
+    window.addEventListener("scroll", reveal);
 
 </script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
