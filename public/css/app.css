@@ -11234,7 +11234,7 @@ footer {
 }
 
 .underlineHover:hover {
-  text-decoration: underline;
+  border-bottom: #fff 2px solid;
 }
 
 body {

@@ -66,9 +66,9 @@
                     <!-- Right Side Of Navbar -->
 
                     <ul class="navbar-nav ms-auto">
-                        <span class="underlineHover"><a class="nav-link my-2 mx-2 fs-6 text-light" href="{{ route('home') }}"> Home</a></span>
-                        <span class="underlineHover"><a class="nav-link my-2 mx-2 fs-6 text-light" href="#"> Explore</a></span>
-                        <span class="underlineHover"><a class="nav-link my-2 mx-2 fs-6 text-light" href="{{ route('about_us') }}"> About Us</a></span>
+                        <a class="nav-link my-2 mx-2 fs-6 text-light" href="{{ route('home') }}"> <span class="underlineHover">Home</span></a>
+                        <a class="nav-link my-2 mx-2 fs-6 text-light" href="{{ route('explore') }}"> <span class="underlineHover">Explore</span></a>
+                        <a class="nav-link my-2 mx-2 fs-6 text-light" href="{{ route('about_us') }}"><span class="underlineHover"> About Us</span></a>
 
                         {{-- <a class="nav-link mt-2 btn btn-light mx-2 fs-6 text-dark" href="#"><i class="fa-solid fa-palette"></i> Explore</a>
                         <a class="nav-link mt-2 btn btn-light mx-2 fs-6 text-dark" href="#"> About Us</a>
