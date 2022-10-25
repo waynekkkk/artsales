@@ -241,6 +241,10 @@
 .dropdown:hover .btn {
   color: #4e1112 !important;
 }
+
+.dropdown-item:active {
+  background-color: #fff;
+}
          
 .navbar {
   background-image: linear-gradient(to right,  #1d242e 0%, #324153  46%, #50708d  100%);
@@ -485,8 +489,12 @@ https://www.codeply.com/go/WJdJv71mhX/bootstrap-4-tab-pills-with-custom-color
 //     transform: translateY(0);
 // }
 
-.vh-50 {
-  height: 50vh;
+.min-vh-50 {
+  min-height: 50vh;
+}
+
+.min-vh-65 {
+  min-height: 65vh;
 }
 
 /* BANNER */
@@ -826,3 +834,21 @@ https://www.codeply.com/go/WJdJv71mhX/bootstrap-4-tab-pills-with-custom-color
   }
 
   // end notifications
+
+  // for card anchor tag
+
+  .card a {
+    color: #000;
+    text-decoration: none;
+  }
+
+  // end anchor tag code
+
+  .artist-events {
+    border-right: 2px grey solid;
+}
+
+  .event-btn {
+    padding-right: 1rem ;
+    padding-left: 1rem ;
+  }

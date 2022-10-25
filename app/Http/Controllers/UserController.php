@@ -700,8 +700,53 @@ class UserController extends Controller
                 'events_details'                    => $events_details, 
             ]);
     }
-    public function destroyEvent($user_id, $event_id)
+
+    public function destroyEvent($user_id)
     {
+        $museum_artists = MuseumArtist::where('user_id', $user_id)->get();
+
+        return view('wad2.user.destroy_event',
+            [
+                'user_id'                   => $user_id,
+                'events'                    => $museum_artists
+            ]
+        );
+    }
+
+    public function destroyEventUpdate(Request $request, $user_id)
+    {
+        $custom_error = [
+            'event_id.required'                    => "An event is required for us to remove you from it",
+        ];
+
+        $validator = $request->validate([
+            'event_id'                      => ['required'],
+        ], $custom_error);
+
+        $event_id = $request->input('event_id');
+
+        $museum_artist = MuseumArtist::where('id', $event_id)->first();
+        $museum = $museum_artist->museum->name;
+
+        $datetime_start = Carbon::parse($museum_artist->datetime_start);
+        $datetime_end = Carbon::parse($museum_artist->datetime_end);
+
+        $datetime_start_format = $datetime_start->format('d M Y H:i');
+        $datetime_end_format = $datetime_end->format('d M Y H:i');
+
+        $user = User::where('id', $user_id)->first();
+
+        foreach (User::all() as $user_to_notify) {
+            if ($user_to_notify->id != $user_id) {
+                $delete_event_notification = Notification::create(
+                    [
+                        'description'           => "$user->name will be ceasing participation of the event at $museum from $datetime_start_format H to $datetime_end_format H!",
+                        'user_id'               => $user_to_notify->id,
+                    ]
+                );
+            }
+        }
+
         $museum_artist_delete = MuseumArtist::where('id', $event_id)->delete();
         
         $user = User::where('id', $user_id)->first();

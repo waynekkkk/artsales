@@ -122,9 +122,9 @@
             </div>
             <!--see more-->
             <div class="col justify-content-end d-flex pb-3">
-                <a class="btn border-secondary border rounded-pill" href="./discover.blade.php">Discover
+                <a class="btn border-secondary border rounded-pill" href="{{ route('explore') }}">Discover
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                     </svg>
                 </a>
             </div>
@@ -134,23 +134,27 @@
 
                     @foreach($all_artworks_by_votes as $artwork)
                         <div class="card card_wrapper">
-                            <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
-                            <div class="card-body">
 
-                                <h3 class="card-title">{{ $artwork->title}}</h3>
-                                <p class="card-text">{{ $artwork->description}}</p>
-                                <div class="d-flex justify-content-end">
-                                    <div class="heart" 
-                                        @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
-                                            onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
-                                        @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
-                                            onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
-                                        @else
-                                            onclick="alert('Please log in to start casting your votes!')"
-                                        @endif>
+                            <a href="{{ route('user.account', $artwork->artist_id) }}">
+                                <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
+                                <div class="card-body">
+
+                                    <h3 class="card-title">{{ $artwork->title}}</h3>
+                                    <p class="card-text">{{ $artwork->description}}</p>
+                                    <div class="d-flex justify-content-end">
+                                        <div class="heart" 
+                                            @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
+                                                onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
+                                            @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
+                                                onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
+                                            @else
+                                                onclick="alert('Please log in to start casting your votes!')"
+                                            @endif>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
+                            
                         </div> 
                     @endforeach                
                     
@@ -165,7 +169,7 @@
             </div>
             <!--see more-->
             <div class="col-3 justify-content-end d-flex pb-3">
-                <a class="btn border-secondary border rounded-pill" href="images/img1.jpg">Discover
+                <a class="btn border-secondary border rounded-pill" href="{{ route('explore') }}">Discover
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                     </svg>
@@ -176,23 +180,29 @@
                 <div class="owl-carousel owl-theme">
                     @foreach($all_artworks_by_recommendations as $artwork)
                         <div class="card card_wrapper">
-                            <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
-                            <div class="card-body">
 
-                                <h3 class="card-title">{{ $artwork->title}}</h3>
-                                <p class="card-text">{{ $artwork->description}}</p>
-                                <div class="d-flex justify-content-end">
-                                    <div class="heart" 
-                                        @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
-                                            onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
-                                        @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
-                                            onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
-                                        @else
-                                            onclick="alert('Please log in to start casting your votes!')"
-                                        @endif>
+                            <a href="{{ route('user.account', $artwork->artist_id) }}">
+                            
+                                <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
+                                <div class="card-body">
+
+                                    <h3 class="card-title">{{ $artwork->title}}</h3>
+                                    <p class="card-text">{{ $artwork->description}}</p>
+                                    <div class="d-flex justify-content-end">
+                                        <div class="heart" 
+                                            @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
+                                                onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
+                                            @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
+                                                onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
+                                            @else
+                                                onclick="alert('Please log in to start casting your votes!')"
+                                            @endif>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+
+                            </a>
+                            
                         </div> 
                     @endforeach  
 
