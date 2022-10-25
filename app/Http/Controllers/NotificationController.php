@@ -43,6 +43,8 @@ class NotificationController extends Controller
             $all_notifications[] = $notification_details;
         }
 
+        $all_notifications = array_reverse($all_notifications, true);
+
         return view('wad2.user.notification',
         [
             'notifications'                              => $all_notifications, 

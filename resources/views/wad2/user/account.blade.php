@@ -60,13 +60,13 @@
     
             <div class="page-feature">
                 <ul class="nav nav-pills  nav-black nav-fill">
-                    <li class="nav-item mx-2"> 
+                    <li class="nav-item mx-2 mb-2 mb-md-4"> 
                         <a id="default-content" class="nav-link main-tabgroup" onclick="displayContent(event, 'artworks')">Artworks</a>
                     </li>
-                    <li class="nav-item mx-2">
+                    <li class="nav-item mx-2 mb-2 mb-md-4">
                         <a class="nav-link main-tabgroup" onclick="displayContent(event, 'events')">Events</a>
                     </li>
-                    <li class="nav-item mx-2">
+                    <li class="nav-item mx-2 mb-2 mb-md-4">
                         <a class="nav-link main-tabgroup" onclick="displayContent(event, 'about')">About</a>
                     </li>
                 </ul>
@@ -176,11 +176,20 @@
             <div id="events" class="tabcontent">
 
                 <div class="row justify-content-center">
-                    <div class="col-lg-6 offset-lg-6 text-end">
-                        @if (Auth::check() && (Auth::user()->id == $user->id))
-                            <button type="button" class="btn btn-outline-dark btn-block rounded-pill mt-5" onclick="window.location.href='{{ route('user.add_event', Auth::user()->id) }}';">Join an event here!!</button>    
-                        @endif
-                    </div>
+
+                    @if (Auth::check() && (Auth::user()->id == $user->id))
+
+                        <div class="col-lg-6 offset-lg-6 text-end">
+                            <div class="artist-events event-btn" style="display: inline-block">
+                                <button type="button" class="btn btn-outline-dark btn-block rounded-pill" onclick="window.location.href='{{ route('user.add_event', Auth::user()->id) }}';">Join an event here!!</button>
+                            </div>
+                            <div class="event-btn" style="display: inline-block; padding">
+                                <button type="button" class="btn btn-outline-dark btn-block rounded-pill" onclick="window.location.href='{{ route('user.destroy_event', Auth::user()->id) }}';">Leave an event...</button>
+                            </div>
+                        </div>
+
+                    @endif
+                    
                 </div>
 
                 <!--google maps-->

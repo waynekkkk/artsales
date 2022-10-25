@@ -3,7 +3,7 @@
 @section('content')
     
     <body>
-        <section class="section-50">
+        <section class="section-50 min-vh-65">
             <div class="container my-auto">
                 <h2 class="m-b-50 heading-line">Activity</h2>
 
