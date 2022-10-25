@@ -80,7 +80,7 @@ class APIController extends Controller
             );
 
         return response()->json([
-            'message' => "Successfully voted for this artwork!",
+            'message' => "Voted!",
             'result' => $new_votes,
         ], 200);
     }
