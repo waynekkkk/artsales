@@ -11305,11 +11305,15 @@ https://www.codeply.com/go/WJdJv71mhX/bootstrap-4-tab-pills-with-custom-color
 
 .tabcontent {
   display: none;
-  color: #f8fafc;
 }
 
 .main-tabgroup {
   cursor: pointer;
+  background-color: #f8fafc;
+}
+
+.nav-item .main-tabgroup {
+  background-color: #f8fafc;
 }
 
 .main-tabgroup:hover {
