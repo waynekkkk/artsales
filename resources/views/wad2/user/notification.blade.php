@@ -4,7 +4,7 @@
     
     <body>
         <section class="section-50">
-            <div class="container vh-50 my-auto">
+            <div class="container my-auto">
                 <h2 class="m-b-50 heading-line">Activity</h2>
 
                 <div class="notification-ui_dd-content my-auto">
@@ -24,7 +24,7 @@
                                 </div>
                                 <div class="notification-list_detail my-4 my-md-3">
                                     <p>{{ $notification->description }}</p>
-                                    <p class="text-muted"><small>{{ $notification->timestamp }} mins ago</small></p>
+                                    <p class="text-muted"><small>{{ $notification->timestamp == 1 ? $notification->timestamp . 'min ago' : $notification->timestamp . 'mins ago' }}</small></p>
                                 </div>
                             </div>
                             

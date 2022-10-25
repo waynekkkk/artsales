@@ -110,7 +110,7 @@
                             </li>
                         @endguest --}}
 
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown my-auto">
                             @if (Auth::check())
                                 <div id="click-out"></div>
                                 <a class="my-1 my-sm-0 mx-2 nav-link dropdown-toggle btn text-light my-auto" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -141,7 +141,7 @@
 
                                 </ul>
                             @else
-                                <a class="my-1 my-sm-0 nav-link dropdown-toggle btn btn-light text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="my-1 my-sm-0 nav-link dropdown-toggle btn text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fa-solid fa-user"></i> Guest
                                 </a>
 

@@ -92,23 +92,24 @@
 </style>
 <body>
     <!--spotlight-->
-    <div class="container d-flex justify-content-around pt-5">
-        <!-- <div class="row">  -->
-            <span class="d-flex align-items-center" style="display: inline-block;">
-                <div class="">
-                    <h1 class="mb-4">Artist of the Month</h1>
-                    <h3 class="mb-2">{{ $highest_voted_artwork->title }}</h3>
-                    <h3 class="mb-3">{{ $highest_voted_artwork->description }}</h3>
-                    <h5 class="mb-2">by {{ $artist_of_the_month->name }}</h5>
-                    <div class="col mt-3">
-                        <button type="button" class="btn btn-dark btn-block rounded-pill me-1" onclick="window.location.href='{{ route('user.account', $artist_of_the_month->id) }}';">Explore</button>
-                    </div>
+    <div class="container justify-content-around pt-5">
+       
+        <div class="row align-items-center">
+            <div class="col-0 col-md-2"></div>
+            <div class="col-12 col-md-5 mx-auto">
+                <h1 class="mb-4">Artist of the Month</h1>
+                <h3 class="mb-2">{{ $highest_voted_artwork->title }}</h3>
+                <h3 class="mb-3">{{ $highest_voted_artwork->description }}</h3>
+                <h5 class="mb-2">by {{ $artist_of_the_month->name }}</h5>
+                <div class="col my-3">
+                    <button type="button" class="btn btn-dark btn-block rounded-pill me-1" onclick="window.location.href='{{ route('user.account', $artist_of_the_month->id) }}';">Explore</button>
                 </div>
-            </span>
-            <!-- <span> -->
+            </div>
+            <div class="col-12 col-md-5 mx-auto">
                 <img src="{{ $highest_voted_artwork_asset }}" class="rounded img-fluid" style="width: 400px;">
-            <!-- </span> -->
-        <!-- </div> -->
+            </div>
+            <div class="col-0 col-md-2"></div>
+        </div>
     </div>
     
 
@@ -139,7 +140,15 @@
                                 <h3 class="card-title">{{ $artwork->title}}</h3>
                                 <p class="card-text">{{ $artwork->description}}</p>
                                 <div class="d-flex justify-content-end">
-                                    <div class="heart" onclick="postLike()"></div>
+                                    <div class="heart" 
+                                        @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
+                                            onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
+                                        @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
+                                            onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
+                                        @else
+                                            onclick="alert('Please log in to start casting your votes!')"
+                                        @endif>
+                                    </div>
                                 </div>
                             </div>
                         </div> 
@@ -173,7 +182,15 @@
                                 <h3 class="card-title">{{ $artwork->title}}</h3>
                                 <p class="card-text">{{ $artwork->description}}</p>
                                 <div class="d-flex justify-content-end">
-                                    <div class="heart"></div>
+                                    <div class="heart" 
+                                        @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
+                                            onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
+                                        @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
+                                            onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
+                                        @else
+                                            onclick="alert('Please log in to start casting your votes!')"
+                                        @endif>
+                                    </div>
                                 </div>
                             </div>
                         </div> 
@@ -193,6 +210,30 @@
 
 
 <script>
+
+function postLike(event, artwork_id, user_id) {
+
+    confirm("Are you sure you want to vote for this artwork?");
+
+    axios.post("http://localhost:8000/api/artwork/like", {
+                    user_id:        user_id,
+                    artwork_id:     artwork_id
+                })
+        .then(response => {
+            var new_votes = response.data.result;
+            var msg = response.data.message;
+
+            event.target.classList.remove('heart');
+            event.target.classList.add('text-success');
+            event.target.innerText = msg;
+
+            console.log(response.data.message);
+        })
+        .catch(error => {
+            console.log(response.data.message);
+        })
+
+}
 
 var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};      
     // Initialize and add the map
