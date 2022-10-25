@@ -38,4 +38,8 @@ class Artwork extends Model
         return $this->hasMany('App\Models\GalleryArtwork', 'artwork_id');
     }
 
+    public function notification(){
+        return $this->hasMany('App\Models\Notification');
+    }
+
 }
