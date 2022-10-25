@@ -28,6 +28,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <link rel="shortcut icon" href="{{ asset('images/logo.ico') }}" type="image/x-icon">
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <div id="app">
