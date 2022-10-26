@@ -40,6 +40,14 @@
     to { background-position:right;}
     }
     
+    .spotlight{
+        transition: all .2s ease-in-out;
+    }
+
+    .spotlight:hover{
+        transform: scale(1.13);
+    }
+
     .card_wrapper{
         border-radius: 15px;
         height: 550px;
@@ -179,7 +187,7 @@
                 </div>
             </div>
             <div class="d-flex col-12 col-md-5 justify-content-center">
-                <img src="{{$highest_voted_artwork->asset->asset_url}}" class="rounded img-fluid display from-right" style="width: 400px;">
+                <img src="{{$highest_voted_artwork->asset->asset_url}}" class="rounded img-fluid display from-right spotlight" style="width: 400px; filter: drop-shadow(1rem 1rem 0.25rem rgba(0, 0, 0, 0.4));">
             </div>
         </div>
     </div>  
@@ -209,30 +217,26 @@
                         <div class="card card_wrapper">
 
                             <a href="{{ route('user.account', $artwork->artist_id) }}">
+                            
                                 <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
-                            </a>
-                            <div class="card-body">
+                                <div class="card-body">
 
-                                <h3 class="card-title">{{ $artwork->title}}</h3>
-                                <p class="card-text">{{ $artwork->description}}</p>
-                                <!-- <div class="d-flex justify-content-end">
-                                <div class="d-flex justify-content-end">
-                                        <div class="heart"></div>
-                                        <div style="position: absolute;bottom: 22px; right: 15px;">Like <span style="color: grey;">{{$artwork->votes}}</span></div>
-                                </div>
-                                </div> -->
-                                <div class="d-flex justify-content-end">
-                                    <div class="heart" 
-                                        @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
-                                            onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
-                                        @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
-                                            onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
-                                        @else
-                                            onclick="alert('Please log in to start casting your votes!')"
-                                        @endif>
+                                    <h3 class="card-title">{{ $artwork->title}}</h3>
+                                    <p class="card-text">{{ $artwork->description}}</p>
+                                    <div class="d-flex justify-content-end">
+                                        <div class="heart" 
+                                            @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
+                                                onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
+                                            @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
+                                                onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
+                                            @else
+                                                onclick="alert('Please log in to start casting your votes!')"
+                                            @endif>
+                                        </div>
                                     </div>
                                 </div>
-                            </div> 
+
+                            </a>
 
                         </div> 
                     @endforeach                
@@ -266,6 +270,10 @@
                     @foreach($all_artworks_by_recommendations as $artwork)
                         <div class="card card_wrapper">
 
+                        <a href="{{ route('user.account', $artwork->artist_id) }}">
+                                <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
+                            </a>
+                            <div class="card-body">
                                 <h3 class="card-title">{{ $artwork -> title}}</h3>
                                 <p class="card-text">{{ $artwork -> description}}</p>
                                 <!-- <div class="d-flex justify-content-end">
@@ -282,27 +290,29 @@
                                             onclick="alert('Please log in to start casting your votes!')"
                                         @endif>
 
+
                                     </div>
                                 </div>
-
-                            </a>
+                            </div>
+                        </div>
                             
-                        </div> 
                     @endforeach  
 
                 </div>
             </div>
-        </div>
+    </div>
 
         
 
-            <!--google maps-->
+        <!--google maps-->
+        <div class="container">
             <div class="my-5 reveal">
                 <h1 class="mb-2">Maps</h1>
                 <div id="map" class="" style="height: 600px;"></div>
             </div>
+        </div>
 
-            <!--google maps script-->
+        <!--google maps script-->
 
 
 <script>

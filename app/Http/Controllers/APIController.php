@@ -85,6 +85,55 @@ class APIController extends Controller
         ], 200);
     }
 
+    public function postPreview(Request $request)
+    {
+        try {
+            $custom_error = [
+                'user_id.required'          => 'Invalid User ID! Who are you, impostor?',
+                'title.required'            => 'A title is needed for your artwork.',
+                'description.required'      => 'A description is needed for your artwork.',
+                'user_id.required'          => 'Please upload an image of your artwork.',
+            ];
+
+            $validator = $request->validate([
+                'user_id'           => ['required'],
+                'title'             => ['required'],
+                'description'       => ['required'],
+                'artwork'           => ['required','mimes:jpg,jpeg,png'],
+            ],$custom_error);
+        } catch (ValidationException $ve) {
+            return response()->json([
+                'message' => $ve->errors()
+            ], 400);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 400);
+        }
+
+        $artwork_picture = $request->file('artwork');
+
+        try {
+            $blob_controller = new BlobController();
+            $artwork_picture_upload = $blob_controller->uploadImage($request, 'artwork');
+            $artwork_picture_url = json_decode($artwork_picture_upload->getContent())->url;
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => "There was an error uploading your artwork! Please try again!",
+            ], 400);
+        }
+
+        $preview_details = new stdClass();
+        $preview_details->title = trim($request->input('title'));
+        $preview_details->description = trim($request->input('description'));
+        $preview_details->artwork_url = $artwork_picture_url;
+
+        return response()->json([
+            'message' => "Successfully retrieved preview details!",
+            'result' => $preview_details,
+        ], 200);
+    }
+
     public function postRead(Request $request)
     {
         try {

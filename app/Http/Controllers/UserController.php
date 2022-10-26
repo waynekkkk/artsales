@@ -418,6 +418,16 @@ class UserController extends Controller
      */
     public function destroyArtwork($user_id, $artwork_id)
     {
+        $artwork = Artwork::where('id', $artwork_id)->first();
+
+        $noti_w_artwork = $artwork->notification;
+
+        if ($noti_w_artwork) {
+            foreach ($noti_w_artwork as $noti) {
+                $noti_delete = $noti->delete();
+            }
+        }
+
         $artwork_delete = Artwork::where('id', $artwork_id)->delete();
 
         if (!$artwork_delete) {
@@ -579,10 +589,23 @@ class UserController extends Controller
     {
         $museums = Museum::all();
 
+        $museums_w_id = new stdClass();
+        foreach ($museums as $museum) {
+            $id = $museum->id;
+
+            $museum_details = new stdClass();
+            $museum_details->name = $museum->name;
+            $museum_details->lat = $museum->lat;
+            $museum_details->long = $museum->long;
+
+            $museums_w_id->$id = $museum_details;
+        }
+
         return view('wad2.user.user_event_add',
             [
                 'user_id'                   => $user_id,
-                'museums'                   => $museums
+                'museums'                   => $museums,
+                'museums_w_id'              => $museums_w_id,
             ]
         );
     }
