@@ -38,10 +38,12 @@ class NotificationController extends Controller
             $datetime_created = Carbon::parse($notification->created_at);
             $diff_min = $datetime_created->diffInMinutes($current_time);
 
-            $notification_details->timestamp = $diff_min;
+            $notification_details->timestamp = $diff_min-(60*8);
 
             $all_notifications[] = $notification_details;
         }
+
+        $all_notifications = array_reverse($all_notifications, true);
 
         return view('wad2.user.notification',
         [

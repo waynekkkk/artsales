@@ -11206,13 +11206,21 @@ textarea.form-control-lg {
   color: #4e1112 !important;
 }
 
+.dropdown-item:active {
+  background-color: #fff;
+}
+
 .navbar {
-  background-image: linear-gradient(to right, #1d242e 0%, #324153 46%, #50708d 100%);
+  background-image: linear-gradient(to right, #1d242e 0%, #40546c 46%, #5582ac 75%, #50708d 100%);
 }
 
 .navbar-brand {
   font-weight: 700;
   font-size: 25px;
+}
+
+.navbar-nav .nav-link {
+  font-size: 16px;
 }
 
 #nav-sot {
@@ -11230,12 +11238,11 @@ footer {
 }
 
 .underlineHover:hover {
-  text-decoration: underline;
+  color: #4e1112;
 }
 
 body {
   font-family: "Inter", sans-serif;
-  background-color: #f8fafc;
 }
 
 #map {
@@ -11264,7 +11271,6 @@ https://www.codeply.com/go/WJdJv71mhX/bootstrap-4-tab-pills-with-custom-color
 
 /* Profile Pictures */
 #profile-image {
-  border: 4px black solid;
   border-radius: 12%;
   margin: auto;
   width: 100px;
@@ -11272,6 +11278,40 @@ https://www.codeply.com/go/WJdJv71mhX/bootstrap-4-tab-pills-with-custom-color
   margin-top: 11.5rem;
 }
 
+.profile-image-animation {
+  margin: auto;
+  width: 102px;
+  height: 104px;
+  margin-top: -102px;
+  position: relative;
+  z-index: -1;
+}
+
+.profile-image-animation:before, .profile-image-animation:after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  background: linear-gradient(60deg, #324153, #50708d, #9ba6b0, #f3f4f5, #d3e2ef, #a4afbb, #9ba6b0, #50708d, #324153);
+  background-size: 400%;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  z-index: -1;
+  animation: steam 20s linear infinite;
+  border-radius: 12%;
+}
+
+@keyframes steam {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
 /* LOGO */
 .logo-img {
   width: 3em;
@@ -11312,8 +11352,12 @@ https://www.codeply.com/go/WJdJv71mhX/bootstrap-4-tab-pills-with-custom-color
 }
 
 /* ARTWORK POPUP */
-.vh-50 {
-  height: 50vh;
+.min-vh-50 {
+  min-height: 50vh;
+}
+
+.min-vh-65 {
+  min-height: 65vh;
 }
 
 /* BANNER */
@@ -11352,6 +11396,14 @@ https://www.codeply.com/go/WJdJv71mhX/bootstrap-4-tab-pills-with-custom-color
   color: white;
   background-color: #28231d;
   transition-duration: 0.4s;
+}
+
+.artwork-card {
+  transition: all 0.2s ease-in-out;
+}
+
+.artwork-card:hover {
+  transform: scale(1.05);
 }
 
 /* SEPRATOR BETWEEN SEARCH AND EXPLORE BUTTONS. PLEASE CHANGE OR EXPLORE */
@@ -11644,4 +11696,49 @@ input:checked + .slider:before {
 
 input:checked + .slider-1-1 {
   background-color: #29B6F6;
+}
+
+.card a {
+  color: #000;
+  text-decoration: none;
+}
+
+.artist-events {
+  border-right: 2px grey solid;
+}
+
+.event-btn {
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+svg {
+  margin: auto;
+  text-align: center;
+}
+
+.monkey {
+  stroke: #324153;
+  max-width: 150px;
+  stroke-width: 3px;
+  stroke-dashoffset: -2000;
+  stroke-dasharray: 2000;
+  animation-name: monkey;
+  animation-duration: 5s;
+  animation-iteration-count: 1;
+  animation-direction: reverse;
+  animation-timing-function: ease-ease;
+  animation-fill-mode: forwards;
+}
+@keyframes monkey {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke: red;
+  }
+  100% {
+    stroke-dashoffset: 2000;
+    stroke: purple;
+  }
 }

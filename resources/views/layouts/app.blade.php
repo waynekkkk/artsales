@@ -66,9 +66,9 @@
                     <!-- Right Side Of Navbar -->
 
                     <ul class="navbar-nav ms-auto">
-                        <span class="underlineHover"><a class="nav-link my-2 mx-2 fs-6 text-light" href="{{ route('home') }}"> Home</a></span>
-                        <span class="underlineHover"><a class="nav-link my-2 mx-2 fs-6 text-light" href="#"> Explore</a></span>
-                        <span class="underlineHover"><a class="nav-link my-2 mx-2 fs-6 text-light" href="{{ route('about_us') }}"> About Us</a></span>
+                        <a class="nav-link my-2 mx-2 text-light" href="{{ route('home') }}"> <span class="underlineHover">Home</span></a>
+                        <a class="nav-link my-2 mx-2 text-light" href="{{ route('explore') }}"><span class="underlineHover"> Explore</span></a>
+                        <a class="nav-link my-2 mx-2 text-light" href="{{ route('about_us') }}"><span class="underlineHover"> About Us</span></a>
 
                         {{-- <a class="nav-link mt-2 btn btn-light mx-2 fs-6 text-dark" href="#"><i class="fa-solid fa-palette"></i> Explore</a>
                         <a class="nav-link mt-2 btn btn-light mx-2 fs-6 text-dark" href="#"> About Us</a>
@@ -110,7 +110,7 @@
                             </li>
                         @endguest --}}
 
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown my-auto">
                             @if (Auth::check())
                                 <div id="click-out"></div>
                                 <a class="my-1 my-sm-0 mx-2 nav-link dropdown-toggle btn text-light my-auto" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -141,7 +141,7 @@
 
                                 </ul>
                             @else
-                                <a class="my-1 my-sm-0 nav-link dropdown-toggle btn btn-light text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="my-1 my-sm-0 nav-link dropdown-toggle btn text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fa-solid fa-user"></i> Guest
                                 </a>
 

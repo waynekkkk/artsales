@@ -66,8 +66,14 @@ Route::post('/user/{user_id}/artwork/{artwork_id}/delete', [UserController::clas
 Route::get('/user/{id}/addEvent', [UserController::class, 'addEvent'])->middleware('auth')->name('user.add_event');
 Route::post('/user/{id}/updateEventAdd', [UserController::class, 'updateEventAdd'])->middleware('auth')->name('user.update_event_add');
 
+Route::get('/user/{id}/destroyEvent', [UserController::class, 'destroyEvent'])->middleware('auth')->name('user.destroy_event');
+Route::post('/user/{id}/updateDestroyEvent', [UserController::class, 'destroyEventUpdate'])->middleware('auth')->name('user.update_destroy_event');
+
 // notifications
 Route::get('/user/{user_id}/notifications', [NotificationController::class, 'index'])->middleware('auth')->name('user.notifications');
+
+// explore
+Route::get('/explore', [HomeController::class, 'indexExplore'])->name('explore');
 
 // gallery
 Route::get('/gallery/new', [GalleryController::class, 'add'])->middleware('auth')->name('add_new_gallery');
@@ -80,13 +86,3 @@ Route::get('/about-us', function(){
 
 // about (user)
 Route::get('/user/{user_id}/account', [UserController::class, 'show'])->name('user.account'); 
-
-// artworks (user)
-Route::get('/user/artworks', function(){
-    return view('wad2.user.artworks');
-})->name('user.artworks'); 
-
-// events (user)
-Route::get('/user/events', function(){
-    return view('wad2.user.events');
-})->name('user.events'); 

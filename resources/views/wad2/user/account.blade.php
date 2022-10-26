@@ -16,6 +16,7 @@
                 <!-- Dynamic displaying of dp. Similar to profileBackground --> 
                 <!-- Nav bar too.  -->
                 <img id="profile-image" src="{{ $user->profile_picture ? $user->profile_picture->asset_url : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_21ZgcYYoO9HR-eNc_kIDEsO2hXUh1FKbhg&usqp=CAU' }}" alt="Profile Image">
+                <div class="profile-image-animation"></div>
             </div>
 
             @error('artwork_error')
@@ -60,13 +61,13 @@
     
             <div class="page-feature">
                 <ul class="nav nav-pills  nav-black nav-fill">
-                    <li class="nav-item mx-2"> 
+                    <li class="nav-item mx-2 mb-2 mb-md-4"> 
                         <a id="default-content" class="nav-link main-tabgroup" onclick="displayContent(event, 'artworks')">Artworks</a>
                     </li>
-                    <li class="nav-item mx-2">
+                    <li class="nav-item mx-2 mb-2 mb-md-4">
                         <a class="nav-link main-tabgroup" onclick="displayContent(event, 'events')">Events</a>
                     </li>
-                    <li class="nav-item mx-2">
+                    <li class="nav-item mx-2 mb-2 mb-md-4">
                         <a class="nav-link main-tabgroup" onclick="displayContent(event, 'about')">About</a>
                     </li>
                 </ul>
@@ -93,7 +94,7 @@
                                 artworkId += countId;
                                 document.getElementById('artist-artwork').id = artworkId;
                             </script>
-                            <div class="card h-100">
+                            <div class="card h-100 artwork-card">
                                 <img src="{{ $artwork->asset->asset_url }}" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $artwork->title }}</h5>
@@ -165,7 +166,7 @@
                             </div>
                         </div>
                         <script>
-                            artworkId++;
+                            countId++;
                         </script>
                     @endforeach
         
@@ -176,11 +177,20 @@
             <div id="events" class="tabcontent">
 
                 <div class="row justify-content-center">
-                    <div class="col-lg-6 offset-lg-6 text-end">
-                        @if (Auth::check() && (Auth::user()->id == $user->id))
-                            <button type="button" class="btn btn-outline-dark btn-block rounded-pill mt-5" onclick="window.location.href='{{ route('user.add_event', Auth::user()->id) }}';">Join an event here!!</button>    
-                        @endif
-                    </div>
+
+                    @if (Auth::check() && (Auth::user()->id == $user->id))
+
+                        <div class="col-lg-6 offset-lg-6 text-end">
+                            <div class="artist-events event-btn" style="display: inline-block">
+                                <button type="button" class="btn btn-outline-dark btn-block rounded-pill" onclick="window.location.href='{{ route('user.add_event', Auth::user()->id) }}';">Join an event here!!</button>
+                            </div>
+                            <div class="event-btn" style="display: inline-block; padding">
+                                <button type="button" class="btn btn-outline-dark btn-block rounded-pill" onclick="window.location.href='{{ route('user.destroy_event', Auth::user()->id) }}';">Leave an event...</button>
+                            </div>
+                        </div>
+
+                    @endif
+                    
                 </div>
 
                 <!--google maps-->
