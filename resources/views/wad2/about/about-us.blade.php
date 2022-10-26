@@ -47,15 +47,15 @@
                         <div class="col-lg-6">
                         <div class="card-body p-md-5 mx-md-4">
 
-                            <div class="sota-animate">
+                            {{-- <div class="sota-animate">
                                 <h1 class="text-center">
                                     State of The Art
-                                </h1>
+                                </h1> --}}
                                 {{-- <h1 class="text-center">
                                     State of The Art
                                 </h1> --}}
 
-                            </div>
+                            {{-- </div> --}}
                             
             
                             <div class="text-center">
