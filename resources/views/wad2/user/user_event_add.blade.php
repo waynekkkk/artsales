@@ -101,6 +101,7 @@
             </section>
 
             <script>
+                var museum_collection = {{ Illuminate\Support\Js::from($museums_w_id) }};   
                 // zoom into chosen museum upon selection
             //     function initMap() {
             //         var events_collection = {{ Illuminate\Support\Js::from($events_details) }};

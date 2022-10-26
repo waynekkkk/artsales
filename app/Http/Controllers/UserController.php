@@ -589,10 +589,23 @@ class UserController extends Controller
     {
         $museums = Museum::all();
 
+        $museums_w_id = new stdClass();
+        foreach ($museums as $museum) {
+            $id = $museum->id;
+
+            $museum_details = new stdClass();
+            $museum_details->name = $museum->name;
+            $museum_details->lat = $museum->lat;
+            $museum_details->long = $museum->long;
+
+            $museums_w_id->$id = $museum_details;
+        }
+
         return view('wad2.user.user_event_add',
             [
                 'user_id'                   => $user_id,
-                'museums'                   => $museums
+                'museums'                   => $museums,
+                'museums_w_id'              => $museums_w_id,
             ]
         );
     }
