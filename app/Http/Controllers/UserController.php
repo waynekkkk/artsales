@@ -418,6 +418,16 @@ class UserController extends Controller
      */
     public function destroyArtwork($user_id, $artwork_id)
     {
+        $artwork = Artwork::where('id', $artwork_id)->first();
+
+        $noti_w_artwork = $artwork->notification;
+
+        if ($noti_w_artwork) {
+            foreach ($noti_w_artwork as $noti) {
+                $noti_delete = $noti->delete();
+            }
+        }
+
         $artwork_delete = Artwork::where('id', $artwork_id)->delete();
 
         if (!$artwork_delete) {
