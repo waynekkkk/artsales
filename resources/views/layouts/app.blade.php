@@ -264,23 +264,23 @@
           <div class="col-sm-3 col-md-2 mx-auto mb-md-0">
             <!-- Links -->
             <h6 class="text-uppercase fw-bold my-2">Company</h6>
-            <a class="text-light" href="{{ route('home') }}"> <span class="underlineHover"> Home</span></a>
+            <a class="text-light text-decoration-none" href="{{ route('home') }}"> <span class="underlineHover"> Home</span></a>
             <br>
-            <a class="text-light" href="{{ route('about_us') }}"> <span class="underlineHover"> About Us</span></a>
+            <a class="text-light text-decoration-none" href="{{ route('about_us') }}"> <span class="underlineHover"> About Us</span></a>
             <br>
-            <a class="text-light" href="#"> <span class="underlineHover"> Explore</span></a>
+            <a class="text-light text-decoration-none" href="{{ route('explore') }}"> <span class="underlineHover"> Explore</span></a>
           </div>
 
           <div class="col-sm-3 col-md-2 mx-auto mb-md-0">
             <!-- Contact -->
             <h6 class="text-uppercase fw-bold my-2">Contact</h6>
-            <a class="text-light" href="#"> <span class="underlineHover"> Facebook</span></a>
+            <a class="text-light text-decoration-none" href="#"> <span class="underlineHover"> Facebook</span></a>
             <br>
-            <a class="text-light" href="#"> <span class="underlineHover"> Instagram</span></a>
+            <a class="text-light text-decoration-none" href="#"> <span class="underlineHover"> Instagram</span></a>
             <br>
-            <a class="text-light" href="#"> <span class="underlineHover"> Twitter</span></a>
+            <a class="text-light text-decoration-none" href="#"> <span class="underlineHover"> Twitter</span></a>
             <br>
-            <a class="text-light" href="#"> <span class="underlineHover"> Email</span></a>
+            <a class="text-light text-decoration-none" href="#"> <span class="underlineHover"> Email</span></a>
           </div>
 
           <div class="col-sm-3 col-md-0 mx-auto mb-md-0"></div>
