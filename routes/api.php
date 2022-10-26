@@ -22,3 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/artwork/like', [APIController::class, 'postLike']);
 
 Route::post('/notification/read', [APIController::class, 'postRead']);
+
+Route::post('/user/uploadArtwork/preview', [APIController::class, 'postPreview']);
