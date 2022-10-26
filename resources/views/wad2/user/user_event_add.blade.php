@@ -106,7 +106,7 @@
                 function initMap() {
                     // Creating map with a view of Singapore
                     var map = new google.maps.Map(
-                    document.getElementById('map'), {zoom: 11.5, center: {lat: 1.3521, lng: 103.8198}});
+                    document.getElementById('map'), {zoom: 12, center: {lat: 1.3521, lng: 103.8198}});
 
                     var marker = new google.maps.Marker({
                         postion: {lat: 1.3521, lng: 103.8198},
@@ -120,22 +120,23 @@
 
                     document.getElementById('selectedMuseum').addEventListener('change', () => {
                         var selectedMuseumId = document.getElementById('selectedMuseum').value;
+                        marker.setMap(null);
                         Object.keys(museum_collection).forEach(id => {
-
                             if (selectedMuseumId == id){
                                 const newLatLng = {lat: museum_collection[id].lat, lng: museum_collection[id].long};
                                 console.log(newLatLng);
                                 var marker = new google.maps.Marker({
                                     postion: newLatLng,
                                     map: map,
-                                    title: 'Are you sure you want to choose this location?',
                                     icon:{
                                         url:"https://cdn-icons-png.flaticon.com/512/4874/4874738.png",
                                         scaledSize: new google.maps.Size(40,40)
                                     }
                                 })
 
-                                console.log('Map focus changed!')
+                                console.log('Map focus changed!');
+                                console.log('Marker changed!');
+                                marker.setPosition(newLatLng);
                                 window.setTimeout(() => {
                                     map.setZoom(16);
                                     map.panTo(newLatLng);
