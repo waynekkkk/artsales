@@ -49,13 +49,21 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        $custom_error = [
+            'email_signup.required'             => 'An email is required to have you onboard with us!',
+            'email_signup.unique'               => 'It seems like this email has already been taken!',
+            'passwordSignup.unique'            => 'A password is needed for your account!',
+            'passwordSignup.confirmed'         => 'Oh dear, the passwords did not match! Let\'s try again shall we?',
+            'passwordSignup_confirmation.required'    => 'Please input the password confirmation field so we know this is the right password!',
+        ];
+        
         return Validator::make($data, [
-            'name'                        => ['required', 'string', 'max:255'],
-            // 'description'                 => ['required'],
-            'email'                       => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password'                    => ['required', 'string', 'confirmed'],
-            'password_confirmation'       => ['required'],
-        ]);
+            'name'                              => ['required', 'string', 'max:255'],
+            // 'description'                    => ['required'],
+            'email_signup'                      => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'passwordSignup'                   => ['required', 'string', 'confirmed'],
+            'passwordSignup_confirmation'      => ['required'],
+        ], $custom_error);
     }
 
     /**
@@ -68,9 +76,9 @@ class RegisterController extends Controller
     {
         return User::create([
             'name'              => trim($data['name']),
-            // 'description'       => trim($data['description']),
-            'email'             => trim($data['email']),
-            'password'          => Hash::make($data['password']),
+            'description'       => "Oh no, your description is currently empty! Let's edit it together in \"Edit Details\"!",
+            'email'             => trim($data['email_signup']),
+            'password'          => Hash::make($data['passwordSignup']),
         ]);
     }
 }

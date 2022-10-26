@@ -197,21 +197,21 @@
 
     {{-- LOG IN  --}}
     <section class="login-section">
-      <div id="login-container" class="container">
+      <div id="login-container" class="container @error('name') active @enderror @error('email_signup') active @enderror @error('passwordSignup') active @enderror" @error('password_confirmation') active @enderror>
         <div class="user signinBx">
           <div class="imgBx text-center d-flex"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
             <path id="path-monkey" class="monkey" fill="#fff" stroke="blue" d="M331 439.6H167.5L111 329.4v-50.2L61 227V112h56l133-51.6L380.5 112H439v115l-52.6 55.8v46.6L331 439.6zM179.3 425H319v-38H179.4v38zm-53.5-99l39 75.8V278L138 225.7V168l58.3-57.6 53 26.4 52.5-26.4L361 168v57.8L333.8 278v123.3l38-75.4V124L250 76.2l-124.2 48V326zm53.5 46.3H319v-90.7L249 258l-69.5 23.5v90.8zm69.5-129.8l74 24.8 23.6-45v-48l-47.3-46-49.5 25-50-25L153 174v48.4l23 45 73-24.7zm137.6-115.8v134.7l38-40.3v-94h-38zM75.6 221l35.5 37V126.7H76V221zm142.8 111.8l-25.8-26.6L203 296l26 26.5-10.6 10.3zm62.7 0l-10.4-10.2 25-26.6 10.7 10-25 26.7zm-50-101.5h-66v-67.6h66v67.6zm-51.4-14.7h37v-38.2h-37v38.2zM333.8 231h-66.4v-67.5h66.4V231zM282 216.5h37v-38.2h-37v38.2z"/>
         </svg></div>
           <div class="formBx">
-            <form method="POST">
-            {{-- <form method="POST" action="{{ route('login') }}" onsubmit="return false"> --}}
+            {{-- <form method="POST"> --}}
+            <form method="POST" action="{{ route('login') }}" id="login-form">
                 {{-- action="{{ route('login') }}"  --}}
               @csrf
 
               <h2>Sign In</h2>
               {{-- <input type="text" name="" placeholder="Username" /> --}}
 
-              <input type="email" id="form2Example11" class="form-control @error('email') is-invalid @enderror"
+              <input type="email" id="login-email" class="form-control @error('email') is-invalid @enderror"
               placeholder="Email Address" name="email" value="{{ old('email') }}"/>
               
                 @error('email')
@@ -222,7 +222,7 @@
 
 
               {{-- <input type="password" name="" placeholder="Password" /> --}}
-              <input type="password" id="form2Example22" class="form-control @error('password') is-invalid @enderror" placeholder="Password" name="password"/>
+              <input type="password" id="login-password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" name="password"/>
 
               @error('password')
                   <span class="invalid-feedback" role="alert">
@@ -230,14 +230,15 @@
                   </span>
               @enderror
 
-              <input type="submit" name="" formaction="{{ __('Login') }}" value="{{ __('Login') }}" />
-              {{-- <button onclick="{{ __('Login') }}" type="submit" class="btn btn-danger w-25">
+              {{-- <input type="submit" name="" formaction="{{ __('Login') }}" value="{{ __('Login') }}" /> --}}
+              <button type="submit" class="btn btn-danger w-50">
                 {{ __('Login') }}
-              </button> &nbsp; --}}
+              </button> &nbsp;
               
               <p class="signup">
                 Don't have an account ?
-                <button class="btn" onclick="toggleForm()">Sign Up!</button>
+                <a href="" id="signup-btn" onclick="toggleForm(event)">Sign Up!</a>
+                {{-- <button class="btn" onclick="toggleForm()">Sign Up!</button> --}}
               </p>
             </form>
           </div>
@@ -246,8 +247,8 @@
         {{-- SIGN UP --}}
         <div class="user signupBx">
           <div class="formBx">
-            <form id="signupForm" method="POST">
-            {{-- <form method="POST" action="{{ route('login') }}" onsubmit="return false"> --}}
+            {{-- <form id="signupForm" method="POST"> --}}
+            <form method="POST" action="{{ route('register') }}" id="signup-btn">
               @csrf
 
               <h2>Create an account</h2>
@@ -261,49 +262,53 @@
              @enderror
 
               {{-- <input type="email" name="" placeholder="Email Address" /> --}}
-              <input type="email" placeholder="Email Address" id="form2Example11" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"
+              <input type="email" placeholder="Email Address" id="signup-email" class="form-control @error('email_signup') is-invalid @enderror" name="email_signup" value="{{ old('email_signup') }}"
               placeholder="Email address" />
-              @error('email')
+              @error('email_signup')
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
                   </span>
               @enderror
 
               {{-- DESCRIPTION --}}
-              <textarea name="description" id="description" cols="30" rows="5" class="form-control @error('description') is-invalid @enderror" placeholder="A short write-up about yourself...">{{ old('description') }}</textarea>
+              {{-- <textarea name="description" id="description" cols="30" rows="5" class="form-control @error('description') is-invalid @enderror" placeholder="A short write-up about yourself...">{{ old('description') }}</textarea>
 
               @error('description')
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
                   </span>
-              @enderror
+              @enderror --}}
 
 
 
               {{-- <input type="password" name="" placeholder="Create Password" /> --}}
-              <input type="password" placeholder="Create Password" id="form2Example22" class="form-control @error('password') is-invalid @enderror" name="password" />
+              <input type="password" placeholder="Create Password" id="signup-password" class="form-control @error('passwordSignup') is-invalid @enderror" name="passwordSignup" />
 
-              @error('password')
+              @error('passwordSignup')
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
                   </span>
               @enderror
 
               {{-- <input type="password" name="" placeholder="Confirm Password" /> --}}
-              <input type="password" placeholder="Confirm Password" id="form2Example23" class="form-control @error('password_confirmation') is-invalid @enderror"  name="password_confirmation"/>
+              <input type="password" placeholder="Confirm Password" id="form2Example23" class="form-control @error('passwordSignup_confirmation') is-invalid @enderror"  name="passwordSignup_confirmation"/>
               
-              @error('password_confirmation')
+              @error('passwordSignup_confirmation')
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
                   </span>
               @enderror
 
-              <input type="submit" formaction="{{ __('Sign Up') }}" name="" value="{{ __('Sign Up') }}" />
+              {{-- <input type="submit" formaction="{{ __('Sign Up') }}" name="" value="{{ __('Sign Up') }}" /> --}}
               {{-- <input type="submit" name="" value="{{ __('Sign Up') }}" /> --}}
+              <button type="submit" class="btn btn-danger w-50">
+                {{ __('Sign Up') }}
+              </button> &nbsp;
               
               <p class="signup">
                 Already have an account ?
-                <button class="btn" onclick="toggleForm()">Sign In!</button>
+                <a href="" id="login-btn" onclick="toggleForm(event)">Sign In!</a>
+                {{-- <button class="btn" onclick="toggleForm()">Sign In!</button> --}}
               </p>
             </form>
           </div>
@@ -357,7 +362,26 @@
     </section>
 
     <script>
-        const toggleForm = () => {
+        function toggleForm(e) {
+
+            if (e.target.id == 'login-btn') {
+                var login_form = document.getElementById('login-form');
+                // login_form.addEventListener("submit", function() {
+                //     return false;
+                // })
+                console.log(login_form)
+                e.preventDefault()
+            }
+
+            if (e.target.id == 'signup-btn') {
+                var signup_form = document.getElementById('signup-form');
+                // signup_form.addEventListener("submit", function() {
+                //     return false;
+                // })
+                console.log(signup_form)
+                e.preventDefault()
+            }
+
             const container = document.getElementById('login-container');
             container.classList.toggle('active');
 
