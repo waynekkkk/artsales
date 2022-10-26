@@ -11712,6 +11712,12 @@ input:checked + .slider-1-1 {
   padding-left: 1rem;
 }
 
+#four-monkey {
+  background-color: #4e1112;
+  color: white;
+  padding: 4px;
+}
+
 svg {
   margin: auto;
   text-align: center;
