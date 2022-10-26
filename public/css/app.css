@@ -11211,12 +11211,16 @@ textarea.form-control-lg {
 }
 
 .navbar {
-  background-image: linear-gradient(to right, #1d242e 0%, #324153 46%, #50708d 100%);
+  background-image: linear-gradient(to right, #1d242e 0%, #40546c 46%, #5582ac 75%, #50708d 100%);
 }
 
 .navbar-brand {
   font-weight: 700;
   font-size: 25px;
+}
+
+.navbar-nav .nav-link {
+  font-size: 16px;
 }
 
 #nav-sot {
@@ -11234,7 +11238,7 @@ footer {
 }
 
 .underlineHover:hover {
-  border-bottom: #fff 2px solid;
+  color: #4e1112;
 }
 
 body {
