@@ -179,7 +179,7 @@
                 </div>
             </div>
             <div class="d-flex col-12 col-md-5 justify-content-center">
-                <img src="{{$highest_voted_artwork->asset->asset_url}}" class="rounded img-fluid display from-right" style="width: 400px;">
+                <img src="{{$highest_voted_artwork->asset->asset_url}}" class="rounded img-fluid display from-right" style="width: 400px; filter: drop-shadow(1rem 1rem 0.25rem rgba(0, 0, 0, 0.4));">
             </div>
         </div>
     </div>  
