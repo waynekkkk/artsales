@@ -103,63 +103,58 @@
             <script>
                 var museum_collection = {{ Illuminate\Support\Js::from($museums_w_id) }};   
                 // zoom into chosen museum upon selection
-            //     function initMap() {
-            //         var events_collection = {{ Illuminate\Support\Js::from($events_details) }};
-            //         const museumLocations = {};
-            //         for (events of events_collection){
-            //             museumLocations[events['museum_name']] = [events['lat'], events['long']];
-            //         }
+                function initMap() {
+                    // Creating map with a view of Singapore
+                    var map = new google.maps.Map(
+                    document.getElementById('map'), {zoom: 11.5, center: {lat: 1.3521, lng: 103.8198}});
 
-            //         document.getElementById('selectedMuseum').addEventListener('click', () => {
-            //             var selectedMuseum = document.getElementById('selectedMuseum').innerText;
-            //             Object.keys(museumLocations).forEach(musuemName => {
-
-            //                 if (selectedMuseum == musuemName){
-            //                     const newLatLng = {lat: museumLocations[musuemName][0], lng: museumLocations[musuemName][1]}
-            //                 }
-            //             })
-
-            //             let marker = new google.maps.Marker({
-            //             postion: newLatLng,
-            //             map: map,
-            //             icon:{
-            //                 url:"https://cdn-icons-png.flaticon.com/512/4874/4874738.png",
-            //                 scaledSize: new google.maps.Size(40,40)
-            //             }
-            //         })
-
-            //             map.setZoom(16);
-            //             window.setTimeout(() => {
-            //             map.panTo(marker.getPosition());
-            //             }, 3000);
-            //         });
-
-            //         console.log(museumLocations);
+                    var marker = new google.maps.Marker({
+                        postion: {lat: 1.3521, lng: 103.8198},
+                        map: map,
+                        icon:{
+                            url:"https://cdn-icons-png.flaticon.com/512/4874/4874738.png",
+                            scaledSize: new google.maps.Size(40,40)
+                        }
+                    })
 
 
-            //         // Creating map with a view of Singapore
-            //         var map = new google.maps.Map(
-            //         document.getElementById('map'), {zoom: 11,5, center: {lat: 1.3521, lng: 103.8198}});
+                    document.getElementById('selectedMuseum').addEventListener('change', () => {
+                        var selectedMuseumId = document.getElementById('selectedMuseum').value;
+                        Object.keys(museum_collection).forEach(id => {
 
-            //         let marker = new google.maps.Marker({
-            //             postion: {lat: 1.3521, lng: 103.8198},
-            //             map: map,
-            //             icon:{
-            //                 url:"https://cdn-icons-png.flaticon.com/512/4874/4874738.png",
-            //                 scaledSize: new google.maps.Size(40,40)
-            //             }
-            //         })
+                            if (selectedMuseumId == id){
+                                const newLatLng = {lat: museum_collection[id].lat, lng: museum_collection[id].long};
+                                console.log(newLatLng);
+                                var marker = new google.maps.Marker({
+                                    postion: newLatLng,
+                                    map: map,
+                                    title: 'Are you sure you want to choose this location?',
+                                    icon:{
+                                        url:"https://cdn-icons-png.flaticon.com/512/4874/4874738.png",
+                                        scaledSize: new google.maps.Size(40,40)
+                                    }
+                                })
 
-            //         // map.addListener("center_changed", () => {
-            //         //     // 3 seconds after the center of the map has changed, pan back to the
-            //         //     // marker.
-            //         //     map.setZoom(16);
-            //         //     window.setTimeout(() => {
-            //         //     map.panTo(new google.maps.LatLng(newLat, newLng));
-            //         //     }, 3000);
-            //         // });
-            //     }
-            // </script>
+                                console.log('Map focus changed!')
+                                window.setTimeout(() => {
+                                    map.setZoom(16);
+                                    map.panTo(newLatLng);
+                                }, 800);
+                                    }
+                                })
+
+                    });
+
+                    // map.addListener("center_changed", () => {
+                    //     // 3 seconds after the center of the map has changed, pan back to the
+                    //     // marker.
+                    //     map.setZoom(16);
+                    //     window.setTimeout(() => {
+                    //     map.panTo(new google.maps.LatLng(newLat, newLng));
+                    //     }, 3000);
+                    // });
+                }
+            </script>
             <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDO3zBsHYh0v5BB1T4mAosSJHNWIxcpk5k&callback=initMap"></script>
         </div>
         
