@@ -242,7 +242,7 @@
 
                 // Initialize and add the map
                 function initMap() {
-                    var events_collection = {{ Illuminate\Support\Js::from($events_details) }};
+                    // var events_collection = {{ Illuminate\Support\Js::from($events_details) }};
                     // for (events of events_collection){
                         // console.log(events['museum_name']);
                         // console.log(events['long']);
