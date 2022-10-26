@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 
-class Museum extends Model
+class Notification extends Model
 {
     use HasFactory;
-    protected $table = 'museums';
+    protected $table = 'notifications';
 
     /**
      * The attributes that are mass assignable.
@@ -19,13 +19,18 @@ class Museum extends Model
      */
     protected $fillable = [
         'id',
-        'name',
-        'lat',
-        'long',
+        'description',
+        'artwork_id',
+        'user_id',
+        'is_read',
     ];
 
-    public function museum_artist(){
-        return $this->hasMany('App\Models\MuseumArtist');
+    public function artwork(){
+        return $this->belongsTo('App\Models\Artwork');
+    }
+
+    public function artist(){
+        return $this->belongsTo('App\Models\User');
     }
 
 }

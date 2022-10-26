@@ -28,6 +28,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <link rel="shortcut icon" href="{{ asset('images/logo.ico') }}" type="image/x-icon">
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <div id="app">
@@ -35,7 +37,7 @@
             <div class="container">
                 
                 <a class="navbar-brand" href="{{ route('home') }}">
-                    <span id="nav-sot">STATE OF THE </span> <span id="nav-art"> ART </span> 
+                    <span id="nav-sot">STATE OF THE </span> <span id="nav-art"> ART </span>
                     {{-- <span class="ms-4 fw-bold fs-3 ">State of the Art</span> --}}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -64,9 +66,9 @@
                     <!-- Right Side Of Navbar -->
 
                     <ul class="navbar-nav ms-auto">
-                        <span class="underlineHover"><a class="nav-link mt-2 mx-2 fs-6 text-light" href="#"> Home</a></span>
-                        <span class="underlineHover"><a class="nav-link mt-2 mx-2 fs-6 text-light" href="#"> Explore</a></span>
-                        <span class="underlineHover"><a class="nav-link mt-2 mx-2 fs-6 text-light" href="#"> About Us</a></span>
+                        <a class="nav-link my-2 mx-2 text-light" href="{{ route('home') }}"> <span class="underlineHover">Home</span></a>
+                        <a class="nav-link my-2 mx-2 text-light" href="{{ route('explore') }}"><span class="underlineHover"> Explore</span></a>
+                        <a class="nav-link my-2 mx-2 text-light" href="{{ route('about_us') }}"><span class="underlineHover"> About Us</span></a>
 
                         {{-- <a class="nav-link mt-2 btn btn-light mx-2 fs-6 text-dark" href="#"><i class="fa-solid fa-palette"></i> Explore</a>
                         <a class="nav-link mt-2 btn btn-light mx-2 fs-6 text-dark" href="#"> About Us</a>
@@ -108,23 +110,23 @@
                             </li>
                         @endguest --}}
 
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown my-auto">
                             @if (Auth::check())
-                            <div id="click-out"></div>
-                                <a class="mt-2 mx-2 nav-link dropdown-toggle btn btn-light text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa-solid fa-user"></i> {{ Auth::user()->name }}
+                                <div id="click-out"></div>
+                                <a class="my-1 my-sm-0 mx-2 nav-link dropdown-toggle btn text-light my-auto" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img class="rounded-circle display-pic me-2" src="{{ Auth::user()->profile_picture ? Auth::user()->profile_picture->asset_url : '' }}" alt="" style="width: 30px">{{ Auth::user()->name }}
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="{{ route('user.account', Auth::user()->id) }}">Account</a></li>
+                                    <li><a class="dropdown-item py-2" href="{{ route('user.account', Auth::user()->id) }}">Account</a></li>
                                     {{-- to include activity here --}}
-                                    <li><a class="dropdown-item" href="">Activity</a></li> 
+                                    <li><a class="dropdown-item py-2" href="{{ route('user.notifications', Auth::user()->id) }}">Activity</a></li> 
 
                                     
 
-                                    <li><hr class="dropdown-divider"></li>
+                                    <li><hr class="dropdown-divider m-0"></li>
                                     <li>
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                        <a class="dropdown-item py-2" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                             document.getElementById('logout-form').submit();">
                                                 <i class="fa-solid fa-right-from-bracket"></i> 
@@ -139,15 +141,15 @@
 
                                 </ul>
                             @else
-                                <a class="mt-2 mx-2 nav-link dropdown-toggle btn btn-light text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="my-1 my-sm-0 nav-link dropdown-toggle btn text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fa-solid fa-user"></i> Guest
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="{{ route('login') }}">Log In</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('register') }}">Sign Up</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    <li><a class="dropdown-item py-2" href="{{ route('login') }}">Log In</a></li>
+                                    <li><a class="dropdown-item py-2" href="{{ route('register') }}">Sign Up</a></li>
+                                    <li><hr class="dropdown-divider m-0"></li>
+                                    <li><a class="dropdown-item py-2" href="#">Something else here</a></li>
                                 </ul>
                             @endif
                             
@@ -248,9 +250,9 @@
           <!-- Grid column -->
           <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
             <!-- Content -->
-            <h6 class="text-uppercase fw-bold">
+            <h5 class="text-uppercase fw-bold">
                 State Of The Art
-            </h6>
+            </h5>
             <p>
               State of the Art was founded by a group of four monkeys as part of their coding project. They were unified by one common purpose - to bring art to everyone, everywhere, beyond the frames.
             </p>
@@ -261,17 +263,17 @@
           <!-- Grid column -->
           <div class="col-sm-3 col-md-2 mx-auto mb-md-0">
             <!-- Links -->
-            <h6 class="text-uppercase fw-bold mb-2">Company</h6>
-            <a class="text-light" href="#"> <span class="underlineHover"> Home</span></a>
+            <h6 class="text-uppercase fw-bold my-2">Company</h6>
+            <a class="text-light" href="{{ route('home') }}"> <span class="underlineHover"> Home</span></a>
             <br>
-            <a class="text-light" href="#"> <span class="underlineHover"> About Us</span></a>
+            <a class="text-light" href="{{ route('about_us') }}"> <span class="underlineHover"> About Us</span></a>
             <br>
             <a class="text-light" href="#"> <span class="underlineHover"> Explore</span></a>
           </div>
 
-          <div class="col-sm-3 col-md-2 mx-auto mb-md-0 mb-2">
+          <div class="col-sm-3 col-md-2 mx-auto mb-md-0">
             <!-- Contact -->
-            <h6 class="text-uppercase fw-bold mb-2">Contact</h6>
+            <h6 class="text-uppercase fw-bold my-2">Contact</h6>
             <a class="text-light" href="#"> <span class="underlineHover"> Facebook</span></a>
             <br>
             <a class="text-light" href="#"> <span class="underlineHover"> Instagram</span></a>
