@@ -70,7 +70,7 @@
                         <div class="px-3 py-4 p-md-5 mx-md-4">
                             <h2>About Us</h2>
                             <h5 class="mb-4">We believe in art beyond the frames</h5>
-                            <p class="small mb-0 fs-6">State of the Art was founded by a <u>group of four monkeys</u> as part of their coding project. They were unified by one common purpose - to bring art to everyone, everywhere, beyond the frames.</p>
+                            <p class="small mb-0 fs-6">State of the Art was founded by a <span id="four-monkey"> group of four monkeys </span>as part of their coding project. They were unified by one common purpose - to bring art to everyone, everywhere, beyond the frames.</p>
                         </div>
                         </div>
                     </div>
