@@ -2,7 +2,6 @@
 
 @section('content')
 <body>
-<h1>hi</h1>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <style>
         .heart {
@@ -32,7 +31,7 @@
             width: 25rem;
             border-radius: 15px;
             /* margin-left: 20px; */
-            margin-bottom: 50px;
+            /* margin-bottom: 170px; */
         }
 
         .img_wrapper{
@@ -42,7 +41,7 @@
 
         .grids {
         display: grid;
-        margin-top: 30px;
+        /* margin:150px; */
         gap: 5%;
         justify-content: center;
         }
@@ -69,8 +68,8 @@
 <div class="text-center pt-5">
     <h1>Explore incredible art</h1>
 </div>
-<div class="container d-flex justify-content-end pt-3 position-static">
-    <button type="button" class="btn btn-light rounded-pill me-3 sticky-top" onclick="shuffle()">Random Artwork</button>
+<div class="container d-flex justify-content-center pt-3 position-static">
+    <button type="button" class="btn btn-dark rounded-pill me-3" onclick="shuffle()">Random Artwork</button>
     <!-- <button type="button" class="btn btn-dark rounded-pill" data-bs-toggle="modal" data-bs-target="#artistModal">Random Artist</button> -->
     
    <!-- Button trigger modal -->
@@ -119,7 +118,7 @@
 
     <div id="artworks_modal"></div>
     <!--card-->
-    <div class="container">
+    <div class="container" style='margin-bottom:175px; margin-top:30px;'>
         <div class="grids" id="artworks">
             <a tabindex="0" role="button" data-bs-toggle="popover" data-bs-trigger="focus"  data-bs-content="add image here">
                 <div class="card card_wrapper ">
@@ -146,15 +145,31 @@
             </div> 
         </div>
     </div>
-    
+    <!-- do not delete this commented part, it does not work without this -->
+    <!-- <div class="grids">
+        @foreach($all_artworks_by_votes as $artwork)
+        <div class="card card_wrapper">
+            <img style="cursor: pointer; object-fit:cover; width:100%; height:400px;" data-bs-toggle="modal" data-bs-target="{{$artwork->id}}Modal" class="card-img-top img_wrapper" src="{{$artwork->asset->asset_url}}" alt="Card image cap">
+            <div class="card-body">
+                <h3 class="card-title">{{$artwork->title}}</h3>
+                <div class="d-flex justify-content-end">
+                    <div class="heart"></div>
+                </div>
+            </div>
+        </div> 
+        @endforeach
+    </div> -->
     <script>
-        let works = [
-            {name:"jisoo", link:"https://wwd.com/wp-content/uploads/2022/09/jisoo-2.jpg?w=1024"},
-            {name:"rose", link:"https://fashionista.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTkyNjM1OTcxMjk0OTk2MTU0/rose-blackpink-at-saint-laurent-spring-2023-show-paris.jpg"},
-            {name:"jennie", link:"https://www.chanel.com/images/q_auto,f_auto,fl_lossy,dpr_auto/w_1344/FSH-CHN-1632472742663-coconeigevisuallogo1080x108001.jpg"},
-            {name:"lisa", link:"https://media.vogue.co.uk/photos/5f69b3d49590f66bc1d7084a/16:9/w_1600%2Cc_limit/GettyImages-1151690198%2520(1).jpg"},
+        // let works = [
+        //     {name:"jisoo", link:"https://wwd.com/wp-content/uploads/2022/09/jisoo-2.jpg?w=1024"},
+        //     {name:"rose", link:"https://fashionista.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTkyNjM1OTcxMjk0OTk2MTU0/rose-blackpink-at-saint-laurent-spring-2023-show-paris.jpg"},
+        //     {name:"jennie", link:"https://www.chanel.com/images/q_auto,f_auto,fl_lossy,dpr_auto/w_1344/FSH-CHN-1632472742663-coconeigevisuallogo1080x108001.jpg"},
+        //     {name:"lisa", link:"https://media.vogue.co.uk/photos/5f69b3d49590f66bc1d7084a/16:9/w_1600%2Cc_limit/GettyImages-1151690198%2520(1).jpg"},
 
-        ]
+        // ]
+        var works = {{ Illuminate\Support\Js::from($all_artworks_by_votes) }};
+        console.log(works)
+        console.log(works[0].title)
         
 
         function shuffleWork(array) {
@@ -164,30 +179,31 @@
             }
         }
         shuffleWork(works)
+        random_works = works.slice(0,3)
         function showAll(array){
             let artworks = ""
             let artwork_modal = ""
-            array.forEach(person => {
+            array.forEach(artwork => {
                 artworks += `
                 <div class="card card_wrapper">
-                <img style="cursor: pointer; object-fit:cover; width:100%; height:400px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="${person.link}" alt="Card image cap">
+                <img style="cursor: pointer; object-fit:cover; width:100%; height:400px;" data-bs-toggle="modal" data-bs-target="#${artwork.id}Modal" class="card-img-top img_wrapper" src="${artwork.asset.asset_url}" alt="Card image cap">
                 <div class="card-body">
-                    <h3 class="card-title">${person.name}</h3>
+                    <h3 class="card-title">${artwork.title}</h3>
                     <div class="d-flex justify-content-end">
                         <div class="heart"></div>
                     </div>
                 </div>
             </div> `
             artwork_modal += `
-            <div class="modal fade" id="${person.name}Modal">
+            <div class="modal fade" id="${artwork.id}Modal">
                 <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="${person.name}ModalLabel"></h5>
+                    <h5 class="modal-title" id="${artwork.id}ModalLabel"></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                    <img src="${person.link}" style="width: 100%;">
+                    <img src="${artwork.asset.asset_url}" style="width: 100%;">
                     </div>
                     <div class="modal-footer">
                     <button type="button" class="btn btn-light rounded-pill me-3" data-bs-dismiss="modal">Nope</button>
@@ -201,11 +217,12 @@
             });
             document.getElementById("artworks").innerHTML = artworks
         }
-        showAll(works)
+        showAll(random_works)
 
         function shuffle(){
             shuffleWork(works)
-            showAll(works)
+            random_works = works.slice(0,3)
+            showAll(random_works)
         }
     </script> 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
