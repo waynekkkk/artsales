@@ -11189,11 +11189,12 @@ textarea.form-control-lg {
 
 .login-section {
   position: relative;
-  min-height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
+  min-width: 450px;
 }
 
 .login-section .container {
@@ -11337,6 +11338,12 @@ textarea.form-control-lg {
   left: -100%;
 }
 
+.outer {
+  background-image: url("https://img.as-creation.com/app/items/s/366252.jpg");
+  background-size: cover;
+  max-height: 100vh;
+}
+
 @media (max-width: 991px) {
   .login-section .container {
     max-width: 400px;
@@ -11415,6 +11422,7 @@ textarea.form-control-lg {
 
 footer {
   background-image: linear-gradient(to left, #1d242e 0%, #324153 46%, #50708d 100%);
+  height: 25vh;
 }
 
 .underlineHover:hover {
@@ -11423,6 +11431,9 @@ footer {
 
 body {
   font-family: "Inter", sans-serif;
+  min-width: 400px;
+  overflow-x: auto;
+  position: relative;
 }
 
 #map {
