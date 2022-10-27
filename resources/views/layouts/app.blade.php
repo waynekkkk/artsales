@@ -259,7 +259,7 @@
               <div class="col-sm-3 col-md-4 mx-auto mb-md-0"></div>
       
               <!-- Grid column -->
-              <div class="col-sm-3 col-md-2 mx-auto mb-md-0">
+              <div class="col-6 col-sm-3 col-md-2 mx-auto mb-md-0">
                 <!-- Links -->
                 <h6 class="text-uppercase fw-bold my-2">Company</h6>
                 <a class="text-light text-decoration-none" href="{{ route('home') }}"> <span class="underlineHover"> Home</span></a>
@@ -269,7 +269,7 @@
                 <a class="text-light text-decoration-none" href="{{ route('explore') }}"> <span class="underlineHover"> Explore</span></a>
               </div>
     
-              <div class="col-sm-3 col-md-2 mx-auto mb-md-0">
+              <div class="col-6 col-sm-3 col-md-2 mx-auto mb-md-0">
                 <!-- Contact -->
                 <h6 class="text-uppercase fw-bold my-2">Contact</h6>
                 <a class="text-light text-decoration-none" href="#"> <span class="underlineHover"> Facebook</span></a>
@@ -299,7 +299,7 @@
     
       </footer>
       <!-- Footer -->
-      
+
 </body>
 
 
