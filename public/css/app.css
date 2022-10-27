@@ -11400,7 +11400,7 @@ textarea.form-control-lg {
 }
 
 .navbar-nav .nav-link {
-  font-size: 16px;
+  font-size: 17px;
 }
 
 #nav-sot {
@@ -11431,24 +11431,11 @@ body {
   /* The width is the width of the web page */
 }
 
-/* NAVBAR */
 #navigation {
   color: white;
 }
 
-/* Isn't working idk why
-https://www.codeply.com/go/WJdJv71mhX/bootstrap-4-tab-pills-with-custom-color
-*/
-.nav-black .nav-link {
-  color: black;
-  background-color: white;
-}
-
-.nav-black .nav-link.active {
-  color: white;
-  background-color: black;
-}
-
+/* NAVBAR END */
 /* Profile Pictures */
 #profile-image {
   border-radius: 12%;

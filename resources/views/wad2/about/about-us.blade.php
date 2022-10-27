@@ -38,7 +38,7 @@
             </div>    
         </div> --}}
 
-        <section class="h-100 gradient-form">
+        <section class="h-100 about-us">
             <div class="container py-5 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-xl-10">
@@ -73,7 +73,6 @@
                             <p class="small mb-0 fs-6">State of the Art was founded by a <span id="four-monkey"> group of four monkeys </span> as part of their coding project. They were unified by one common purpose - to bring art to everyone, everywhere, beyond the frames.</p>
                             <br>
                             <br>
-                            <p class="text-center">© 2022 Copyright State of The Art</p>
                         </div>
                         </div>
                     </div>
