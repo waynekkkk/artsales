@@ -30,8 +30,6 @@
         .card_wrapper{
             width: 25rem;
             border-radius: 15px;
-            /* margin-left: 20px; */
-            /* margin-bottom: 170px; */
         }
 
         .img_wrapper{
@@ -64,129 +62,69 @@
         }
     </style>
 </head>
-  <body>
-<div class="text-center pt-5">
-    <h1>Explore incredible art</h1>
-</div>
-<div class="container d-flex justify-content-center pt-3 position-static">
-    <button type="button" class="btn btn-dark rounded-pill me-3" onclick="shuffle()">Random Artwork</button>
-    <!-- <button type="button" class="btn btn-dark rounded-pill" data-bs-toggle="modal" data-bs-target="#artistModal">Random Artist</button> -->
+
+<body>
+    <div class="text-center pt-5">
+        <h1>Explore incredible art</h1>
+    </div>
+    <div class="container d-flex justify-content-center pt-3 position-static">
+        <button type="button" class="btn btn-dark rounded-pill me-3" onclick="shuffle()">Shuffle Artwork
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shuffle" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.624 9.624 0 0 0 7.556 8a9.624 9.624 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.595 10.595 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.624 9.624 0 0 0 6.444 8a9.624 9.624 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1-.5-.5z"/>
+            <path d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z"/>
+        </svg>
+        </button>
+    </div>
     
-   <!-- Button trigger modal -->
 
-  </button>
-  
-  <!-- Modal -->
-  <div class="modal fade" id="artworkModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="artworkModalLabel">{{ $artworks[0]->title }} to be updated by vue</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <img src="https://image.kpopmap.com/2020/12/blackpink-elle-jisoo-1.jpg" style="width: 100%;">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-light rounded-pill me-3" data-bs-dismiss="modal">Nope</button>
-          <button type="button" class="btn btn-dark rounded-pill">Love it!</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-<div class="modal fade" id="artistModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="artworkModalLabel">{{ $artworks[0]->title }} to be updated by vue</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <img src="https://image.kpopmap.com/2020/12/blackpink-elle-jisoo-1.jpg" style="width: 100%;">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-light rounded-pill me-3" data-bs-dismiss="modal">Nope</button>
-          <button type="button" class="btn btn-dark rounded-pill">Love it!</button>
-        </div>
-      </div>
-    </div>
-</div>
-
+  <!-- Keep modals for artworks -->
     <div id="artworks_modal"></div>
+
     <!--card-->
     <div class="container" style='margin-bottom:175px; margin-top:30px;'>
+    <!-- display artworks -->
         <div class="grids" id="artworks">
-            <a tabindex="0" role="button" data-bs-toggle="popover" data-bs-trigger="focus"  data-bs-content="add image here">
-                <div class="card card_wrapper ">
-                    <img style="width: 200px;" class="card-img-top img_wrapper" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_21ZgcYYoO9HR-eNc_kIDEsO2hXUh1FKbhg&usqp=CAU" alt="Card image cap">
-                    <div class="card-body">
-                        <h3 class="card-title">Titus Low</h3>
-                        <p class="card-text">I am going to jail. please show some support for my ice cream shop</p>
-                        <div class="d-flex justify-content-end">
-                            <div class="heart"></div>
-                        </div>
-                    </div>
-                </div> 
-            </a>
-
-            <div class="card card_wrapper">
-                <img style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#artistModal" class="card-img-top img_wrapper" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_21ZgcYYoO9HR-eNc_kIDEsO2hXUh1FKbhg&usqp=CAU" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title">Titus Low</h3>
-                    <p class="card-text">I am going to jail. please show some support for my ice cream shop</p>
-                    <div class="d-flex justify-content-end">
-                        <div class="heart"></div>
-                    </div>
-                </div>
-            </div> 
+           <h1>not working</h1>
         </div>
     </div>
-    <!-- do not delete this commented part, it does not work without this -->
-    <!-- <div class="grids">
-        @foreach($all_artworks_by_votes as $artwork)
-        <div class="card card_wrapper">
-            <img style="cursor: pointer; object-fit:cover; width:100%; height:400px;" data-bs-toggle="modal" data-bs-target="{{$artwork->id}}Modal" class="card-img-top img_wrapper" src="{{$artwork->asset->asset_url}}" alt="Card image cap">
-            <div class="card-body">
-                <h3 class="card-title">{{$artwork->title}}</h3>
-                <div class="d-flex justify-content-end">
-                    <div class="heart"></div>
-                </div>
+
+<!-- do not delete this commented part, it does not work without this -->
+<!-- <div class="grids">
+    @foreach($all_artworks_by_votes as $artwork)
+    <div class="card card_wrapper">
+        <img style="cursor: pointer; object-fit:cover; width:100%; height:400px;" data-bs-toggle="modal" data-bs-target="{{$artwork->id}}Modal" class="card-img-top img_wrapper" src="{{$artwork->asset->asset_url}}" alt="Card image cap">
+        <div class="card-body">
+            <h3 class="card-title">{{$artwork->title}}</h3>
+            <div class="d-flex justify-content-end">
+                <div class="heart"></div>
             </div>
-        </div> 
-        @endforeach
-    </div> -->
+        </div>
+    </div> 
+    @endforeach
+</div> -->
+
     <script>
-        // let works = [
-        //     {name:"jisoo", link:"https://wwd.com/wp-content/uploads/2022/09/jisoo-2.jpg?w=1024"},
-        //     {name:"rose", link:"https://fashionista.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTkyNjM1OTcxMjk0OTk2MTU0/rose-blackpink-at-saint-laurent-spring-2023-show-paris.jpg"},
-        //     {name:"jennie", link:"https://www.chanel.com/images/q_auto,f_auto,fl_lossy,dpr_auto/w_1344/FSH-CHN-1632472742663-coconeigevisuallogo1080x108001.jpg"},
-        //     {name:"lisa", link:"https://media.vogue.co.uk/photos/5f69b3d49590f66bc1d7084a/16:9/w_1600%2Cc_limit/GettyImages-1151690198%2520(1).jpg"},
-
-        // ]
         var works = {{ Illuminate\Support\Js::from($all_artworks_by_votes) }};
-        console.log(works)
-        console.log(works[0].title)
-        
 
+        // slice to random 3 works
+        three_works = works.slice(0,3)
+
+        // shuffle array of artworks
         function shuffleWork(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [array[i], array[j]] = [array[j], array[i]];
             }
         }
-        shuffleWork(works)
-        random_works = works.slice(0,3)
+
+        // display artworks
         function showAll(array){
             let artworks = ""
             let artwork_modal = ""
             array.forEach(artwork => {
                 artworks += `
                 <div class="card card_wrapper">
-                <img style="cursor: pointer; object-fit:cover; width:100%; height:400px;" data-bs-toggle="modal" data-bs-target="#${artwork.id}Modal" class="card-img-top img_wrapper" src="${artwork.asset.asset_url}" alt="Card image cap">
+                <img style="cursor: pointer; object-fit:cover; width:100%; height:400px;" data-bs-toggle="modal" data-bs-target="#Modal${artwork.id}" class="card-img-top img_wrapper" src="${artwork.asset.asset_url}" alt="Card image cap">
                 <div class="card-body">
                     <h3 class="card-title">${artwork.title}</h3>
                     <div class="d-flex justify-content-end">
@@ -195,11 +133,11 @@
                 </div>
             </div> `
             artwork_modal += `
-            <div class="modal fade" id="${artwork.id}Modal">
+            <div class="modal fade" id="Modal${artwork.id}">
                 <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="${artwork.id}ModalLabel"></h5>
+                    <h5 class="modal-title" id="ModalLabel${artwork.id}">${artwork.title}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
@@ -213,30 +151,39 @@
                 </div>
             </div>
             `
-            document.getElementById("artworks_modal").innerHTML = artwork_modal
-            });
-            document.getElementById("artworks").innerHTML = artworks
+        });
+        document.getElementById("artworks_modal").innerHTML = artwork_modal
+        document.getElementById("artworks").innerHTML = artworks
         }
-        showAll(random_works)
+
+        shuffleWork(works)
+        showAll(three_works)
 
         function shuffle(){
             shuffleWork(works)
-            random_works = works.slice(0,3)
-            showAll(random_works)
+            three_works = works.slice(0,3)
+            showAll(three_works)
         }
     </script> 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-    <!-- make heart work -->
-    <!-- <script src="./discover.js"></script> -->
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
     <script>
+        // allow poopover
         var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
         var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
             return new bootstrap.Popover(popoverTriggerEl)
         })
         
+        /* when a user clicks, toggle the 'is-animating' class */
+        $(".heart").on('click touchstart', function(){
+            $(this).toggleClass('is_animating');
+        });
+        
+        /*when the animation is over, remove the class*/
+        $(".heart").on('animationend', function(){
+            $(this).toggleClass('is_animating');
+        });
     </script>    
 </body>
 @endsection
