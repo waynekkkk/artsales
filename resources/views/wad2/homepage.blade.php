@@ -177,16 +177,19 @@
         <div class="row justify-content-md-between w-100"> 
             <div class="d-flex align-items-center text-center text-md-start justify-content-center mb-3 col-12 col-md-6">
                 <div class="">
-                    <h1 class="mb-4 from-left-1"><strong>Artist of the Month</strong></h1>
-                    <h3 class="mb-2 from-left-2"><strong>{{ $highest_voted_artwork->title }}</strong></h3>
-                    <h3 class="mb-3 from-left-3">{{ $highest_voted_artwork->description }}</h3>
-                    <h5 class="mb-2 from-left-4">by {{ $artist_of_the_month->name }}</h5>
-                    <div class="col mt-3 from-left-5 justify-content-center">
-                        <button type="button" class="btn btn-dark btn-block rounded-pill me-1 from-left-5" onclick="window.location.href='{{ route('user.account', $artist_of_the_month->id) }}';">Explore</button>
+                    <div class="from-left-1" style="font-size: 48px; font-weight: bold;" > Singapore's <span id="first"> First </span> Digital Art Musuem</div>
+                    <h2 class="mb-2 mt-3 from-left-2">Artwork of the Month</h2>
+                    <div class="mb-2 from-left-3" style="font-size: 22px;">
+                        <strong>{{ $highest_voted_artwork->title }}</strong> 
+                        <span class="fw-light" style="font-size: 16px;">by {{ $artist_of_the_month->name }}</span>
+                    </div>
+                    {{-- <h3 class="mb-3 from-left-3">{{ $highest_voted_artwork->description }}</h3> --}}
+                    <div class="col mt-3 from-left-4 justify-content-center">
+                        <button type="button" class="btn btn-dark btn-block rounded-pill me-1 from-left-4 fs-5" onclick="window.location.href='{{ route('user.account', $artist_of_the_month->id) }}';">Explore the artist!</button>
                     </div>
                 </div>
             </div>
-            <div class="d-flex col-12 col-md-5 justify-content-center">
+            <div class="d-flex col-12 col-md-5 justify-content-center mt-3">
                 <img src="{{$highest_voted_artwork->asset->asset_url}}" class="rounded img-fluid display from-right spotlight" style="width: 400px; filter: drop-shadow(1rem 1rem 0.25rem rgba(0, 0, 0, 0.4));">
             </div>
         </div>
