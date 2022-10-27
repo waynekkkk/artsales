@@ -41,7 +41,7 @@
         <div class="outer">
             
 
-            <div class="container py-5">
+            <div class="container h-100 py-5">
                 <div class="row d-flex justify-content-center align-items-center">
                     <div class="col-xl-10">
                         <div class="card rounded-3" style="background-color: #f8fafc;">
