@@ -3,7 +3,7 @@
 @section('content')
 <body>
 
-        <!--BACKGROUND IMAGE FOR HEADER GOES HERE-->
+    <!--BACKGROUND IMAGE FOR HEADER GOES HERE-->
     {{-- <div class="container text-center my-2">
         <div class="row">
             <div class="col-lg-3 col-md-6 monkey-frame">
@@ -38,9 +38,11 @@
             </div>    
         </div> --}}
 
-        <section class="h-100 about-us">
-            <div class="container py-5 h-100">
-                <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="outer">
+            
+
+            <div class="container py-5">
+                <div class="row d-flex justify-content-center align-items-center">
                 <div class="col-xl-10">
                     <div class="card rounded-3" style="background-color: #f8fafc;">
                     <div class="row g-0">
@@ -66,7 +68,7 @@
             
                         </div>
                         </div>
-                        <div class="col-lg-6 d-flex align-items-center ">
+                        <div class="col-lg-6 d-flex align-items-center" style="background-color: white">
                         <div class="px-3 py-4 p-md-5 mx-md-4">
                             <h2>About Us</h2>
                             <h5 class="mb-4">We believe in art beyond the frames</h5>
@@ -80,7 +82,7 @@
                 </div>
                 </div>
             </div>
-        </section>
+        </div>
 
 </body>
 @endsection
