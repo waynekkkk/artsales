@@ -39,7 +39,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 d-flex align-items-center justify-content-center">
-                                <form action="{{ route('user.update_event_add', $user_id) }}" method="post" enctype="multipart/form-data" class="form-group col-lg-6" style="">
+                                <form action="{{ route('user.update_event_add', $user_id) }}" method="post" enctype="multipart/form-data" class="form-group" style="">
                                     @csrf
                                     <label class="form-label fs-6 fw-bolder text-dark float-start">Select an event to join here!</label>
                                     <select name="museum_id" id='selectedMuseum' class="form-select form-select-md form-select-solid @error('museum_id') is-invalid @enderror">
