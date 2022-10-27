@@ -141,16 +141,16 @@
 
                                 </ul>
                             @else
-                                <a class="my-1 my-sm-0 nav-link dropdown-toggle btn text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link my-2 mx-2 text-light" href="{{ route('register') }}"><span class="underlineHover"> Log In/Sign Up</span></a>
+
+                                {{-- <a class="my-1 my-sm-0 nav-link dropdown-toggle btn text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fa-solid fa-user"></i> Guest
+                                    
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item py-2" href="{{ route('login') }}">Log In</a></li>
-                                    <li><a class="dropdown-item py-2" href="{{ route('register') }}">Sign Up</a></li>
-                                    <li><hr class="dropdown-divider m-0"></li>
-                                    <li><a class="dropdown-item py-2" href="#">Something else here</a></li>
-                                </ul>
+                                    <li><a class="dropdown-item py-2" href="{{ route('register') }}">Log In/Sign Up</a></li>
+                                </ul> --}}
                             @endif
                             
                         </li>
@@ -241,7 +241,7 @@
 
 </body>
 
-<footer class="text-center text-lg-start bg-light text-light bg-dark p-1">  
+<footer id="actual-footer" class="text-center text-lg-start bg-light text-light bg-dark p-1">  
     <!-- Section: Links  -->
     <section class="" p-5>
       <div class="container text-center text-md-start mt-5">

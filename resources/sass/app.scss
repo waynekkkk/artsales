@@ -415,6 +415,8 @@
   margin: 0;
 }
 
+// NAVBAR START
+
 .dropdown:hover .dropdown-menu {
   display: block;
 }
@@ -445,7 +447,7 @@
 }
 
 .navbar-nav .nav-link{
-  font-size: 16px;
+  font-size: 17px;
 }
 
 #nav-sot{
@@ -462,7 +464,6 @@ footer {
   background-image: linear-gradient(to left,  #1d242e 0%, #324153  46%, #50708d  100%);
 }
 
-// NAVBAR
 .underlineHover:hover {
   color: #4e1112;
 }
@@ -476,23 +477,12 @@ body{
     /* The width is the width of the web page */
 }
 
-/* NAVBAR */
 #navigation{
     color: white
 }
 
-/* Isn't working idk why
-https://www.codeply.com/go/WJdJv71mhX/bootstrap-4-tab-pills-with-custom-color
-*/
-.nav-black .nav-link{
-    color: black;
-    background-color: white;
-}
+/* NAVBAR END */
 
-.nav-black .nav-link.active {
-    color: white;
-    background-color: black;
-}
 
 /* Profile Pictures */
 #profile-image{
