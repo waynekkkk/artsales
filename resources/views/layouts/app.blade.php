@@ -114,7 +114,7 @@
                             @if (Auth::check())
                                 <div id="click-out"></div>
                                 <a class="my-1 my-sm-0 mx-2 nav-link dropdown-toggle btn text-light my-auto" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img class="rounded-circle display-pic me-2" src="{{ Auth::user()->profile_picture ? Auth::user()->profile_picture->asset_url : '' }}" alt="" style="width: 30px">{{ Auth::user()->name }}
+                                    <img class="rounded-circle display-pic me-2" src="{{ Auth::user()->profile_picture ? Auth::user()->profile_picture->asset_url : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_21ZgcYYoO9HR-eNc_kIDEsO2hXUh1FKbhg&usqp=CAU' }}" alt="" style="width: 30px">{{ Auth::user()->name }}
                                 </a>
 
                                 <ul class="dropdown-menu">
