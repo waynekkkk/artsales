@@ -67,6 +67,7 @@
     <div class="text-center pt-5">
         <h1>Explore incredible art</h1>
     </div>
+    <!-- suffle button -->
     <div class="container d-flex justify-content-center pt-3 position-static">
         <button type="button" class="btn btn-dark rounded-pill me-3" onclick="shuffle()">Shuffle Artwork
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shuffle" viewBox="0 0 16 16">
@@ -107,7 +108,9 @@
         var works = {{ Illuminate\Support\Js::from($all_artworks_by_votes) }};
 
         // slice to random 3 works
+        shuffleWork(works)
         three_works = works.slice(0,3)
+        showAll(three_works)
 
         // shuffle array of artworks
         function shuffleWork(array) {
@@ -126,7 +129,7 @@
                 <div class="card card_wrapper">
                 <img style="cursor: pointer; object-fit:cover; width:100%; height:400px;" data-bs-toggle="modal" data-bs-target="#Modal${artwork.id}" class="card-img-top img_wrapper" src="${artwork.asset.asset_url}" alt="Card image cap">
                 <div class="card-body">
-                    <h3 class="card-title">${artwork.title}</h3>
+                    <h3 class="card-title"><strong>${artwork.title}</strong></h3>
                     <div class="d-flex justify-content-end">
                         <div class="heart"></div>
                     </div>
@@ -145,7 +148,9 @@
                     </div>
                     <div class="modal-footer">
                     <button type="button" class="btn btn-light rounded-pill me-3" data-bs-dismiss="modal">Nope</button>
-                    <button type="button" class="btn btn-dark rounded-pill">Love it!</button>
+                    <a href='http://127.0.0.1:8000/user/${artwork.artist_id}/account'>
+                    <button type="button" class="btn btn-dark rounded-pill">Who?!?!</button>
+                    <a/>
                     </div>
                 </div>
                 </div>
@@ -155,9 +160,11 @@
         document.getElementById("artworks_modal").innerHTML = artwork_modal
         document.getElementById("artworks").innerHTML = artworks
         }
+        console.log(artwork_modal)
+        console.log(artworks)
 
-        shuffleWork(works)
-        showAll(three_works)
+
+   
 
         function shuffle(){
             shuffleWork(works)
