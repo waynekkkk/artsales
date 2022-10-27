@@ -11342,6 +11342,7 @@ textarea.form-control-lg {
   background-image: url("https://stateoftheart.blob.core.windows.net/wad2/366252.jpg");
   background-size: cover;
   max-height: 100vh;
+  min-height: 75vh;
 }
 
 @media (max-width: 991px) {
@@ -11357,6 +11358,15 @@ textarea.form-control-lg {
     width: 100%;
   }
 }
+html, body {
+  height: 100%;
+}
+
+body > footer {
+  position: sticky;
+  top: 100vh;
+}
+
 .was-validated .form-control:invalid, .form-control.is-invalid {
   border-color: #dc3545 !important;
   padding-right: calc(1.6em + 0.75rem) !important;
@@ -11422,7 +11432,6 @@ textarea.form-control-lg {
 
 footer {
   background-image: linear-gradient(to left, #1d242e 0%, #324153 46%, #50708d 100%);
-  height: 25vh;
 }
 
 .underlineHover:hover {
@@ -11432,8 +11441,6 @@ footer {
 body {
   font-family: "Inter", sans-serif;
   min-width: 400px;
-  overflow-x: auto;
-  position: relative;
 }
 
 #map {
