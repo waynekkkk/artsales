@@ -4,7 +4,6 @@
 <body>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="https://cdn.rawgit.com/coderitual/odoo/feature/codevember16/lib/odoo.js"></script>
-    <script src="https://fonts.googleapis.com/css?family=Inconsolata"></script>
 
 <style>
         .heart {
@@ -83,6 +82,18 @@
     .carousel-control-next-style:hover{
         color: black;
     }
+
+    .reveal{
+    position: relative;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: 1s all ease;
+    }
+
+    .reveal.active{
+    transform: translateY(0);
+    opacity: 1;
+    }
     </style>
 </head>
 
@@ -124,7 +135,14 @@
                 </svg>
                 </button>
             </div>
-            <div class="js-odoo mb-2" style="font-family: 'Poppins';"></div>
+            <!-- roulette -->
+            <div class="mb-2">
+                <!-- <div class="js-odoo mb-2" style="font-family: 'Poppins';font-size:2.5vmin;"></div> -->
+                <span class="js-odoo s0" id = 's0' style="font-family: monospace;"></span>
+                <span class="js-odoo s1" id = 's1' style="font-family: monospace;"></span>
+                <span class="js-odoo s2" id = 's2' style="font-family: monospace;"></span>
+                <span class="js-odoo s3" id = 's3' style="font-family: monospace;"></span>
+            </div>
             
             <div id="map" class="" style="height: 600px;"></div>
         </div>
@@ -152,6 +170,7 @@
         shuffleWork(works)
         three_works = works.slice(0,3)
         showAll(three_works)
+        // reveal()
 
         // shuffle array of artworks
         function shuffleWork(array) {
@@ -202,13 +221,28 @@
         document.getElementById("artworks").innerHTML = artworks
         }
 
+        function reveal() {
+        var reveals = document.querySelectorAll(".reveal");
 
+        for (var i = 0; i < reveals.length; i++) {
+            var windowHeight = window.innerHeight;
+            var elementTop = reveals[i].getBoundingClientRect().top;
+            var elementVisible = 150;
+
+            if (elementTop < windowHeight - elementVisible) {
+            reveals[i].classList.add("active");
+            } else {
+            reveals[i].classList.remove("active");
+            }
+        }
+        }
    
 
         function shuffle(){
             shuffleWork(works)
             three_works = works.slice(0,3)
             showAll(three_works)
+            reveal()
         }
 
 
@@ -265,7 +299,6 @@
         <div style = 'position:absolute; bottom:10px; left:30px;color:white; font-size:20px; font-family:poppins; font-weight:bold;'>${museum.name}</div>
         </div>
         `;
-        console.log(museum.name)
         // make it have weather info
         var key = "19c53dfa53a7b4e96f444976cf4f5152"
         var url = "https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather"
@@ -280,55 +313,13 @@
         .then(response => {
             // process response.dataobject
             var weather = response.data.weather[0].main
-            console.log(response.data.main.temp)
+            // console.log(response.data.main.temp)
             contentString += "<div class='from-left-3'><img class='from-left-1' src='" + weather_icons[weather.toLowerCase()] + "' style='width:38px;'><span>" + response.data.main.temp +"°C</span></div> <div style:'text-align:center'><div style = 'color:black; font-size:20px; font-family:copperplate; font-weight:bold; text-align:center;'>Current Galleries</div></div>";
             museum.artists_list.forEach(artist =>{
+            console.log(artist.name)
                 contentString += `<br><div style='text-align:center;'><h5 style:'text-align:center;'>by ${artist.name}</h5></div>`
                 contentString += `
-                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="margin:10px 40px 10px 40px;">
-                    <div class="carousel-inner">`;
-                    for (let i = 0; i < artist.images_list.length; i++){
-                        if (i == 0){
-                            contentString += `
-                            <div class="carousel-item active">
-                                <img src="${artist.images_list[i]}" style = "height:400px; width:400px;">
-                            </div>`;     
-                        }else{
-                            contentString += `
-                                <div class="carousel-item">
-                                    <img src="${artist.images_list[i]}" style = "height:400px; width:400px;">
-                                </div>`;     
-                            }
-                        }
-                        contentString += `
-                    </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon carousel-control-prev-style">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-                                </svg>
-                            </span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                            <span class="carousel-control-next-icon carousel-control-next-style">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-                                </svg>
-                            </span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>`;     
-                
-                });
-            })                   
-            // console.log(contentString)
-         .catch(error => {
-         // process error object
-         museum.artists_list.forEach(artist =>{
-                contentString += `<br><div style='text-align:center;'><h5 style:'text-align:center;'>by ${artist.name}</h5></div>`
-                contentString += `
-                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="margin:10px 40px 10px 40px;">
+                <div id="${artist.name.replaceAll(" ","")}" class="carousel slide" data-bs-ride="carousel" style="margin:10px 40px 10px 40px;">
                     <div class="carousel-inner">`;
                     for (let i = 0; i < artist.images_list.length; i++){
                         if (i == 0){
@@ -346,7 +337,7 @@
                         
                         contentString += `
                     </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                        <button class="carousel-control-prev" type="button" data-bs-target="#${artist.name.replaceAll(" ","")}" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon carousel-control-prev-style">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
@@ -354,7 +345,51 @@
                             </span>
                             <span class="visually-hidden">Previous</span>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                        <button class="carousel-control-next" type="button" data-bs-target="#${artist.name.replaceAll(" ","")}" data-bs-slide="next">
+                            <span class="carousel-control-next-icon carousel-control-next-style">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                                </svg>
+                            </span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>`; 
+                });
+            })                   
+            // console.log(contentString)
+         .catch(error => {
+         // process error object
+         museum.artists_list.forEach(artist =>{
+            console.log(artist.name)
+                contentString += `<br><div style='text-align:center;'><h5 style:'text-align:center;'>by ${artist.name}</h5></div>`
+                contentString += `
+                <div id="${artist.name.replaceAll(" ","")}" class="carousel slide" data-bs-ride="carousel" style="margin:10px 40px 10px 40px;">
+                    <div class="carousel-inner">`;
+                    for (let i = 0; i < artist.images_list.length; i++){
+                        if (i == 0){
+                            contentString += `
+                            <div class="carousel-item active">
+                                <img src="${artist.images_list[i]}" style = "height:400px; width:400px;">
+                            </div>`;     
+                        }else{
+                            contentString += `
+                                <div class="carousel-item">
+                                    <img src="${artist.images_list[i]}" style = "height:400px; width:400px;">
+                                </div>`;     
+                            }
+                        }
+                        
+                        contentString += `
+                    </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#${artist.name.replaceAll(" ","")}" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon carousel-control-prev-style">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                                </svg>
+                            </span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#${artist.name.replaceAll(" ","")}" data-bs-slide="next">
                             <span class="carousel-control-next-icon carousel-control-next-style">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
@@ -385,15 +420,27 @@
 
         function new_center(){
             var museum_location = [
-                {museum: "NationalMuseumOfSingapore" ,lat: 1.2966, lng: 103.8485,},
-                {museum: "AsianCivilisationsMuseum", lat: 1.2875, lng: 103.8514,},
-                {museum: "ArtScienceMuseum", lat: 1.2863, lng: 103.8593,},
-                {museum: "NationalGallerySingapore" , lat: 1.2902, lng: 103.8515,},
-                {museum: "SingaporeArtMuseum", lat: 1.2974, lng: 103.8507,}
+                {museum: "National Museum Of Singapore" ,lat: 1.2966, lng: 103.8485,},
+                {museum: "Asian Civilisations Museum", lat: 1.2875, lng: 103.8514,},
+                {museum: "Art Science Museum", lat: 1.2863, lng: 103.8593,},
+                {museum: "National Gallery Singapore" , lat: 1.2902, lng: 103.8515,},
+                {museum: "Singapore Art Museum", lat: 1.2974, lng: 103.8507,}
             ];
             var random_museum = museum_location[Math.floor(Math.random()*museum_location.length)];
+            var nameArr = random_museum.museum.split(" ")
+            console.log(nameArr)
             window.initMap(random_museum.lat, random_museum.lng)
-            odoo.default({ el:'.js-odoo', from: '???????', to: random_museum.museum, animationDelay: 1000 });
+            // set span to empty
+            document.getElementById(`s0`).innerText = ''
+            document.getElementById(`s1`).innerText = ''
+            document.getElementById(`s2`).innerText = ''
+            document.getElementById(`s3`).innerText = ''
+            // generate slot animation for each span
+            for(var i = 0; i < nameArr.length; i++){
+                console.log(i)
+                odoo.default({ el:`.js-odoo.s${i}`, from: '???????', to: nameArr[i], animationDelay: 1000 });
+            }
+            
 
         }
     </script> 
@@ -418,6 +465,7 @@
             $(this).toggleClass('is_animating');
         });
 
+       
         
     </script>    
 </body>
