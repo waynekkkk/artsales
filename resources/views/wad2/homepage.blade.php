@@ -224,8 +224,8 @@
                             </a>
                             <div class="card-body">
 
-                                <h3 class="card-title">{{ $artwork->title}}</h3>
-                                <p class="card-text">{{ $artwork->description}}</p>
+                                <h3 class="card-title"><strong>{{ $artwork->title}}</strong></h3>
+                                <p class="card-text fw-light">{{ $artwork->description}}</p>
                                 <div class="d-flex justify-content-end">
                                     <div class="heart" 
                                         @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
@@ -275,8 +275,8 @@
                                 <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
                             </a>
                             <div class="card-body">
-                                <h3 class="card-title">{{ $artwork -> title}}</h3>
-                                <p class="card-text">{{ $artwork -> description}}</p>
+                            <h3 class="card-title"><strong>{{ $artwork->title}}</strong></h3>
+                                <p class="card-text fw-light">{{ $artwork->description}}</p>
                                 <!-- <div class="d-flex justify-content-end">
                                         <div class="heart"></div>
                                         <div style="position: absolute;bottom: 22px; right: 15px;">Like <span style="color: grey;">{{$artwork->votes}}</span></div>
@@ -409,10 +409,10 @@ var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};
             // process response.dataobject
             var weather = response.data.weather[0].main
             console.log(response.data.main.temp)
-            contentString += "<div class='from-left-3'><img class='from-left-1' src='" + weather_icons[weather.toLowerCase()] + "' style='width:38px;'><span>" + response.data.main.temp +"°C</span></div> <div style='text-align:center'><div style = 'color:black; font-size:20px; font-family:copperplate; font-weight:bold; text-align:center;'>Current Galleries</div></div>";
+            contentString += "<div class='from-left-3'><img class='from-left-1' src='" + weather_icons[weather.toLowerCase()] + "' style='width:38px;'><span>" + response.data.main.temp +"°C</span></div> <div style='text-align:center'><div style = 'color:black; font-size:20px; font-family:copperplate; font-weight:bold; text-align:center;'><strong>Current Galleries</strong></div></div>";
             museum.artists_list.forEach(artist =>{
             console.log(artist.name)
-                contentString += `<br><div style='text-align:center;'><h5 style:'text-align:center;'>by ${artist.name}</h5></div>`
+                contentString += `<br><div style='text-align:center;'><h5 style:'text-align:center;' class='fw-light'>by ${artist.name}</h5></div>`
                 contentString += `
                 <div id="${artist.name.replaceAll(" ","")}" class="carousel slide" data-bs-ride="carousel" style="margin:10px 40px 10px 40px;">
                     <div class="carousel-inner">`;
@@ -454,10 +454,10 @@ var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};
             // console.log(contentString)
          .catch(error => {
          // process error object
-         contentString += "<div style='text-align:center; margin-top:10px;'><div style = 'color:black; font-size:20px; font-family:copperplate; font-weight:bold; text-align:center;'>Current Galleries</div></div>"
+         contentString += "<div style='text-align:center; margin-top:10px;'><div style = 'color:black; font-size:20px; font-family:copperplate; font-weight:bold; text-align:center;'><strong>Current Galleries</strong></div></div>"
          museum.artists_list.forEach(artist =>{
             console.log(artist.name)
-                contentString += `<br><div style='text-align:center;'><h5 style:'text-align:center;'>by ${artist.name}</h5></div>`
+                contentString += `<br><div style='text-align:center;'><h5 style:'text-align:center;' class='fw-light'>by ${artist.name}</h5></div>`
                 contentString += `
                 <div id="${artist.name.replaceAll(" ","")}" class="carousel slide" data-bs-ride="carousel" style="margin:10px 40px 10px 40px;">
                     <div class="carousel-inner">`;
