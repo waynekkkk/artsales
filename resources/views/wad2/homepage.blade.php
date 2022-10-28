@@ -419,8 +419,51 @@ var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};
                                 </div>`;     
                             }
                         }
+                        contentString += `
+                    </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon carousel-control-prev-style">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                                </svg>
+                            </span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                            <span class="carousel-control-next-icon carousel-control-next-style">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                                </svg>
+                            </span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>`;     
+                
+                });
+            })                   
+            // console.log(contentString)
+         .catch(error => {
+         // process error object
+         museum.artists_list.forEach(artist =>{
+                contentString += `<br><div style='text-align:center;'><h5 style:'text-align:center;'>by ${artist.name}</h5></div>`
+                contentString += `
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="margin:10px 40px 10px 40px;">
+                    <div class="carousel-inner">`;
+                    for (let i = 0; i < artist.images_list.length; i++){
+                        if (i == 0){
+                            contentString += `
+                            <div class="carousel-item active">
+                                <img src="${artist.images_list[i]}" style = "height:400px; width:400px;">
+                            </div>`;     
+                        }else{
+                            contentString += `
+                                <div class="carousel-item">
+                                    <img src="${artist.images_list[i]}" style = "height:400px; width:400px;">
+                                </div>`;     
+                            }
+                        }
                         
-                    contentString += `
+                        contentString += `
                     </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon carousel-control-prev-style">
@@ -440,12 +483,9 @@ var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};
                         </button>
                     </div>`; 
                 });
-            })                   
-            // console.log(contentString)
-         .catch(error => {
-         // process error object
-             return error.message;
          }); 
+
+         
         // make it on click
         google.maps.event.addListener(marker, "click", () => {
             var infowindow = new google.maps.InfoWindow({
@@ -455,7 +495,7 @@ var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};
                 infowindow.open(map,marker);
             })
         })
-
+        //end of foreach museum_collection
         };
 var myCarousel = document.querySelector('#myCarousel')
 // var carousel = new bootstrap.Carousel(myCarousel)
