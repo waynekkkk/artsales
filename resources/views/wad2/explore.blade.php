@@ -3,6 +3,9 @@
 @section('content')
 <body>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="https://cdn.rawgit.com/coderitual/odoo/feature/codevember16/lib/odoo.js"></script>
+    <script src="https://fonts.googleapis.com/css?family=Inconsolata"></script>
+
 <style>
         .heart {
         cursor: pointer;
@@ -60,6 +63,26 @@
         .grids { grid-template-columns: repeat(4, 1fr); 
         }
         }
+
+         /* for infowindow carousel nav button */
+    .carousel-control-prev-style{
+        left: -30px;
+        top:50%;
+        position: absolute;
+        color: grey;
+    }
+    .carousel-control-prev-style:hover{
+        color: black;
+    }
+    .carousel-control-next-style{
+        right: -30px;
+        top:50%;
+        position: absolute;
+        color: grey;
+    }
+    .carousel-control-next-style:hover{
+        color: black;
+    }
     </style>
 </head>
 
@@ -89,7 +112,7 @@
         </div>
     </div>
 
-
+    
     <!-- google maps -->
     <div class="container">
         <div class="my-5">
@@ -101,6 +124,8 @@
                 </svg>
                 </button>
             </div>
+            <div class="js-odoo mb-2" style="font-family: 'Poppins';"></div>
+            
             <div id="map" class="" style="height: 600px;"></div>
         </div>
     </div>
@@ -208,10 +233,10 @@
             "tornado":"http://openweathermap.org/img/wn/50d@2x.png",
         }
     // Initialize and add the map
-    function initMap(c_lat = 1.2966, c_lng = 103.8485) {
+    function initMap(c_lat = 1.2898, c_lng = 103.8558) {
         // The map, centered at museum
         var map = new google.maps.Map(
-        document.getElementById('map'), {zoom: 18, center: new google.maps.LatLng(c_lat, c_lng)});
+        document.getElementById('map'), {zoom: 16, center: new google.maps.LatLng(1.2898,103.8558)});
         var museum_image = {
             "National Museum of Singapore":"https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_720/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/e75d2145-National-Museum-of-Singapore/NationalMuseumofSingapore.jpg",
             "Asian Civilisations Museum":"https://media.tacdn.com/media/attractions-splice-spp-674x446/06/f1/36/5b.jpg",
@@ -275,8 +300,51 @@
                                 </div>`;     
                             }
                         }
+                        contentString += `
+                    </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon carousel-control-prev-style">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                                </svg>
+                            </span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                            <span class="carousel-control-next-icon carousel-control-next-style">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                                </svg>
+                            </span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>`;     
+                
+                });
+            })                   
+            // console.log(contentString)
+         .catch(error => {
+         // process error object
+         museum.artists_list.forEach(artist =>{
+                contentString += `<br><div style='text-align:center;'><h5 style:'text-align:center;'>by ${artist.name}</h5></div>`
+                contentString += `
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="margin:10px 40px 10px 40px;">
+                    <div class="carousel-inner">`;
+                    for (let i = 0; i < artist.images_list.length; i++){
+                        if (i == 0){
+                            contentString += `
+                            <div class="carousel-item active">
+                                <img src="${artist.images_list[i]}" style = "height:400px; width:400px;">
+                            </div>`;     
+                        }else{
+                            contentString += `
+                                <div class="carousel-item">
+                                    <img src="${artist.images_list[i]}" style = "height:400px; width:400px;">
+                                </div>`;     
+                            }
+                        }
                         
-                    contentString += `
+                        contentString += `
                     </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon carousel-control-prev-style">
@@ -296,11 +364,6 @@
                         </button>
                     </div>`; 
                 });
-            })                   
-            // console.log(contentString)
-         .catch(error => {
-         // process error object
-             return error.message;
          }); 
         // make it on click
         google.maps.event.addListener(marker, "click", () => {
@@ -311,27 +374,27 @@
                 infowindow.open(map,marker);
             })
         })
+        window.setTimeout(() => {
+                                    map.setZoom(18);
+                                    map.panTo({lat:c_lat, lng:c_lng});
+                                }, 800);
+
 
         };
 
+
         function new_center(){
-        //     var museum_location = [
-        //     ["National Museum of Singapore": {lat: 1.2966, lng: 103.8485,}],
-        //     ["Asian Civilisations Museum": {lat: 1.2875, lng: 103.8514,}],
-        //     ["ArtScience Museum": {lat: 1.2863, lng: 103.8593,}],
-        //     ["National Gallery Singapore" :{lat: 1.2902, lng: 103.8515,}],
-        //     ["Singapore Art Museum": {lat: 1.2974, lng: 103.8507,}]
-        // ];
             var museum_location = [
-            {lat: 1.2966, lng: 103.8485},
-            {lat: 1.2875, lng: 103.8514},
-            {lat: 1.2863, lng: 103.8593},
-            {lat: 1.2902, lng: 103.8515},
-            {lat: 1.2974, lng: 103.8507}
-        ];
-        var random_museum = museum_location[Math.floor(Math.random()*museum_location.length)];
-        console.log(random_museum.lat)
-        window.initMap(random_museum.lat, random_museum.lng)
+                {museum: "NationalMuseumOfSingapore" ,lat: 1.2966, lng: 103.8485,},
+                {museum: "AsianCivilisationsMuseum", lat: 1.2875, lng: 103.8514,},
+                {museum: "ArtScienceMuseum", lat: 1.2863, lng: 103.8593,},
+                {museum: "NationalGallerySingapore" , lat: 1.2902, lng: 103.8515,},
+                {museum: "SingaporeArtMuseum", lat: 1.2974, lng: 103.8507,}
+            ];
+            var random_museum = museum_location[Math.floor(Math.random()*museum_location.length)];
+            window.initMap(random_museum.lat, random_museum.lng)
+            odoo.default({ el:'.js-odoo', from: '???????', to: random_museum.museum, animationDelay: 1000 });
+
         }
     </script> 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
@@ -354,6 +417,8 @@
         $(".heart").on('animationend', function(){
             $(this).toggleClass('is_animating');
         });
+
+        
     </script>    
 </body>
 @endsection
