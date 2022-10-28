@@ -94,6 +94,20 @@
     transform: translateY(0);
     opacity: 1;
     }
+
+    @keyframes slide-in-left {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0%);
+      opacity: 1;
+    }
+  }
+  .from-left-3 {
+        animation: slide-in-left 1300ms;
+    }
     </style>
 </head>
 
@@ -116,11 +130,11 @@
     <div id="artworks_modal"></div>
 
     <!--card-->
-    <div class="container" style='margin-bottom:175px; margin-top:30px;'>
+    <div class="container" style='margin-bottom:175px; margin-top:30px;' id="artworks">
     <!-- display artworks -->
-        <div class="grids" id="artworks">
-           <h1>not working</h1>
-        </div>
+        <!-- <div class="grids" id="artworks"> -->
+           <!-- <h1>not working</h1> -->
+        <!-- </div> -->
     </div>
 
     
@@ -170,7 +184,7 @@
         shuffleWork(works)
         three_works = works.slice(0,3)
         showAll(three_works)
-        // reveal()
+        reveal()
 
         // shuffle array of artworks
         function shuffleWork(array) {
@@ -182,7 +196,7 @@
 
         // display artworks
         function showAll(array){
-            let artworks = ""
+            let artworks = '<div class="grids reveal">'
             let artwork_modal = ""
             array.forEach(artwork => {
                 artworks += `
@@ -217,6 +231,7 @@
             </div>
             `
         });
+        artworks += "</div>"
         document.getElementById("artworks_modal").innerHTML = artwork_modal
         document.getElementById("artworks").innerHTML = artworks
         }
@@ -237,7 +252,7 @@
         }
         }
    
-
+        // shuffle button function
         function shuffle(){
             shuffleWork(works)
             three_works = works.slice(0,3)
@@ -292,7 +307,7 @@
                 scaledSize: new google.maps.Size(40,40)
             }
         });
-        //   Type string here
+        //   museum background
         var contentString = `
         <div class="container-fluid" style="position:relative; height:200px;">
         <img src="${museum_image[museum.name]}" style="position:relative; height:100%; width:100%; object-fit:cover;">
@@ -314,9 +329,8 @@
             // process response.dataobject
             var weather = response.data.weather[0].main
             // console.log(response.data.main.temp)
-            contentString += "<div class='from-left-3'><img class='from-left-1' src='" + weather_icons[weather.toLowerCase()] + "' style='width:38px;'><span>" + response.data.main.temp +"°C</span></div> <div style:'text-align:center'><div style = 'color:black; font-size:20px; font-family:copperplate; font-weight:bold; text-align:center;'>Current Galleries</div></div>";
+            contentString += "<div class='from-left-3'><img class='from-left-1' src='" + weather_icons[weather.toLowerCase()] + "' style='width:38px;'><span>" + response.data.main.temp +"°C</span></div> <div style='text-align:center'><div style = 'color:black; font-size:20px; font-family:copperplate; font-weight:bold; text-align:center;'>Current Galleries</div></div>";
             museum.artists_list.forEach(artist =>{
-            console.log(artist.name)
                 contentString += `<br><div style='text-align:center;'><h5 style:'text-align:center;'>by ${artist.name}</h5></div>`
                 contentString += `
                 <div id="${artist.name.replaceAll(" ","")}" class="carousel slide" data-bs-ride="carousel" style="margin:10px 40px 10px 40px;">
@@ -359,8 +373,8 @@
             // console.log(contentString)
          .catch(error => {
          // process error object
+         contentString += "<div style='text-align:center; margin-top:10px;'><div style = 'color:black; font-size:20px; font-family:copperplate; font-weight:bold; text-align:center;'>Current Galleries</div></div>"
          museum.artists_list.forEach(artist =>{
-            console.log(artist.name)
                 contentString += `<br><div style='text-align:center;'><h5 style:'text-align:center;'>by ${artist.name}</h5></div>`
                 contentString += `
                 <div id="${artist.name.replaceAll(" ","")}" class="carousel slide" data-bs-ride="carousel" style="margin:10px 40px 10px 40px;">
@@ -438,7 +452,7 @@
             // generate slot animation for each span
             for(var i = 0; i < nameArr.length; i++){
                 console.log(i)
-                odoo.default({ el:`.js-odoo.s${i}`, from: '???????', to: nameArr[i], animationDelay: 1000 });
+                odoo.default({ el:`.js-odoo.s${i}`, from: '???????', to: nameArr[i], animationDelay: 0 });
             }
             
 

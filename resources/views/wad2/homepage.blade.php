@@ -400,7 +400,7 @@ var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};
             // process response.dataobject
             var weather = response.data.weather[0].main
             console.log(response.data.main.temp)
-            contentString += "<div class='from-left-3'><img class='from-left-1' src='" + weather_icons[weather.toLowerCase()] + "' style='width:38px;'><span>" + response.data.main.temp +"°C</span></div> <div style:'text-align:center'><div style = 'color:black; font-size:20px; font-family:copperplate; font-weight:bold; text-align:center;'>Current Galleries</div></div>";
+            contentString += "<div class='from-left-3'><img class='from-left-1' src='" + weather_icons[weather.toLowerCase()] + "' style='width:38px;'><span>" + response.data.main.temp +"°C</span></div> <div style='text-align:center'><div style = 'color:black; font-size:20px; font-family:copperplate; font-weight:bold; text-align:center;'>Current Galleries</div></div>";
             museum.artists_list.forEach(artist =>{
             console.log(artist.name)
                 contentString += `<br><div style='text-align:center;'><h5 style:'text-align:center;'>by ${artist.name}</h5></div>`
@@ -445,6 +445,7 @@ var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};
             // console.log(contentString)
          .catch(error => {
          // process error object
+         contentString += "<div style='text-align:center; margin-top:10px;'><div style = 'color:black; font-size:20px; font-family:copperplate; font-weight:bold; text-align:center;'>Current Galleries</div></div>"
          museum.artists_list.forEach(artist =>{
             console.log(artist.name)
                 contentString += `<br><div style='text-align:center;'><h5 style:'text-align:center;'>by ${artist.name}</h5></div>`
