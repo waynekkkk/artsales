@@ -32,7 +32,7 @@
         <div class="row justify-content-center text-center">
             <h1>Update Particulars</h1>
 
-            <form action="{{ route('user.update_particulars', $user->id) }}" method="post" enctype="multipart/form-data" class="form-group col-lg-6">
+            <form action="{{ route('user.update_particulars', $user->id) }}" method="post" enctype="multipart/form-data" class="form-group col-lg-6 my-4">
                 @csrf
                 <label class="form-label fs-6 fw-bolder text-dark float-start">Name</label>
                 <input class="form-control form-control-md form-control-solid @error('name') is-invalid @enderror" type="text" name='name' value="{{ $user->name }}">
