@@ -11,7 +11,7 @@ RUN pecl install pdo_sqlsrv
 RUN docker-php-ext-enable sqlsrv pdo_sqlsrv
 
 RUN apt-get -y update \
-&& apt-get install -y zlib1g-dev libicu-dev g++ locales gettext \
+&& apt-get install -y zlib1g-dev libicu-dev g++ locales gettext git\
 libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
 && docker-php-ext-configure gd --with-freetype --with-jpeg \
 && docker-php-ext-install -j$(nproc) gd \
@@ -29,6 +29,6 @@ COPY --chown=www:www . /var/www
 RUN chown -R www-data:www-data /var/www
 
 USER www
-RUN composer install --prefer-dist
+RUN composer install
 
 EXPOSE 9000
