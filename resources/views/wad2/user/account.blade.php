@@ -78,7 +78,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-6 offset-lg-6 text-end">
                         @if (Auth::check() && (Auth::user()->id == $user->id))
-                            <button type="button" class="btn btn-outline-dark btn-block rounded-pill mt-5" onclick="window.location.href='{{ route('user.add_artwork', Auth::user()->id) }}';"><i class="fa-solid fa-plus"></i> Add More Wonderful Pieces!!</button>    
+                            <button type="button" class="btn btn-outline-dark btn-block rounded-pill mt-2" onclick="window.location.href='{{ route('user.add_artwork', Auth::user()->id) }}';"><i class="fa-solid fa-plus"></i> Add More Wonderful Pieces!!</button>    
                         @endif
                     </div>
                 </div>
