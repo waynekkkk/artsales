@@ -150,8 +150,9 @@
                                 </div>
                                 <div class="card-footer pb-4">
                                     <div class="d-flex">
-                                        <small class="text-muted">Votes: </small>
-                                        <small class="text-muted"><span style="margin-left:5px;">{{ $artwork->votes }}</span></small>
+                                        <small class="text-muted mt-2">Votes: 
+                                            <span style="margin-left:5px;">{{ $artwork->votes }}</span>
+                                        </small>
                                         <button type="button" id="targetArt" class="btn btn-light position-absolute end-0 me-3" data-bs-toggle="modal" data-bs-target="#artwork-modal">
                                             •••
                                         </button>
