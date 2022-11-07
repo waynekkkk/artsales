@@ -177,7 +177,7 @@
         <div class="row justify-content-md-between w-100"> 
             <div class="d-flex align-items-center text-center text-md-start justify-content-center mb-3 col-12 col-md-6">
                 <div class="">
-                    <div class="from-left-1" style="font-size: 48px; font-weight: bold;" > Singapore's <span id="first"> First </span> Digital Art Musuem</div>
+                    <div class="from-left-1" style="font-size: 48px; font-weight: bold;" > Singapore's <span id="first"> First</span>  Digital Art Musuem</div>
                     <h2 class="mb-2 mt-3 from-left-2">Artwork of the Month</h2>
                     <div class="mb-2 from-left-3" style="font-size: 22px;">
                         <strong>{{ $highest_voted_artwork->title }}</strong> 
@@ -226,7 +226,10 @@
 
                                 <h3 class="card-title"><strong>{{ $artwork->title}}</strong></h3>
                                 <p class="card-text fw-light">{{ $artwork->description}}</p>
-                                <div class="d-flex justify-content-end">
+                                <div class="d-flex justify-content-between">
+                                    {{-- <span>
+                                        {{ $artwork->votes }}
+                                    </span> --}}
                                     <div class="heart" 
                                         @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
                                             onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
