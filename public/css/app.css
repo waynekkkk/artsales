@@ -11611,6 +11611,7 @@ body {
 
 .artwork-card {
   transition: all 0.2s ease-in-out;
+  border-radius: 15px;
 }
 
 .artwork-card:hover {

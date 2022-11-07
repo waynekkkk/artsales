@@ -143,7 +143,7 @@
                             </script>
 
                             <div class="card h-100 artwork-card">
-                                <img style="cursor: pointer;" id="artist-artwork" src="{{ $artwork->asset->asset_url }}" class="card-img-top" data-bs-target="#artwork-modal" data-bs-toggle="modal">
+                                <img style="cursor: pointer; border-radius:15px 15px 0 0;" id="artist-artwork" src="{{ $artwork->asset->asset_url }}" class="card-img-top" data-bs-target="#artwork-modal" data-bs-toggle="modal">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $artwork->title }}</h5>
                                     <p class="card-text">{{ $artwork->description }}</p>
