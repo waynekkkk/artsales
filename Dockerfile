@@ -29,6 +29,6 @@ COPY --chown=www:www . /var/www
 RUN chown -R www-data:www-data /var/www
 
 USER www
-RUN composer install
+RUN composer install --prefer-dist
 
 EXPOSE 9000
