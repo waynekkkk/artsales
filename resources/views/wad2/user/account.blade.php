@@ -78,7 +78,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-6 offset-lg-6 text-end">
                         @if (Auth::check() && (Auth::user()->id == $user->id))
-                            <button type="button" class="btn btn-outline-dark btn-block rounded-pill mt-5" onclick="window.location.href='{{ route('user.add_artwork', Auth::user()->id) }}';"><i class="fa-solid fa-plus"></i> Add More Wonderful Pieces!!</button>    
+                            <button type="button" class="btn btn-outline-dark btn-block rounded-pill mt-2" onclick="window.location.href='{{ route('user.add_artwork', Auth::user()->id) }}';"><i class="fa-solid fa-plus"></i> Add More Wonderful Pieces!!</button>    
                         @endif
                     </div>
                 </div>
@@ -143,15 +143,16 @@
                             </script>
 
                             <div class="card h-100 artwork-card">
-                                <img style="cursor: pointer;" id="artist-artwork" src="{{ $artwork->asset->asset_url }}" class="card-img-top" data-bs-target="#artwork-modal" data-bs-toggle="modal">
+                                <img style="cursor: pointer; border-radius:15px 15px 0 0;" id="artist-artwork" src="{{ $artwork->asset->asset_url }}" class="card-img-top" data-bs-target="#artwork-modal" data-bs-toggle="modal">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $artwork->title }}</h5>
                                     <p class="card-text">{{ $artwork->description }}</p>
                                 </div>
                                 <div class="card-footer pb-4">
                                     <div class="d-flex">
-                                        <small class="text-muted">Votes: </small>
-                                        <small class="text-muted"><span style="margin-left:5px;">{{ $artwork->votes }}</span></small>
+                                        <small class="text-muted mt-2">Votes: 
+                                            <span style="margin-left:5px;">{{ $artwork->votes }}</span>
+                                        </small>
                                         <button type="button" id="targetArt" class="btn btn-light position-absolute end-0 me-3" data-bs-toggle="modal" data-bs-target="#artwork-modal">
                                             •••
                                         </button>
