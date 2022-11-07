@@ -11,7 +11,7 @@ RUN pecl install pdo_sqlsrv
 RUN docker-php-ext-enable sqlsrv pdo_sqlsrv
 
 RUN apt-get -y update \
-&& apt-get install -y zlib1g-dev libicu-dev g++ locales gettext git \
+&& apt-get install -y zlib1g-dev libicu-dev g++ locales gettext git zip \
 libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
 && docker-php-ext-configure gd --with-freetype --with-jpeg \
 && docker-php-ext-install -j$(nproc) gd \
