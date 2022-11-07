@@ -236,11 +236,11 @@
                     {{ __('Login') }}
                   </button> &nbsp;
                   
-                  <span class="signup">
+                  <p class="signup">
                     Don't have an account ?
                     <a href="" id="signup-btn" onclick="toggleForm(event)">Sign Up!</a>
                     {{-- <button class="btn" onclick="toggleForm()">Sign Up!</button> --}}
-                  </span>
+                  </p>
                 </form>
               </div>
             </div>
