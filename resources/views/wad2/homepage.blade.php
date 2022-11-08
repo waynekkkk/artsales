@@ -201,7 +201,7 @@
     <div class="container mt-5 mx-auto">
         <div class="row justify-content-between align-items-center">
             <div class="col pb-3">
-                <h1>Voting</h1>
+                <h1 style="font-weight: bold;">Voting</h1>
             </div>
             <!--see more-->
             <div class="col justify-content-end d-flex pb-3">
@@ -255,7 +255,7 @@
     <div class="container mt-5 reveal">
         <div class="row justify-content-between  align-items-center">
             <div class="col pb-3">
-                <h1>Recommended</h1>
+                <h1 style="font-weight: bold;">Recommended</h1>
             </div>
             <!--see more-->
 
@@ -311,8 +311,8 @@
         <!--google maps-->
         <div class="container">
             <div class="my-5 reveal">
-                <h1 class="mb-2">Maps</h1>
-                <div id="map" class="" style="height: 600px;"></div>
+                <h1 class="mb-3" style="font-weight: bold;">Maps</h1>
+                <div id="map" class="border border-dark" style="height: 600px;"></div>
             </div>
         </div>
 
