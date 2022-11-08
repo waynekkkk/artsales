@@ -159,7 +159,7 @@
                 <span class="js-odoo s3" id = 's3' style="font-family: monospace;"></span>
             </div>
             
-            <div id="map" class="border border-dark" style="height: 600px;"></div>
+            <div id="map" class="border border-dark mb-5" style="height: 600px;"></div>
     </div>
 
 <!-- do not delete this commented part, it does not work without this -->
