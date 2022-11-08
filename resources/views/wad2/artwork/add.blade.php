@@ -26,8 +26,8 @@
                             <div class="card-body p-md-5 mx-md-4">                
 
 
-                                    <div class="card artwork-card" style="filter: drop-shadow(0.35rem 0.35rem 0.4rem rgba(0, 0, 0, 0.5))">
-                                        <img id="artwork-preview" src="https://images.unsplash.com/photo-1552596828-4e48cd784320?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80" class="card-img-top " style="">
+                                    <div class="card artwork-card" style="border-radius: 15px; filter: drop-shadow(0.35rem 0.35rem 0.4rem rgba(0, 0, 0, 0.5))">
+                                        <img id="artwork-preview" src="https://images.unsplash.com/photo-1552596828-4e48cd784320?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80" class="card-img-top " style="border-radius: 15px 15px 0 0;">
 
                                         <div class="card-body">
                                             <h5 id="artwork-title-preview" class="card-title">Title</h5>
