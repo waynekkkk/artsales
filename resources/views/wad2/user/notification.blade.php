@@ -15,7 +15,7 @@
                     @else
                         
                     @endif
-                    <!-- NEW NOTIFICATION -->
+                    {{-- <!-- NEW NOTIFICATION -->
                     @foreach ($notifications as $notification)
                         <div class="notification-list notification-list--unread">
                             <div class="notification-list_content">
@@ -26,14 +26,36 @@
                                     <p>{{ $notification->description }}</p>
                                     <p class="text-muted"><small>{{ $notification->timestamp == 1 ? $notification->timestamp . 'min ago' : $notification->timestamp . 'mins ago' }}</small></p>
                                 </div>
-                            </div>
+                            </div> --}}
                             
-                            <div class="notification-list_feature-img">
-                                <label class="switch switch-1-1" for="switch-{{ $notification->id }}">
-                                    <input type="checkbox" name="switch-1-1" id="switch-{{ $notification->id }}" onclick="postRead({{ $notification->id }})">
-                                    <span class="slider round slider-1-1"></span>
-                                </label>
-                                <img class="my-4 my-md-3" src="{{ $notification->user_pic }}" alt="Feature image">
+                    <!-- NEW NOTIFICATION -->
+                    @foreach ($notifications as $notification)
+                        <div class="notification-list notification-list--unread">
+                            {{-- noti start --}}
+                            <div class="notification-list_content">
+                                <div class="notification-list_img my-4 my-md-3">
+                                    <img src="{{ $notification->artwork_id ? $notification->artwork_id->asset->asset_url : 'https://stateoftheart.blob.core.windows.net/wad2/logo.png' }}" alt="user">
+                                </div>
+                                <div class="notification-list_detail my-4 my-md-3">
+                                    <p>{{ $notification->description }}</p>
+                                    <p class="text-muted"><small>{{ $notification->timestamp == 1 ? $notification->timestamp . 'min ago' : $notification->timestamp . 'mins ago' }}</small></p>
+                                </div>
+                            </div>
+
+
+                            {{-- right side of noti --}}
+                            <div class="notification-list_feature-img row p-0 g-0">
+                                <div class="row justify-content-center g-0">
+                                    Read
+                                </div>
+                                <div class="row justify-content-center g-0">
+                                    <label class="switch switch-1-1 " for="switch-{{ $notification->id }}">
+                                        <input type="checkbox" name="switch-1-1" id="switch-{{ $notification->id }}" onclick="postRead({{ $notification->id }})">
+                                        <span class="slider round slider-1-1"></span>
+                                    </label>
+    
+                                </div>
+                                {{-- <img class="my-4 my-md-3" src="{{ $notification->user_pic }}" alt="Feature image"> --}}
                             </div>
                         </div>
                     @endforeach

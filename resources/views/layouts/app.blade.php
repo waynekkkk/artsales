@@ -33,7 +33,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark shadow">
+        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark shadow p-3">
             <div class="container">
                 
                 <a class="navbar-brand" href="{{ route('home') }}">
