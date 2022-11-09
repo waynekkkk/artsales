@@ -37,8 +37,9 @@
             <div class="container">
                 
                 <a class="navbar-brand" href="{{ route('home') }}">
-                    <span id="nav-sot">STATE OF THE </span> <span id="nav-art"> ART </span>
+                    {{-- <span id="nav-sot">STATE OF THE </span> <span id="nav-art"> ART </span> --}}
                     {{-- <span class="ms-4 fw-bold fs-3 ">State of the Art</span> --}}
+                    <img style="width: auto; height: 64px;" src="{{ asset('images/SOTA_Logo_2.png') }}">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -248,9 +249,11 @@
               <!-- Grid column -->
               <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                 <!-- Content -->
-                <h5 class="text-uppercase fw-bold">
+                {{-- <h5 class="text-uppercase fw-bold">
                     State Of The Art
-                </h5>
+                </h5> --}}
+                <img id="footer-img" style="width: auto; height: 64px;" src="{{ asset('images/SOTA_Logo_2.png') }}">
+                <br>
                 <p>
                   State of the Art was founded by a group of four monkeys as part of their coding project. They were unified by one common purpose - to bring art to everyone, everywhere, beyond the frames.
                 </p>
