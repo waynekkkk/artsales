@@ -31,15 +31,15 @@
                 <div class="border">
                     <div class="row d-flex justify-content-center h-100 w-100">
                     <div class="col-xl-10">
-                        <div class="rounded-3" style="background-color: #f8fafc;min-height: 70vh; min-width: 80vh;">
-                        <div class="row g-0" style="min-height: 70vh;">
+                        <div class="rounded-3" style="background-color: #f8fafc;">
+                        <div class="row g-0" style="">
                             <div class="col-lg-6">           
                                 <div class="m-5">
                                     <div id="map" class="border border-dark"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6 d-flex align-items-center justify-content-center">
-                                <form action="{{ route('user.update_event_add', $user_id) }}" method="post" enctype="multipart/form-data" class="form-group col-lg-6" style="min-width: 60vh; width: 65vh;">
+                                <form action="{{ route('user.update_event_add', $user_id) }}" method="post" enctype="multipart/form-data" class="form-group" style="">
                                     @csrf
                                     <label class="form-label fs-6 fw-bolder text-dark float-start">Select an event to join here!</label>
                                     <select name="museum_id" id='selectedMuseum' class="form-select form-select-md form-select-solid @error('museum_id') is-invalid @enderror">

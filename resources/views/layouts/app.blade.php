@@ -37,8 +37,9 @@
             <div class="container">
                 
                 <a class="navbar-brand" href="{{ route('home') }}">
-                    <span id="nav-sot">STATE OF THE </span> <span id="nav-art"> ART </span>
+                    {{-- <span id="nav-sot">STATE OF THE </span> <span id="nav-art"> ART </span> --}}
                     {{-- <span class="ms-4 fw-bold fs-3 ">State of the Art</span> --}}
+                    <img style="width: auto; height: 64px;" src="{{ asset('images/SOTA_Logo_2.png') }}">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -114,7 +115,7 @@
                             @if (Auth::check())
                                 <div id="click-out"></div>
                                 <a class="my-1 my-sm-0 mx-2 nav-link dropdown-toggle btn text-light my-auto" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img class="rounded-circle display-pic me-2" src="{{ Auth::user()->profile_picture ? Auth::user()->profile_picture->asset_url : '' }}" alt="" style="width: 30px">{{ Auth::user()->name }}
+                                    <img class="rounded-circle display-pic me-2" src="{{ Auth::user()->profile_picture ? Auth::user()->profile_picture->asset_url : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_21ZgcYYoO9HR-eNc_kIDEsO2hXUh1FKbhg&usqp=CAU' }}" alt="" style="width: 30px">{{ Auth::user()->name }}
                                 </a>
 
                                 <ul class="dropdown-menu">
@@ -239,67 +240,70 @@
         </main>
     </div>
 
+    <footer id="actual-footer" class="text-center text-lg-start bg-light text-light bg-dark p-1">  
+        <!-- Section: Links  -->
+        <section class="" p-5>
+          <div class="container text-center text-md-start mt-5">
+            <!-- Grid row -->
+            <div class="row p-3">
+              <!-- Grid column -->
+              <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                <!-- Content -->
+                {{-- <h5 class="text-uppercase fw-bold">
+                    State Of The Art
+                </h5> --}}
+                <img id="footer-img" style="width: auto; height: 64px;" src="{{ asset('images/SOTA_Logo_2.png') }}">
+                <br>
+                <p>
+                  State of the Art was founded by a group of four monkeys as part of their coding project. They were unified by one common purpose - to bring art to everyone, everywhere, beyond the frames.
+                </p>
+              </div>
+              <!-- Grid column -->
+              <div class="col-sm-3 col-md-4 mx-auto mb-md-0"></div>
+      
+              <!-- Grid column -->
+              <div class="col-6 col-sm-3 col-md-2 mx-auto mb-md-0">
+                <!-- Links -->
+                <h6 class="text-uppercase fw-bold my-2">Company</h6>
+                <a class="text-light text-decoration-none" href="{{ route('home') }}"> <span class="underlineHover"> Home</span></a>
+                <br>
+                <a class="text-light text-decoration-none" href="{{ route('about_us') }}"> <span class="underlineHover"> About Us</span></a>
+                <br>
+                <a class="text-light text-decoration-none" href="{{ route('explore') }}"> <span class="underlineHover"> Explore</span></a>
+              </div>
+    
+              <div class="col-6 col-sm-3 col-md-2 mx-auto mb-md-0">
+                <!-- Contact -->
+                <h6 class="text-uppercase fw-bold my-2">Contact</h6>
+                <a class="text-light text-decoration-none" href="#"> <span class="underlineHover"> Facebook</span></a>
+                <br>
+                <a class="text-light text-decoration-none" href="#"> <span class="underlineHover"> Instagram</span></a>
+                <br>
+                <a class="text-light text-decoration-none" href="#"> <span class="underlineHover"> Twitter</span></a>
+                <br>
+                <a class="text-light text-decoration-none" href="#"> <span class="underlineHover"> Email</span></a>
+              </div>
+    
+              <div class="col-sm-3 col-md-0 mx-auto mb-md-0"></div>
+              <!-- Grid column -->
+            </div>
+            <!-- Grid row -->
+          </div>
+    
+    
+    
+        <!-- Copyright -->
+          <div class="text-center p-2" style="color: white;">
+            © 2022 Copyright: State of The Art
+          </div>
+        <!-- Copyright -->
+    
+        </section>
+    
+      </footer>
+      <!-- Footer -->
+
 </body>
 
-<footer id="actual-footer" class="text-center text-lg-start bg-light text-light bg-dark p-1">  
-    <!-- Section: Links  -->
-    <section class="" p-5>
-      <div class="container text-center text-md-start mt-5">
-        <!-- Grid row -->
-        <div class="row p-3">
-          <!-- Grid column -->
-          <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
-            <!-- Content -->
-            <h5 class="text-uppercase fw-bold">
-                State Of The Art
-            </h5>
-            <p>
-              State of the Art was founded by a group of four monkeys as part of their coding project. They were unified by one common purpose - to bring art to everyone, everywhere, beyond the frames.
-            </p>
-          </div>
-          <!-- Grid column -->
-          <div class="col-sm-3 col-md-4 mx-auto mb-md-0"></div>
-  
-          <!-- Grid column -->
-          <div class="col-sm-3 col-md-2 mx-auto mb-md-0">
-            <!-- Links -->
-            <h6 class="text-uppercase fw-bold my-2">Company</h6>
-            <a class="text-light text-decoration-none" href="{{ route('home') }}"> <span class="underlineHover"> Home</span></a>
-            <br>
-            <a class="text-light text-decoration-none" href="{{ route('about_us') }}"> <span class="underlineHover"> About Us</span></a>
-            <br>
-            <a class="text-light text-decoration-none" href="{{ route('explore') }}"> <span class="underlineHover"> Explore</span></a>
-          </div>
-
-          <div class="col-sm-3 col-md-2 mx-auto mb-md-0">
-            <!-- Contact -->
-            <h6 class="text-uppercase fw-bold my-2">Contact</h6>
-            <a class="text-light text-decoration-none" href="#"> <span class="underlineHover"> Facebook</span></a>
-            <br>
-            <a class="text-light text-decoration-none" href="#"> <span class="underlineHover"> Instagram</span></a>
-            <br>
-            <a class="text-light text-decoration-none" href="#"> <span class="underlineHover"> Twitter</span></a>
-            <br>
-            <a class="text-light text-decoration-none" href="#"> <span class="underlineHover"> Email</span></a>
-          </div>
-
-          <div class="col-sm-3 col-md-0 mx-auto mb-md-0"></div>
-          <!-- Grid column -->
-        </div>
-        <!-- Grid row -->
-      </div>
-
-
-
-    <!-- Copyright -->
-      <div class="text-center p-2" style="color: white;">
-        © 2022 Copyright: State of The Art
-      </div>
-    <!-- Copyright -->
-
-    </section>
-
-  </footer>
-  <!-- Footer -->
 
 </html>

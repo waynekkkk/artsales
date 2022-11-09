@@ -78,7 +78,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-6 offset-lg-6 text-end">
                         @if (Auth::check() && (Auth::user()->id == $user->id))
-                            <button type="button" class="btn btn-outline-dark btn-block rounded-pill mt-5" onclick="window.location.href='{{ route('user.add_artwork', Auth::user()->id) }}';"><i class="fa-solid fa-plus"></i> Add More Wonderful Pieces!!</button>    
+                            <button type="button" class="btn btn-outline-dark btn-block rounded-pill mt-2" onclick="window.location.href='{{ route('user.add_artwork', Auth::user()->id) }}';"><i class="fa-solid fa-plus"></i> Add More Wonderful Pieces!!</button>    
                         @endif
                     </div>
                 </div>
@@ -88,62 +88,91 @@
                         var countId = 0;
                     </script>
                     @foreach ($artworks as $artwork)
-                        <div class="col-lg-4 col-md-6 col-sm-12" id="artist-artwork">
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+
+                             <!-- Modal -->
+                             <div class="modal fade" id="artwork-modal" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5">{{ $artwork->title }}</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img src="{{ $artwork->asset->asset_url }}" class="card-img-top">
+                                        <hr>
+                                        <span class="text-muted mt-3">Votes: {{ $artwork->votes }}</span>
+                                        <p class="fw-semibold">{{ $artwork->description }}</p>
+                                    </div>
+                                    <div class="modal-footer justify-content-center">
+                                        @if (Auth::check() && (Auth::user()->id == $user->id))
+                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                            <form action="{{ route('user.edit_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="get">
+                                                @csrf
+                                                <button type="submit" class="btn btn-outline-dark btn-block rounded-pill fs-6">Edit this piece?</button>
+                                            </form>
+                                            <form action="{{ route('user.delete_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="post">
+                                                @csrf
+                                                <button type="submit" class="btn btn-outline-dark btn-block rounded-pill fs-6">Delete master piece? D:</button>
+                                            </form>
+                                          </div>
+                                        {{-- <div class="row">
+                                            <div class="col-sm-6">
+                                                <form action="{{ route('user.edit_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="get">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-outline-dark btn-block rounded-pill fs-6">Edit!</button>
+                                                </form>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <form action="{{ route('user.delete_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="post">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-outline-dark btn-block rounded-pill fs-6">Delete?</button>
+                                                </form>
+                                            </div>
+                                        </div> --}}
+                                    @endif
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <script>
-                                artworkId = document.getElementById('artist-artwork').id;
-                                artworkId += countId;
-                                document.getElementById('artist-artwork').id = artworkId;
+                                artworkModal = document.getElementById('artwork-modal').id;
+                                artworkModal += countId;
+                                document.getElementById('artwork-modal').id = artworkModal;
                             </script>
+
                             <div class="card h-100 artwork-card">
-                                <img src="{{ $artwork->asset->asset_url }}" class="card-img-top" alt="...">
+                                <img style="cursor: pointer; border-radius:15px 15px 0 0;" id="artist-artwork" src="{{ $artwork->asset->asset_url }}" class="card-img-top" data-bs-target="#artwork-modal" data-bs-toggle="modal">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $artwork->title }}</h5>
                                     <p class="card-text">{{ $artwork->description }}</p>
                                 </div>
-                                <div class="card-footer">
+                                <div class="card-footer pb-4">
                                     <div class="d-flex">
-                                        <small class="text-muted">Votes: </small>
-                                        <!-- FIGURE OUT HOW TO DO IT WITHOUT INLINE STYLR -->
-                                        <small class="text-muted"><span style="margin-left:5px;">{{ $artwork->votes }}</span></small>
-                                    </div>
-
-                                    {{-- START OF POPUP --}}
-                                    {{-- <div class="row">
-                                        <button class="btn btn-dark rounded-pill btn-block mt-4 text-end col-lg-4"  type="submit">
-                                            <a href="#" class="cd-popup-trigger text-decoration-none text-white" id="popup">Details</a>
+                                        <small class="text-muted mt-2">Votes: 
+                                            <span style="margin-left:5px;">{{ $artwork->votes }}</span>
+                                        </small>
+                                        <button type="button" id="targetArt" class="btn btn-light position-absolute end-0 me-3" data-bs-toggle="modal" data-bs-target="#artwork-modal">
+                                            •••
                                         </button>
                                     </div>
-
+                                    
                                     <script>
-                                        popupId = document.getElementById('popup').id;
-                                        popupId += countId;
-                                        document.getElementById('popup').id = popupId;
+                                        targetModal = document.getElementById('targetArt').id;
+                                        artworkId = document.getElementById('artist-artwork').id;
+                                        artworkId += countId;
+                                        targetModal += countId;
+                                        document.getElementById('targetArt').id = targetModal;
+                                        document.getElementById('artist-artwork').id = artworkId;
+                                        targetModalImg = document.getElementById(artworkId).dataset.bsTarget;
+                                        targetModalBtn = document.getElementById(targetModal).dataset.bsTarget;
+                                        targetModalImg += countId;
+                                        targetModalBtn += countId;
+                                        document.getElementById(artworkId).dataset.bsTarget = targetModalImg;
+                                        document.getElementById(targetModal).dataset.bsTarget = targetModalBtn;
                                     </script>
-
-                                    <div class="cd-popup" role="alert">
-                                        <div class="cd-popup-container">
-                                            <div class="card h-50">
-                                                <img src="{{ $artwork->asset->asset_url }}" class="card-img-top" alt="...">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">{{ $artwork->title }}</h5>
-                                                    <p class="card-text">{{ $artwork->description }}</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    <div class="d-flex">
-                                                        <small class="text-muted">Votes: </small>
-                                                        <small class="text-muted"><span style="margin-left:5px;">{{ $artwork->votes }}</span></small>
-                                                    </div>
-                                              </div>
-                                                <ul class="cd-buttons">
-                                                    <li><a href="#">Edit</a></li>
-                                                    <li><a href="#">Delete</a></li>
-                                                </ul>
-                                                <a href="#" class="cd-popup-close img-replace">Close</a>
-                                            </div>
-                                        </div>
-                                    </div> --}}
-                                    {{-- END OF POPUP --}}
-                                    @if (Auth::check() && (Auth::user()->id == $user->id))
+                                    {{-- @if (Auth::check() && (Auth::user()->id == $user->id))
                                         <div class="row">
                                             <div class="col-lg-4"></div>
                                             <div class="col-lg-4 text-end">
@@ -160,7 +189,7 @@
                                             </div>
                                             
                                         </div>
-                                    @endif
+                                    @endif --}}
                                     
                                 </div>
                             </div>
@@ -169,6 +198,8 @@
                             countId++;
                         </script>
                     @endforeach
+
+                    <div id=""></div>
         
                     <div class="spacing"><br></div>
                 </div>
@@ -345,34 +376,6 @@
                     e.currentTarget.classList.add('active');
                 }
             </script>
-
-            {{-- Artwork Popup Script --}}
-            <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-
-            {{-- <script>
-                jQuery(document).ready(function($){
-
-                    //open popup
-                    $('.cd-popup-trigger').on('click', function(event){
-                        event.preventDefault();
-                        $('.cd-popup').addClass('is-visible');
-                    });
-                    
-                    //close popup
-                    $('.cd-popup').on('click', function(event){
-                        if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
-                            event.preventDefault();
-                            $(this).removeClass('is-visible');
-                        }
-                    });
-                    //close popup when clicking the esc keyboard button
-                    $(document).keyup(function(event){
-                        if(event.which=='27'){
-                            $('.cd-popup').removeClass('is-visible');
-                        }
-                    });
-                });
-            </script> --}}
 
     </body>
 @endsection
