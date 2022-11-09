@@ -11367,6 +11367,13 @@ body > footer {
   top: 100vh;
 }
 
+#footerimg {
+  height: auto;
+  width: 100%;
+  max-width: 300px;
+  min-width: 200px;
+}
+
 .was-validated .form-control:invalid, .form-control.is-invalid {
   border-color: #dc3545 !important;
   padding-right: calc(1.6em + 0.75rem) !important;
@@ -11426,11 +11433,7 @@ body > footer {
   font-size: 27px;
 }
 
-.underlineHover:hover {
-  color: #4e1112;
-}
-
-body {
+~ body {
   font-family: "Inter", sans-serif;
   min-width: 400px;
 }

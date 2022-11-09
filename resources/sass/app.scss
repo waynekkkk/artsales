@@ -415,6 +415,13 @@ body > footer {
   top: 100vh;
 }
 
+#footerimg{
+  height: auto;
+  width: 100%;
+  max-width: 300px;
+  min-width: 200px;
+}
+
 // for invalid validation
 .was-validated .form-control:invalid, .form-control.is-invalid {
   border-color: #dc3545 !important;
@@ -485,9 +492,8 @@ body > footer {
 //   background-image: linear-gradient(to left,  #1d242e 0%, #324153  46%, #50708d  100%);
 // }
 
-.underlineHover:hover {
-  color: #4e1112;
-}
+~
+
 
 body{
     font-family: 'Inter', sans-serif;

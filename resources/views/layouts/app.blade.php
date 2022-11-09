@@ -240,31 +240,46 @@
         </main>
     </div>
 
-    <footer id="actual-footer" class="text-center text-lg-start bg-light text-light bg-dark p-1">  
+    <footer id="actual-footer" class="text-center text-lg-start bg-light text-light bg-dark">  
         <!-- Section: Links  -->
-        <section class="" p-5>
-          <div class="container text-center text-md-start mt-5">
+        <section class="">
+          <div class="container justify-content-center text-md-start pt-4">
+            {{-- Footer Img Row --}}
+            {{-- <div class="row p-3">
+                
+                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <img id="footerimg" src="{{ asset('images/SOTA_Logo_2.png') }}">
+                </div>
+            </div> --}}
             <!-- Grid row -->
-            <div class="row p-3">
+            <div class="row px-3 py-1">
               <!-- Grid column -->
-              <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+              <div class="col-sm-12 col-md-6">
                 <!-- Content -->
                 {{-- <h5 class="text-uppercase fw-bold">
                     State Of The Art
                 </h5> --}}
-                <img id="footer-img" style="width: auto; height: 64px;" src="{{ asset('images/SOTA_Logo_2.png') }}">
+                {{-- <img id="footerimg" src="{{ asset('images/SOTA_Logo_2.png') }}">
                 <br>
-                <p>
+                <br> --}}
+                {{-- <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4"> --}}
+
+                    <img id="footerimg" src="{{ asset('images/SOTA_Logo_2.png') }}">
+                    <br>
+                    <br>
+                {{-- </div> --}}
+
+                {{-- <p>
                   State of the Art was founded by a group of four monkeys as part of their coding project. They were unified by one common purpose - to bring art to everyone, everywhere, beyond the frames.
-                </p>
+                </p> --}}
               </div>
               <!-- Grid column -->
-              <div class="col-sm-3 col-md-4 mx-auto mb-md-0"></div>
+              <div class="col-sm-3 col-md-2 mx-auto mb-md-0"></div>
       
               <!-- Grid column -->
-              <div class="col-6 col-sm-3 col-md-2 mx-auto mb-md-0">
+              <div class="col-6 col-sm-3 col-md-2 mx-auto mb-md-0 py-1">
                 <!-- Links -->
-                <h6 class="text-uppercase fw-bold my-2">Company</h6>
+                <h6 class="text-uppercase fw-bold">Company</h6>
                 <a class="text-light text-decoration-none" href="{{ route('home') }}"> <span class="underlineHover"> Home</span></a>
                 <br>
                 <a class="text-light text-decoration-none" href="{{ route('about_us') }}"> <span class="underlineHover"> About Us</span></a>
@@ -272,9 +287,9 @@
                 <a class="text-light text-decoration-none" href="{{ route('explore') }}"> <span class="underlineHover"> Explore</span></a>
               </div>
     
-              <div class="col-6 col-sm-3 col-md-2 mx-auto mb-md-0">
+              <div class="col-6 col-sm-3 col-md-2 mx-auto mb-md-0 py-1">
                 <!-- Contact -->
-                <h6 class="text-uppercase fw-bold my-2">Contact</h6>
+                <h6 class="text-uppercase fw-bold">Contact</h6>
                 <a class="text-light text-decoration-none" href="#"> <span class="underlineHover"> Facebook</span></a>
                 <br>
                 <a class="text-light text-decoration-none" href="#"> <span class="underlineHover"> Instagram</span></a>
