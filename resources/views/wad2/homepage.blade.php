@@ -17,8 +17,16 @@
     background-size:2900%;
     position: absolute;
     bottom: 10px;
-    right: 50px;
-    
+    right: 30px;
+    }
+
+    .vote {
+    background-position: right;
+    background-repeat:no-repeat;
+    background-size:2900%;
+    position: absolute;
+    bottom: 20px;
+    left: 15px;
     }
 
     .heart:hover {
@@ -223,14 +231,16 @@
                                 <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
                             </a>
                             <div class="card-body">
-
                                 <h3 class="card-title"><strong>{{ $artwork->title}}</strong></h3>
-                                <p class="card-text fw-light">{{ $artwork->description}}</p>
+                                <p class="card-text mb-1">
+                                    <span class="fw-semibold d-block">By: <a href="{{ route('user.account', $artwork->artist_id) }}"><u>{{$artwork->artist->name}}</u></a></span>
+                                    <span class="fw-light">{{ $artwork->description}}</span>
+                                </p>
                                 <div class="d-flex justify-content-between">
-                                    {{-- <span>
-                                        {{ $artwork->votes }}
-                                    </span> --}}
-                                    <div class="heart" 
+                                    <span class="vote">
+                                        <small>Votes: {{ $artwork->votes }}</small>
+                                    </span>
+                                    <span class="heart" 
                                         @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
                                             onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
                                         @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
@@ -238,7 +248,7 @@
                                         @else
                                             onclick="alert('Please log in to start casting your votes!')"
                                         @endif>
-                                    </div>
+                                    </span>
                                 </div>
                             </div>
 
