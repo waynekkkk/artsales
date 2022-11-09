@@ -17,8 +17,16 @@
     background-size:2900%;
     position: absolute;
     bottom: 10px;
-    right: 50px;
-    
+    right: 30px;
+    }
+
+    .vote {
+    background-position: right;
+    background-repeat:no-repeat;
+    background-size:2900%;
+    position: absolute;
+    bottom: 20px;
+    left: 15px;
     }
 
     .heart:hover {
@@ -227,10 +235,10 @@
                                 <h3 class="card-title"><strong>{{ $artwork->title}}</strong></h3>
                                 <p class="card-text fw-light">{{ $artwork->description}}</p>
                                 <div class="d-flex justify-content-between">
-                                    {{-- <span>
-                                        {{ $artwork->votes }}
-                                    </span> --}}
-                                    <div class="heart" 
+                                    <span class="vote">
+                                        <small>Votes: {{ $artwork->votes }}</small>
+                                    </span>
+                                    <span class="heart" 
                                         @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
                                             onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
                                         @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
@@ -238,7 +246,7 @@
                                         @else
                                             onclick="alert('Please log in to start casting your votes!')"
                                         @endif>
-                                    </div>
+                                    </span>
                                 </div>
                             </div>
 
