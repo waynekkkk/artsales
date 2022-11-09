@@ -14,7 +14,7 @@
         <div class="display-pic text-center mb-3">
             <!-- Dynamic displaying of dp. Similar to profileBackground --> 
             <!-- Nav bar too.  -->
-            <img id="profile-image" src="{{ $profile_picture ? $profile_picture->asset_url : asset('images/hello_kitty.jpeg') }}" alt="Profile Image">
+            <img id="profile-image" src="{{ $profile_picture ? $profile_picture->asset_url : asset('images/hello-kitty-dancing.gif') }}" alt="Profile Image">
             <div class="profile-image-animation"></div>
         </div>
         
