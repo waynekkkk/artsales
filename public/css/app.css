@@ -11407,10 +11407,6 @@ body > footer {
   background-color: #fff;
 }
 
-.navbar {
-  background-image: linear-gradient(to right, #1d242e 0%, #40546c 46%, #5582ac 75%, #50708d 100%);
-}
-
 .navbar-brand {
   font-weight: 700;
   font-size: 25px;
@@ -11428,10 +11424,6 @@ body > footer {
   background-color: #4e1112;
   border: 1px solid white;
   font-size: 27px;
-}
-
-footer {
-  background-image: linear-gradient(to left, #1d242e 0%, #324153 46%, #50708d 100%);
 }
 
 .underlineHover:hover {
