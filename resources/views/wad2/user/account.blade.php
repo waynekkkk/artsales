@@ -7,7 +7,7 @@
             <!-- Dynamic displaying of background img. See mini lab 2 and how they do it -->
 
             <!-- To make it dynamic and customisable to user -->
-            <img id="banner-image" src="{{ $user->banner ? $user->banner->asset_url : 'https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80' }}" alt="Banner Image">
+            <img id="banner-image" src="{{ $user->banner ? $user->banner->asset_url : asset('images/hero.jpeg') }}" alt="Banner Image">
             
         </div>
 
@@ -15,7 +15,7 @@
             <div class="display-pic text-center">
                 <!-- Dynamic displaying of dp. Similar to profileBackground --> 
                 <!-- Nav bar too.  -->
-                <img id="profile-image" src="{{ $user->profile_picture ? $user->profile_picture->asset_url : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_21ZgcYYoO9HR-eNc_kIDEsO2hXUh1FKbhg&usqp=CAU' }}" alt="Profile Image">
+                <img id="profile-image" src="{{ $user->profile_picture ? $user->profile_picture->asset_url : asset('images/hello-kitty-dancing.gif') }}" alt="Profile Image">
                 <div class="profile-image-animation"></div>
             </div>
 
@@ -59,7 +59,7 @@
                 <button class="btn btn-outline-dark border-3 rounded-circle ms-3"><i class="social fa-solid fa-envelope"></i></button>
             </div>
     
-            <div class="page-feature">
+            <div class="page-feature mb-2">
                 <ul class="nav nav-pills  nav-black nav-fill">
                     <li class="nav-item mx-2 mb-2 mb-md-4"> 
                         <a id="default-content" class="nav-link main-tabgroup" onclick="displayContent(event, 'artworks')">Artworks</a>
@@ -76,9 +76,9 @@
             <div id="artworks" class="tabcontent mb-5">
 
                 <div class="row justify-content-center">
-                    <div class="col-lg-6 offset-lg-6 text-end">
+                    <div class="col-lg-6 offset-lg-6 text-center text-md-end">
                         @if (Auth::check() && (Auth::user()->id == $user->id))
-                            <button type="button" class="btn btn-outline-dark btn-block rounded-pill mt-2" onclick="window.location.href='{{ route('user.add_artwork', Auth::user()->id) }}';"><i class="fa-solid fa-plus"></i> Add More Wonderful Pieces!!</button>    
+                            <button type="button" class="btn btn-outline-dark btn-block rounded-pill" onclick="window.location.href='{{ route('user.add_artwork', Auth::user()->id) }}';"><i class="fa-solid fa-plus"></i> Add More Wonderful Pieces!!</button>    
                         @endif
                     </div>
                 </div>
@@ -101,8 +101,25 @@
                                     <div class="modal-body">
                                         <img src="{{ $artwork->asset->asset_url }}" class="card-img-top">
                                         <hr>
-                                        <span class="text-muted mt-3">Votes: {{ $artwork->votes }}</span>
                                         <p class="fw-semibold">{{ $artwork->description }}</p>
+                                        <div class="d-flex justify-content-between">
+                                            <div class="vote text-muted">
+                                                <small>Votes: {{ $artwork->votes }}</small>
+                                            </div>
+                                            @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
+                                                <div class="stage">
+                                                    <div class="heart" 
+                                                        @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
+                                                            onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
+                                                        @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
+                                                            onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
+                                                        @else
+                                                            onclick="alert('Please log in to start casting your votes!')"
+                                                        @endif>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        </div>
                                     </div>
                                     <div class="modal-footer justify-content-center">
                                         @if (Auth::check() && (Auth::user()->id == $user->id))
@@ -147,15 +164,32 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $artwork->title }}</h5>
                                     <p class="card-text">{{ $artwork->description }}</p>
-                                </div>
-                                <div class="card-footer pb-4">
-                                    <div class="d-flex">
-                                        <small class="text-muted mt-2">Votes: 
-                                            <span style="margin-left:5px;">{{ $artwork->votes }}</span>
-                                        </small>
-                                        <button type="button" id="targetArt" class="btn btn-light position-absolute end-0 me-3" data-bs-toggle="modal" data-bs-target="#artwork-modal">
+                                    <div class="text-end">
+                                        <button type="button" id="targetArt" class="btn btn-white text-end" data-bs-toggle="modal" data-bs-target="#artwork-modal">
                                             •••
                                         </button>
+                                    </div>
+                                    
+                                </div>
+                                <div class="card-footer p-4">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="vote text-muted">
+                                            <small>Votes: {{ $artwork->votes }}</small>
+                                        </div>
+                                        @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
+                                            <div class="stage">
+                                                <div class="heart" 
+                                                    @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
+                                                        onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
+                                                    @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
+                                                        onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
+                                                    @else
+                                                        onclick="alert('Please log in to start casting your votes!')"
+                                                    @endif>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        
                                     </div>
                                     
                                     <script>
@@ -374,6 +408,35 @@
 
                     document.getElementById(tabName).style.display = "block";
                     e.currentTarget.classList.add('active');
+                }
+            </script>
+            
+            <script>
+                function postLike(event, artwork_id, user_id) {
+    
+                    confirm("Are you sure you want to vote for this artwork?");
+
+                    axios.post("api/artwork/like", {
+                                    user_id:        user_id,
+                                    artwork_id:     artwork_id
+                                })
+                        .then(response => {
+                            var new_votes = response.data.result;
+                            var msg = response.data.message;
+
+                            event.target.classList.add('is-active');
+                            event.target.removeAttribute('onclick');
+
+                            var stage_parent = event.target.parentElement;
+                            var vote_div = stage_parent.parentElement.childNodes[1];
+                            vote_div.innerHTML = `<small>Votes: ${new_votes}</small>`;
+
+                            console.log(response.data.message);
+                        })
+                        .catch(error => {
+                            console.log(response.data.message);
+                        })
+
                 }
             </script>
 

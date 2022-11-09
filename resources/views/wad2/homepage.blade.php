@@ -6,178 +6,6 @@
 
 
 <body>
-<style>
-    .heart {
-    cursor: pointer;
-    height: 50px;
-    width: 50px;
-    background-image:url( 'https://abs.twimg.com/a/1446542199/img/t1/web_heart_animation.png');
-    background-position: left;
-    background-repeat:no-repeat;
-    background-size:2900%;
-    position: absolute;
-    bottom: 10px;
-    right: 30px;
-    }
-
-    .vote {
-    background-position: right;
-    background-repeat:no-repeat;
-    background-size:2900%;
-    position: absolute;
-    bottom: 20px;
-    left: 15px;
-    }
-
-    .heart:hover {
-    background-position:right;
-    }
-
-    .heart:active{
-        background-position:right;
-    }
-
-
-
-    .is_animating {
-    animation: heart-burst .8s steps(28) 1;
-    }
-
-    @keyframes  heart-burst {
-    from {background-position:left;}
-    to { background-position:right;}
-    }
-    
-    .spotlight{
-        transition: all .2s ease-in-out;
-    }
-
-    .spotlight:hover{
-        transform: scale(1.13);
-    }
-
-    .card_wrapper{
-        border-radius: 15px;
-        height: 550px;
-        /* width: 370px; */
-        margin: 20px 10px 20px 10px;
-        transition: all .2s ease-in-out;
-    }
-
-    .card_wrapper:hover{
-        transform: scale(1.05); 
-    }
-
-    .img_wrapper{
-        border-top-left-radius: 13px;
-        border-top-right-radius: 13px;
-    }
-
-    /* for carousel nav button */
-    .owl-carousel .prev-slide{
-        left: -37px;
-        top:35%;
-        position: absolute;
-        color: grey;
-    }
-    .owl-carousel .prev-slide:hover{
-        color: black;
-    }
-    .owl-carousel .next-slide{
-        right: -37px;
-        top:35%;
-        position: absolute;
-        color: grey;
-    }
-    .owl-carousel .next-slide:hover{
-        color: black;
-    }
-
-    /* for infowindow carousel nav button */
-    .carousel-control-prev-style{
-        left: -30px;
-        top:50%;
-        position: absolute;
-        color: grey;
-    }
-    .carousel-control-prev-style:hover{
-        color: black;
-    }
-    .carousel-control-next-style{
-        right: -30px;
-        top:50%;
-        position: absolute;
-        color: grey;
-    }
-    .carousel-control-next-style:hover{
-        color: black;
-    }
-    /* body{
-        min-width:600px;
-    } */
-
-    /* for spotlight slide */
-    @keyframes slide-in-left {
-    from {
-      transform: translateX(-100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0%);
-      opacity: 1;
-    }
-  }
-    @keyframes slide-in-right {
-        from {
-        transform: translateX(150%);
-        opacity: 0.25;
-        }
-        to {
-        transform: translateX(0%);
-        opacity: 1;
-        }
-    }
-
-
-    /* ...and then apply it: */
-    .from-left {
-        animation: slide-in-left 1000ms;
-        
-    }
-    .from-left-1 {
-        animation: slide-in-left 1000ms;
-    }
-    .from-left-2 {
-        animation: slide-in-left 1150ms;
-    }
-    .from-left-3 {
-        animation: slide-in-left 1300ms;
-    }
-    .from-left-4 {
-        animation: slide-in-left 1400ms;
-    }
-    .from-left-5 {
-        animation: slide-in-left 1500ms;
-    }
-    .from-right {
-        animation: slide-in-right 1500ms;
-    }
-
-    /* reveal when scroll */
-    .reveal{
-    position: relative;
-    transform: translateY(150px);
-    opacity: 0;
-    transition: 1s all ease;
-    }
-
-    .reveal.active{
-    transform: translateY(0);
-    opacity: 1;
-    }
-
-</style>
-<body>
     <!--spotlight-->
 
     
@@ -232,23 +60,25 @@
                             </a>
                             <div class="card-body">
                                 <h3 class="card-title"><strong>{{ $artwork->title}}</strong></h3>
-                                <p class="card-text mb-1">
+                                <p class="card-text mb-3">
                                     <span class="fw-semibold d-block">By: <a href="{{ route('user.account', $artwork->artist_id) }}"><u>{{$artwork->artist->name}}</u></a></span>
                                     <span class="fw-light">{{ $artwork->description}}</span>
                                 </p>
                                 <div class="d-flex justify-content-between">
-                                    <span class="vote">
+                                    <div class="vote">
                                         <small>Votes: {{ $artwork->votes }}</small>
-                                    </span>
-                                    <span class="heart" 
-                                        @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
-                                            onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
-                                        @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
-                                            onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
-                                        @else
-                                            onclick="alert('Please log in to start casting your votes!')"
-                                        @endif>
-                                    </span>
+                                    </div>
+                                    <div class="stage">
+                                        <div class="heart" 
+                                            @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
+                                                onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
+                                            @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
+                                                onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
+                                            @else
+                                                onclick="alert('Please log in to start casting your votes!')"
+                                            @endif>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -289,22 +119,24 @@
                             </a>
                             <div class="card-body">
                             <h3 class="card-title"><strong>{{ $artwork->title}}</strong></h3>
-                                <p class="card-text fw-light">{{ $artwork->description}}</p>
-                                <!-- <div class="d-flex justify-content-end">
-                                        <div class="heart"></div>
-                                        <div style="position: absolute;bottom: 22px; right: 15px;">Like <span style="color: grey;">{{$artwork->votes}}</span></div>
-                                </div> -->
+                                <p class="card-text fw-light">
+                                    <span class="fw-semibold d-block">By: <a href="{{ route('user.account', $artwork->artist_id) }}"><u>{{$artwork->artist->name}}</u></a></span>
+                                    <span class="fw-light">{{ $artwork->description}}</span>
+                                </p>
                                 <div class="d-flex justify-content-end">
-                                    <div class="heart" 
-                                        @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
-                                            onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
-                                        @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
-                                            onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
-                                        @else
-                                            onclick="alert('Please log in to start casting your votes!')"
-                                        @endif>
-
-
+                                    <div class="vote">
+                                        <small>Votes: {{ $artwork->votes }}</small>
+                                    </div>
+                                    <div class="stage">
+                                        <div class="heart" 
+                                            @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
+                                                onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
+                                            @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
+                                                onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
+                                            @else
+                                                onclick="alert('Please log in to start casting your votes!')"
+                                            @endif>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -331,11 +163,14 @@
 
 <script>
 
+
+// for heart vote button
+
 function postLike(event, artwork_id, user_id) {
     
     confirm("Are you sure you want to vote for this artwork?");
 
-    axios.post("http://localhost:8000/api/artwork/like", {
+    axios.post("api/artwork/like", {
                     user_id:        user_id,
                     artwork_id:     artwork_id
                 })
@@ -343,9 +178,12 @@ function postLike(event, artwork_id, user_id) {
             var new_votes = response.data.result;
             var msg = response.data.message;
 
-            event.target.classList.remove('heart');
-            event.target.classList.add('text-success');
-            event.target.innerText = msg;
+            event.target.classList.add('is-active');
+            event.target.removeAttribute('onclick');
+
+            var stage_parent = event.target.parentElement;
+            var vote_div = stage_parent.parentElement.childNodes[1];
+            vote_div.innerHTML = `<small>Votes: ${new_votes}</small>`;
 
             console.log(response.data.message);
         })
@@ -568,15 +406,6 @@ var myCarousel = document.querySelector('#myCarousel')
         }
         }
     })
-    // like button
-    $(".heart").on('click touchstart', function(){
-    $(this).toggleClass('is_animating');
-    });
-
-    /*when the animation is over, remove the class*/
-    $(".heart").on('animationend', function(){
-    $(this).toggleClass('is_animating');
-    });
 
     // reveal js
     function reveal() {
