@@ -1,0 +1,30 @@
+version: "3.9"
+services:
+  web:
+    image: nginx:stable-alpine
+    container_name: web
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - docker-laravel-network
+    depends_on:
+      - app
+  app:
+    build: .
+    container_name: app
+    restart: unless-stopped
+    working_dir: /var/www
+    ports:
+        - 9000:9000
+    volumes:
+        - ./:/var/www
+    networks:
+      - docker-laravel-network
+
+networks:
+  docker-laravel-network:
+    driver: bridge
