@@ -111,10 +111,14 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::where('id', $id)->first();
+        $profile_picture = $user->profile_picture;
+        $banner = $user->banner;
 
         return view('wad2.user.edit',
             [
-                'user'         => $user, 
+                'user'                    => $user, 
+                'profile_picture'         => $profile_picture, 
+                'banner'                  => $banner, 
             ]);
     }
 
