@@ -111,10 +111,14 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::where('id', $id)->first();
+        $profile_picture = $user->profile_picture;
+        $banner = $user->banner;
 
         return view('wad2.user.edit',
             [
-                'user'         => $user, 
+                'user'                    => $user, 
+                'profile_picture'         => $profile_picture, 
+                'banner'                  => $banner, 
             ]);
     }
 
@@ -135,7 +139,7 @@ class UserController extends Controller
         $validator = $request->validate([
             'name'               => ['required'],
             'email'              => ['required', 'email', 'unique:users,email,'.$id],
-            'profile_picture'    => ['nullable', 'mimes:jpg,jpeg,png'],
+            'profile_picture'    => ['nullable', 'mimes:jpg,jpeg,png,gif'],
             'banner'             => ['nullable', 'mimes:jpg,jpeg,png'],
         ], $custom_error);
 
@@ -321,7 +325,7 @@ class UserController extends Controller
         $validator = $request->validate([
             'title'                 => ['required'],
             'description'           => ['required'],
-            'artwork'               => ['required', 'mimes:jpg,jpeg,png', 'dimensions:min_width=1080,min_height=1080,max_width=1080,max_height=1080'],
+            'artwork'               => ['required', 'mimes:jpg,jpeg,png,gif', 'dimensions:min_width=1080,min_height=1080,max_width=1080,max_height=1080'],
         ], $custom_error);
 
         $artwork = $request->file('profile_picture');

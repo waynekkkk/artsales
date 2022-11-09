@@ -8,16 +8,28 @@
 <body>
 <style>
     .heart {
-    cursor: pointer;
-    height: 50px;
-    width: 50px;
-    background-image:url( 'https://abs.twimg.com/a/1446542199/img/t1/web_heart_animation.png');
-    background-position: left;
-    background-repeat:no-repeat;
-    background-size:2900%;
-    position: absolute;
-    bottom: 5px;
-    right: 30px;
+        width: 50px;
+        height: 50px;
+        background-image:url( 'https://abs.twimg.com/a/1446542199/img/t1/web_heart_animation.png');
+        background-position: left;
+        background-repeat:no-repeat;
+        background-size: 2900%;
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+        transition: background-position 1s steps(28);
+        transition-duration: 0s;
+    }
+
+    .heart.is-active {
+        transition-duration: 1s;
+        background-position: right;
+    }
+
+    .stage {
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
     }
 
     .vote {
@@ -25,27 +37,8 @@
     background-repeat:no-repeat;
     background-size:2900%;
     position: absolute;
-    bottom: 15px;
+    bottom: 10px;
     left: 15px;
-    }
-
-    .heart:hover {
-    background-position:right;
-    }
-
-    .heart:active{
-        background-position:right;
-    }
-
-
-
-    .is_animating {
-    animation: heart-burst .8s steps(28) 1;
-    }
-
-    @keyframes  heart-burst {
-    from {background-position:left;}
-    to { background-position:right;}
     }
     
     .spotlight{
@@ -237,18 +230,20 @@
                                     <span class="fw-light">{{ $artwork->description}}</span>
                                 </p>
                                 <div class="d-flex justify-content-between">
-                                    <span class="vote">
+                                    <div class="vote">
                                         <small>Votes: {{ $artwork->votes }}</small>
-                                    </span>
-                                    <span class="heart" 
-                                        @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
-                                            onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
-                                        @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
-                                            onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
-                                        @else
-                                            onclick="alert('Please log in to start casting your votes!')"
-                                        @endif>
-                                    </span>
+                                    </div>
+                                    <div class="stage">
+                                        <div class="heart" 
+                                            @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
+                                                onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
+                                            @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
+                                                onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
+                                            @else
+                                                onclick="alert('Please log in to start casting your votes!')"
+                                            @endif>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -289,22 +284,24 @@
                             </a>
                             <div class="card-body">
                             <h3 class="card-title"><strong>{{ $artwork->title}}</strong></h3>
-                                <p class="card-text fw-light">{{ $artwork->description}}</p>
-                                <!-- <div class="d-flex justify-content-end">
-                                        <div class="heart"></div>
-                                        <div style="position: absolute;bottom: 22px; right: 15px;">Like <span style="color: grey;">{{$artwork->votes}}</span></div>
-                                </div> -->
+                                <p class="card-text fw-light">
+                                    <span class="fw-semibold d-block">By: <a href="{{ route('user.account', $artwork->artist_id) }}"><u>{{$artwork->artist->name}}</u></a></span>
+                                    <span class="fw-light">{{ $artwork->description}}</span>
+                                </p>
                                 <div class="d-flex justify-content-end">
-                                    <div class="heart" 
-                                        @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
-                                            onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
-                                        @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
-                                            onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
-                                        @else
-                                            onclick="alert('Please log in to start casting your votes!')"
-                                        @endif>
-
-
+                                    <span class="vote">
+                                        <small>Votes: {{ $artwork->votes }}</small>
+                                    </span>
+                                    <div class="stage">
+                                        <div class="heart" 
+                                            @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
+                                                onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
+                                            @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
+                                                onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
+                                            @else
+                                                onclick="alert('Please log in to start casting your votes!')"
+                                            @endif>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -331,11 +328,14 @@
 
 <script>
 
+
+// for heart vote button
+
 function postLike(event, artwork_id, user_id) {
     
     confirm("Are you sure you want to vote for this artwork?");
 
-    axios.post("http://localhost:8000/api/artwork/like", {
+    axios.post("api/artwork/like", {
                     user_id:        user_id,
                     artwork_id:     artwork_id
                 })
@@ -343,9 +343,12 @@ function postLike(event, artwork_id, user_id) {
             var new_votes = response.data.result;
             var msg = response.data.message;
 
-            event.target.classList.remove('heart');
-            event.target.classList.add('text-success');
-            event.target.innerText = msg;
+            event.target.classList.add('is-active');
+            event.target.removeAttribute('onclick');
+
+            var stage_parent = event.target.parentElement;
+            var vote_div = stage_parent.parentElement.childNodes[1];
+            vote_div.innerHTML = `<small>Votes: ${new_votes}</small>`;
 
             console.log(response.data.message);
         })
@@ -568,15 +571,6 @@ var myCarousel = document.querySelector('#myCarousel')
         }
         }
     })
-    // like button
-    $(".heart").on('click touchstart', function(){
-    $(this).toggleClass('is_animating');
-    });
-
-    /*when the animation is over, remove the class*/
-    $(".heart").on('animationend', function(){
-    $(this).toggleClass('is_animating');
-    });
 
     // reveal js
     function reveal() {
