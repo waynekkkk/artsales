@@ -231,9 +231,11 @@
                                 <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
                             </a>
                             <div class="card-body">
-
                                 <h3 class="card-title"><strong>{{ $artwork->title}}</strong></h3>
-                                <p class="card-text fw-light">{{ $artwork->description}}</p>
+                                <p class="card-text mb-1">
+                                    <span class="fw-semibold d-block">By: <a href="{{ route('user.account', $artwork->artist_id) }}"><u>{{$artwork->artist->name}}</u></a></span>
+                                    <span class="fw-light">{{ $artwork->description}}</span>
+                                </p>
                                 <div class="d-flex justify-content-between">
                                     <span class="vote">
                                         <small>Votes: {{ $artwork->votes }}</small>
