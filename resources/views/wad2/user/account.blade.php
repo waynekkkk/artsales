@@ -7,7 +7,7 @@
             <!-- Dynamic displaying of background img. See mini lab 2 and how they do it -->
 
             <!-- To make it dynamic and customisable to user -->
-            <img id="banner-image" src="{{ $user->banner ? $user->banner->asset_url : 'https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80' }}" alt="Banner Image">
+            <img id="banner-image" src="{{ $user->banner ? $user->banner->asset_url : asset('images/hero.jpeg') }}" alt="Banner Image">
             
         </div>
 
@@ -15,7 +15,7 @@
             <div class="display-pic text-center">
                 <!-- Dynamic displaying of dp. Similar to profileBackground --> 
                 <!-- Nav bar too.  -->
-                <img id="profile-image" src="{{ $user->profile_picture ? $user->profile_picture->asset_url : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_21ZgcYYoO9HR-eNc_kIDEsO2hXUh1FKbhg&usqp=CAU' }}" alt="Profile Image">
+                <img id="profile-image" src="{{ $user->profile_picture ? $user->profile_picture->asset_url : asset('images/hello_kitty.jpeg') }}" alt="Profile Image">
                 <div class="profile-image-animation"></div>
             </div>
 
