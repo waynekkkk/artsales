@@ -16,7 +16,7 @@
     background-repeat:no-repeat;
     background-size:2900%;
     position: absolute;
-    bottom: 10px;
+    bottom: 5px;
     right: 30px;
     }
 
@@ -25,7 +25,7 @@
     background-repeat:no-repeat;
     background-size:2900%;
     position: absolute;
-    bottom: 20px;
+    bottom: 15px;
     left: 15px;
     }
 
@@ -232,7 +232,7 @@
                             </a>
                             <div class="card-body">
                                 <h3 class="card-title"><strong>{{ $artwork->title}}</strong></h3>
-                                <p class="card-text mb-1">
+                                <p class="card-text mb-3">
                                     <span class="fw-semibold d-block">By: <a href="{{ route('user.account', $artwork->artist_id) }}"><u>{{$artwork->artist->name}}</u></a></span>
                                     <span class="fw-light">{{ $artwork->description}}</span>
                                 </p>
