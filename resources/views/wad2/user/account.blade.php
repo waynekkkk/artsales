@@ -59,7 +59,7 @@
                 <button class="btn btn-outline-dark border-3 rounded-circle ms-3"><i class="social fa-solid fa-envelope"></i></button>
             </div>
     
-            <div class="page-feature">
+            <div class="page-feature mb-2">
                 <ul class="nav nav-pills  nav-black nav-fill">
                     <li class="nav-item mx-2 mb-2 mb-md-4"> 
                         <a id="default-content" class="nav-link main-tabgroup" onclick="displayContent(event, 'artworks')">Artworks</a>
@@ -76,9 +76,9 @@
             <div id="artworks" class="tabcontent mb-5">
 
                 <div class="row justify-content-center">
-                    <div class="col-lg-6 offset-lg-6 text-end">
+                    <div class="col-lg-6 offset-lg-6 text-center text-md-end">
                         @if (Auth::check() && (Auth::user()->id == $user->id))
-                            <button type="button" class="btn btn-outline-dark btn-block rounded-pill mt-2" onclick="window.location.href='{{ route('user.add_artwork', Auth::user()->id) }}';"><i class="fa-solid fa-plus"></i> Add More Wonderful Pieces!!</button>    
+                            <button type="button" class="btn btn-outline-dark btn-block rounded-pill" onclick="window.location.href='{{ route('user.add_artwork', Auth::user()->id) }}';"><i class="fa-solid fa-plus"></i> Add More Wonderful Pieces!!</button>    
                         @endif
                     </div>
                 </div>
