@@ -21,12 +21,10 @@
 }
 
 .login-section {
-  position: relative;
-  height: 100%;
+  // position: relative;
+  margin: auto;
+  // height: 100%;
   // background-color: #f8dd30;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   padding: 20px;
   min-width: 450px;
 }
@@ -182,7 +180,14 @@
   -o-background-size: cover;
   background-size: cover;
   max-height: 100%;
-  min-height: 80%;
+  // min-height: 80%;
+  min-height: 76vh;
+}
+
+.inner{
+  position: relative;
+  margin: auto
+  // left: 50%;
 }
 
 @media (max-width: 991px) {
@@ -1035,7 +1040,6 @@ body{
   #four-monkey{
     color: #4e1112;
     font-weight: bold;
-    font-size: 22px;
   }
 
   // Start monkey animation

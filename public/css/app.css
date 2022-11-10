@@ -11188,11 +11188,7 @@ textarea.form-control-lg {
 }
 
 .login-section {
-  position: relative;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: auto;
   padding: 20px;
   min-width: 450px;
 }
@@ -11342,7 +11338,12 @@ textarea.form-control-lg {
   background-image: url("https://stateoftheart.blob.core.windows.net/wad2/background.jpg");
   background-size: cover;
   max-height: 100%;
-  min-height: 80%;
+  min-height: 76vh;
+}
+
+.inner {
+  position: relative;
+  margin: auto;
 }
 
 @media (max-width: 991px) {
@@ -11782,7 +11783,6 @@ input:checked + .slider-1-1 {
 #four-monkey {
   color: #4e1112;
   font-weight: bold;
-  font-size: 22px;
 }
 
 svg {
