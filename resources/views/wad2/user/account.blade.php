@@ -47,7 +47,7 @@
                     {{ $user_ranking }}
                     <br><span class="fs-6 fw-normal">Rank</span>
                 </span>
-                <span id="artist-events" class="text-center me-2">
+                <span id="artist-events" class="text-center me-3">
                     {{ count($museum_artists_involvement) }}<br>
                     <span class="fs-6 fw-normal">Events</span>
                 </span>
@@ -56,7 +56,7 @@
             <div id="artist-socials">
                 <button class="btn btn-outline-dark border-3 rounded-circle ms-3"><i class="social fa-brands fa-twitter"></i></button>
                 <button class="btn btn-outline-dark border-3 rounded-circle ms-3"><i class="social fa-brands fa-instagram"></i></button>
-                <button class="btn btn-outline-dark border-3 rounded-circle ms-3 me-2"><i class="social fa-solid fa-envelope"></i></button>
+                <button class="btn btn-outline-dark border-3 rounded-circle ms-3 me-3"><i class="social fa-solid fa-envelope"></i></button>
             </div>
     
             <div class="page-feature mb-2">
