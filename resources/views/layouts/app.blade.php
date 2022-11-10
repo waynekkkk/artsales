@@ -33,12 +33,13 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark shadow">
+        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark shadow p-3">
             <div class="container">
                 
                 <a class="navbar-brand" href="{{ route('home') }}">
-                    <span id="nav-sot">STATE OF THE </span> <span id="nav-art"> ART </span>
+                    {{-- <span id="nav-sot">STATE OF THE </span> <span id="nav-art"> ART </span> --}}
                     {{-- <span class="ms-4 fw-bold fs-3 ">State of the Art</span> --}}
+                    <img style="width: auto; height: 64px;" src="{{ asset('images/SOTA_Logo_2.png') }}">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -239,29 +240,46 @@
         </main>
     </div>
 
-    <footer id="actual-footer" class="text-center text-lg-start bg-light text-light bg-dark p-1">  
+    <footer id="actual-footer" class="text-center text-lg-start bg-light text-light bg-dark">  
         <!-- Section: Links  -->
-        <section class="" p-5>
-          <div class="container text-center text-md-start mt-5">
+        <section class="">
+          <div class="container justify-content-center text-md-start pt-4">
+            {{-- Footer Img Row --}}
+            {{-- <div class="row p-3">
+                
+                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <img id="footerimg" src="{{ asset('images/SOTA_Logo_2.png') }}">
+                </div>
+            </div> --}}
             <!-- Grid row -->
-            <div class="row p-3">
+            <div class="row px-3 py-1">
               <!-- Grid column -->
-              <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+              <div class="col-sm-12 col-md-6">
                 <!-- Content -->
-                <h5 class="text-uppercase fw-bold">
+                {{-- <h5 class="text-uppercase fw-bold">
                     State Of The Art
-                </h5>
-                <p>
+                </h5> --}}
+                {{-- <img id="footerimg" src="{{ asset('images/SOTA_Logo_2.png') }}">
+                <br>
+                <br> --}}
+                {{-- <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4"> --}}
+
+                    <img id="footerimg" src="{{ asset('images/SOTA_Logo_2.png') }}">
+                    <br>
+                    <br>
+                {{-- </div> --}}
+
+                {{-- <p>
                   State of the Art was founded by a group of four monkeys as part of their coding project. They were unified by one common purpose - to bring art to everyone, everywhere, beyond the frames.
-                </p>
+                </p> --}}
               </div>
               <!-- Grid column -->
-              <div class="col-sm-3 col-md-4 mx-auto mb-md-0"></div>
+              <div class="col-sm-3 col-md-2 mx-auto mb-md-0"></div>
       
               <!-- Grid column -->
-              <div class="col-6 col-sm-3 col-md-2 mx-auto mb-md-0">
+              <div class="col-6 col-sm-3 col-md-2 mx-auto mb-md-0 py-1">
                 <!-- Links -->
-                <h6 class="text-uppercase fw-bold my-2">Company</h6>
+                <h6 class="text-uppercase fw-bold">Company</h6>
                 <a class="text-light text-decoration-none" href="{{ route('home') }}"> <span class="underlineHover"> Home</span></a>
                 <br>
                 <a class="text-light text-decoration-none" href="{{ route('about_us') }}"> <span class="underlineHover"> About Us</span></a>
@@ -269,9 +287,9 @@
                 <a class="text-light text-decoration-none" href="{{ route('explore') }}"> <span class="underlineHover"> Explore</span></a>
               </div>
     
-              <div class="col-6 col-sm-3 col-md-2 mx-auto mb-md-0">
+              <div class="col-6 col-sm-3 col-md-2 mx-auto mb-md-0 py-1">
                 <!-- Contact -->
-                <h6 class="text-uppercase fw-bold my-2">Contact</h6>
+                <h6 class="text-uppercase fw-bold">Contact</h6>
                 <a class="text-light text-decoration-none" href="#"> <span class="underlineHover"> Facebook</span></a>
                 <br>
                 <a class="text-light text-decoration-none" href="#"> <span class="underlineHover"> Instagram</span></a>

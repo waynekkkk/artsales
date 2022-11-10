@@ -130,7 +130,7 @@
     <div id="artworks_modal"></div>
 
     <!--card-->
-    <div class="container" style='margin-bottom:175px; margin-top:30px;' id="artworks">
+    <div class="container" style='margin-bottom:80px; margin-top:30px;' id="artworks">
     <!-- display artworks -->
         <!-- <div class="grids" id="artworks"> -->
            <!-- <h1>not working</h1> -->
@@ -140,9 +140,10 @@
     
     <!-- google maps -->
     <div class="container">
-        <div class="my-5">
-            <div class="container d-flex justify-content-center pt-3 mb-3 position-static">
-                <button type="button" class="btn btn-dark rounded-pill me-3" onclick="new_center()">Take me anywhere &nbsp  
+            <div class="container text-center pt-3 mb-3 position-static">
+                <h3>Explore our Physical Galleries!</h3>
+                <br>
+                <button type="button" class="btn btn-dark rounded-pill mb-2 me-3" onclick="new_center()">Take me anywhere &nbsp  
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dice-2" viewBox="0 0 16 16">
                     <path d="M13 1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h10zM3 0a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V3a3 3 0 0 0-3-3H3z"/>
                     <path d="M5.5 4a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm8 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
@@ -158,8 +159,7 @@
                 <span class="js-odoo s3" id = 's3' style="font-family: monospace;"></span>
             </div>
             
-            <div id="map" class="" style="height: 600px;"></div>
-        </div>
+            <div id="map" class="border border-dark mb-5" style="height: 600px;"></div>
     </div>
 
 <!-- do not delete this commented part, it does not work without this -->
@@ -460,7 +460,7 @@
     </script> 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script> --}}
     <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDO3zBsHYh0v5BB1T4mAosSJHNWIxcpk5k&callback=initMap"></script>
     <script>
         // allow poopover

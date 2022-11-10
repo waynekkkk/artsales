@@ -7,7 +7,7 @@
             <!-- Dynamic displaying of background img. See mini lab 2 and how they do it -->
 
             <!-- To make it dynamic and customisable to user -->
-            <img id="banner-image" src="{{ $user->banner ? $user->banner->asset_url : 'https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80' }}" alt="Banner Image">
+            <img id="banner-image" src="{{ $user->banner ? $user->banner->asset_url : asset('images/hero.jpeg') }}" alt="Banner Image">
             
         </div>
 
@@ -15,7 +15,7 @@
             <div class="display-pic text-center">
                 <!-- Dynamic displaying of dp. Similar to profileBackground --> 
                 <!-- Nav bar too.  -->
-                <img id="profile-image" src="{{ $user->profile_picture ? $user->profile_picture->asset_url : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_21ZgcYYoO9HR-eNc_kIDEsO2hXUh1FKbhg&usqp=CAU' }}" alt="Profile Image">
+                <img id="profile-image" src="{{ $user->profile_picture ? $user->profile_picture->asset_url : asset('images/hello-kitty-dancing.gif') }}" alt="Profile Image">
                 <div class="profile-image-animation"></div>
             </div>
 
@@ -59,7 +59,7 @@
                 <button class="btn btn-outline-dark border-3 rounded-circle ms-3"><i class="social fa-solid fa-envelope"></i></button>
             </div>
     
-            <div class="page-feature">
+            <div class="page-feature mb-2">
                 <ul class="nav nav-pills  nav-black nav-fill">
                     <li class="nav-item mx-2 mb-2 mb-md-4"> 
                         <a id="default-content" class="nav-link main-tabgroup" onclick="displayContent(event, 'artworks')">Artworks</a>
@@ -76,9 +76,9 @@
             <div id="artworks" class="tabcontent mb-5">
 
                 <div class="row justify-content-center">
-                    <div class="col-lg-6 offset-lg-6 text-end">
+                    <div class="col-lg-6 offset-lg-6 text-center text-md-end">
                         @if (Auth::check() && (Auth::user()->id == $user->id))
-                            <button type="button" class="btn btn-outline-dark btn-block rounded-pill mt-5" onclick="window.location.href='{{ route('user.add_artwork', Auth::user()->id) }}';"><i class="fa-solid fa-plus"></i> Add More Wonderful Pieces!!</button>    
+                            <button type="button" class="btn btn-outline-dark btn-block rounded-pill" onclick="window.location.href='{{ route('user.add_artwork', Auth::user()->id) }}';"><i class="fa-solid fa-plus"></i> Add More Wonderful Pieces!!</button>    
                         @endif
                     </div>
                 </div>
@@ -88,62 +88,125 @@
                         var countId = 0;
                     </script>
                     @foreach ($artworks as $artwork)
-                        <div class="col-lg-4 col-md-6 col-sm-12" id="artist-artwork">
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+
+                             <!-- Modal -->
+                             <div class="modal fade" id="artwork-modal" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5">{{ $artwork->title }}</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img src="{{ $artwork->asset->asset_url }}" class="card-img-top">
+                                        <hr>
+                                        <p class="fw-semibold">{{ $artwork->description }}</p>
+                                        <div class="d-flex justify-content-between">
+                                            <div class="vote text-muted">
+                                                <small>Votes: {{ $artwork->votes }}</small>
+                                            </div>
+                                            @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
+                                                <div class="stage">
+                                                    <div class="heart" 
+                                                        @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
+                                                            onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
+                                                        @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
+                                                            onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
+                                                        @else
+                                                            onclick="alert('Please log in to start casting your votes!')"
+                                                        @endif>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer justify-content-center">
+                                        @if (Auth::check() && (Auth::user()->id == $user->id))
+                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                            <form action="{{ route('user.edit_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="get">
+                                                @csrf
+                                                <button type="submit" class="btn btn-outline-dark btn-block rounded-pill fs-6">Edit this piece?</button>
+                                            </form>
+                                            <form action="{{ route('user.delete_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="post">
+                                                @csrf
+                                                <button type="submit" class="btn btn-outline-dark btn-block rounded-pill fs-6">Delete master piece? D:</button>
+                                            </form>
+                                          </div>
+                                        {{-- <div class="row">
+                                            <div class="col-sm-6">
+                                                <form action="{{ route('user.edit_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="get">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-outline-dark btn-block rounded-pill fs-6">Edit!</button>
+                                                </form>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <form action="{{ route('user.delete_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="post">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-outline-dark btn-block rounded-pill fs-6">Delete?</button>
+                                                </form>
+                                            </div>
+                                        </div> --}}
+                                    @endif
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <script>
-                                artworkId = document.getElementById('artist-artwork').id;
-                                artworkId += countId;
-                                document.getElementById('artist-artwork').id = artworkId;
+                                artworkModal = document.getElementById('artwork-modal').id;
+                                artworkModal += countId;
+                                document.getElementById('artwork-modal').id = artworkModal;
                             </script>
+
                             <div class="card h-100 artwork-card">
-                                <img src="{{ $artwork->asset->asset_url }}" class="card-img-top" alt="...">
+                                <img style="cursor: pointer; border-radius:15px 15px 0 0;" id="artist-artwork" src="{{ $artwork->asset->asset_url }}" class="card-img-top" data-bs-target="#artwork-modal" data-bs-toggle="modal">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $artwork->title }}</h5>
                                     <p class="card-text">{{ $artwork->description }}</p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="d-flex">
-                                        <small class="text-muted">Votes: </small>
-                                        <!-- FIGURE OUT HOW TO DO IT WITHOUT INLINE STYLR -->
-                                        <small class="text-muted"><span style="margin-left:5px;">{{ $artwork->votes }}</span></small>
-                                    </div>
-
-                                    {{-- START OF POPUP --}}
-                                    {{-- <div class="row">
-                                        <button class="btn btn-dark rounded-pill btn-block mt-4 text-end col-lg-4"  type="submit">
-                                            <a href="#" class="cd-popup-trigger text-decoration-none text-white" id="popup">Details</a>
+                                    <div class="text-end">
+                                        <button type="button" id="targetArt" class="btn btn-white text-end" data-bs-toggle="modal" data-bs-target="#artwork-modal">
+                                            •••
                                         </button>
                                     </div>
-
-                                    <script>
-                                        popupId = document.getElementById('popup').id;
-                                        popupId += countId;
-                                        document.getElementById('popup').id = popupId;
-                                    </script>
-
-                                    <div class="cd-popup" role="alert">
-                                        <div class="cd-popup-container">
-                                            <div class="card h-50">
-                                                <img src="{{ $artwork->asset->asset_url }}" class="card-img-top" alt="...">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">{{ $artwork->title }}</h5>
-                                                    <p class="card-text">{{ $artwork->description }}</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    <div class="d-flex">
-                                                        <small class="text-muted">Votes: </small>
-                                                        <small class="text-muted"><span style="margin-left:5px;">{{ $artwork->votes }}</span></small>
-                                                    </div>
-                                              </div>
-                                                <ul class="cd-buttons">
-                                                    <li><a href="#">Edit</a></li>
-                                                    <li><a href="#">Delete</a></li>
-                                                </ul>
-                                                <a href="#" class="cd-popup-close img-replace">Close</a>
-                                            </div>
+                                    
+                                </div>
+                                <div class="card-footer p-4">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="vote text-muted">
+                                            <small>Votes: {{ $artwork->votes }}</small>
                                         </div>
-                                    </div> --}}
-                                    {{-- END OF POPUP --}}
-                                    @if (Auth::check() && (Auth::user()->id == $user->id))
+                                        @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
+                                            <div class="stage">
+                                                <div class="heart" 
+                                                    @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
+                                                        onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
+                                                    @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
+                                                        onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
+                                                    @else
+                                                        onclick="alert('Please log in to start casting your votes!')"
+                                                    @endif>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        
+                                    </div>
+                                    
+                                    <script>
+                                        targetModal = document.getElementById('targetArt').id;
+                                        artworkId = document.getElementById('artist-artwork').id;
+                                        artworkId += countId;
+                                        targetModal += countId;
+                                        document.getElementById('targetArt').id = targetModal;
+                                        document.getElementById('artist-artwork').id = artworkId;
+                                        targetModalImg = document.getElementById(artworkId).dataset.bsTarget;
+                                        targetModalBtn = document.getElementById(targetModal).dataset.bsTarget;
+                                        targetModalImg += countId;
+                                        targetModalBtn += countId;
+                                        document.getElementById(artworkId).dataset.bsTarget = targetModalImg;
+                                        document.getElementById(targetModal).dataset.bsTarget = targetModalBtn;
+                                    </script>
+                                    {{-- @if (Auth::check() && (Auth::user()->id == $user->id))
                                         <div class="row">
                                             <div class="col-lg-4"></div>
                                             <div class="col-lg-4 text-end">
@@ -160,7 +223,7 @@
                                             </div>
                                             
                                         </div>
-                                    @endif
+                                    @endif --}}
                                     
                                 </div>
                             </div>
@@ -169,6 +232,8 @@
                             countId++;
                         </script>
                     @endforeach
+
+                    <div id=""></div>
         
                     <div class="spacing"><br></div>
                 </div>
@@ -345,34 +410,35 @@
                     e.currentTarget.classList.add('active');
                 }
             </script>
+            
+            <script>
+                function postLike(event, artwork_id, user_id) {
+    
+                    confirm("Are you sure you want to vote for this artwork?");
 
-            {{-- Artwork Popup Script --}}
-            <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+                    axios.post("api/artwork/like", {
+                                    user_id:        user_id,
+                                    artwork_id:     artwork_id
+                                })
+                        .then(response => {
+                            var new_votes = response.data.result;
+                            var msg = response.data.message;
 
-            {{-- <script>
-                jQuery(document).ready(function($){
+                            event.target.classList.add('is-active');
+                            event.target.removeAttribute('onclick');
 
-                    //open popup
-                    $('.cd-popup-trigger').on('click', function(event){
-                        event.preventDefault();
-                        $('.cd-popup').addClass('is-visible');
-                    });
-                    
-                    //close popup
-                    $('.cd-popup').on('click', function(event){
-                        if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
-                            event.preventDefault();
-                            $(this).removeClass('is-visible');
-                        }
-                    });
-                    //close popup when clicking the esc keyboard button
-                    $(document).keyup(function(event){
-                        if(event.which=='27'){
-                            $('.cd-popup').removeClass('is-visible');
-                        }
-                    });
-                });
-            </script> --}}
+                            var stage_parent = event.target.parentElement;
+                            var vote_div = stage_parent.parentElement.childNodes[1];
+                            vote_div.innerHTML = `<small>Votes: ${new_votes}</small>`;
+
+                            console.log(response.data.message);
+                        })
+                        .catch(error => {
+                            console.log(response.data.message);
+                        })
+
+                }
+            </script>
 
     </body>
 @endsection
