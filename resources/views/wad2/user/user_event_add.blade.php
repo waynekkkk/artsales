@@ -123,7 +123,7 @@
                         marker.setMap(null);
                         Object.keys(museum_collection).forEach(id => {
                             if (selectedMuseumId == id){
-                                const newLatLng = {lat: museum_collection[id].lat, lng: museum_collection[id].long};
+                                const newLatLng = {lat: parseFloat(museum_collection[id].lat), lng: parseFloat(museum_collection[id].long)};
                                 console.log(newLatLng);
                                 var marker = new google.maps.Marker({
                                     postion: newLatLng,
