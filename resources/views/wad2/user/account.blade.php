@@ -56,7 +56,7 @@
             <div id="artist-socials">
                 <button class="btn btn-outline-dark border-3 rounded-circle ms-3"><i class="social fa-brands fa-twitter"></i></button>
                 <button class="btn btn-outline-dark border-3 rounded-circle ms-3"><i class="social fa-brands fa-instagram"></i></button>
-                <button class="btn btn-outline-dark border-3 rounded-circle ms-3 me-2"><i class="social fa-solid fa-envelope"></i></button>
+                <button class="btn btn-outline-dark border-3 rounded-circle ms-3 me-3"><i class="social fa-solid fa-envelope"></i></button>
             </div>
     
             <div class="page-feature mb-2">
