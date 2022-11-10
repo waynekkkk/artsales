@@ -117,14 +117,26 @@
                         }
                     })
 
+                    let markers = [];
+
+                    function setMapOnAll(map){
+                        for (let i = 0; i < markers.length; i++) {
+                            markers[i].setMap(map);
+                        }
+                    }
+                    function hideMarkers() {
+                        setMapOnAll(null);
+                    }
 
                     document.getElementById('selectedMuseum').addEventListener('change', () => {
                         var selectedMuseumId = document.getElementById('selectedMuseum').value;
                         marker.setMap(null);
+
                         Object.keys(museum_collection).forEach(id => {
                             if (selectedMuseumId == id){
                                 const newLatLng = {lat: parseFloat(museum_collection[id].lat), lng: parseFloat(museum_collection[id].long)};
                                 console.log(newLatLng);
+                                
                                 var marker = new google.maps.Marker({
                                     postion: newLatLng,
                                     map: map,
@@ -133,7 +145,8 @@
                                         scaledSize: new google.maps.Size(40,40)
                                     }
                                 })
-
+                                hideMarkers();
+                                markers.push(marker);
                                 console.log('Map focus changed!');
                                 console.log('Marker changed!');
                                 marker.setPosition(newLatLng);
