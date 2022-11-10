@@ -318,7 +318,7 @@
         `;
         // make it have weather info
         var key = "19c53dfa53a7b4e96f444976cf4f5152"
-        var url = "https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather"
+        var url = " https://wadiiproxy.herokuapp.com/https://api.openweathermap.org/data/2.5/weather"
         var param = {
             lat:museum.lat,
             lon:museum.long,
