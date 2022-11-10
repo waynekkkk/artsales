@@ -119,9 +119,9 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item py-2" href="{{ route('user.account', Auth::user()->id) }}">Account</a></li>
+                                    <li><a class="dropdown-item py-2" href="{{ route('user.account', Auth::user()->id) }}"><i class="fa-solid fa-user"></i> Account</a></li>
                                     {{-- to include activity here --}}
-                                    <li><a class="dropdown-item py-2" href="{{ route('user.notifications', Auth::user()->id) }}">Activity</a></li> 
+                                    <li><a class="dropdown-item py-2" href="{{ route('user.notifications', Auth::user()->id) }}"><i class="fa-solid fa-bell"></i> Activity</a></li> 
 
                                     
 

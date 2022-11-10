@@ -27,7 +27,10 @@ class NotificationController extends Controller
         $current_time = Carbon::now()->timezone('Asia/Singapore')->format('d-M-Y H:i');
 
         $all_notifications = [];
+        $all_notifications_ids = [];
         foreach ($notifications as $notification) {
+            $all_notifications_ids[] = $notification->id;
+
             $notification_details = new stdClass();
             $notification_details->id = $notification->id;
             $notification_details->description = $notification->description;
@@ -47,7 +50,8 @@ class NotificationController extends Controller
 
         return view('wad2.user.notification',
         [
-            'notifications'                              => $all_notifications, 
+            'notifications'               => $all_notifications, 
+            'notifications_ids'           => $all_notifications_ids, 
         ]);
     }
 

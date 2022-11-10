@@ -11339,10 +11339,10 @@ textarea.form-control-lg {
 }
 
 .outer {
-  background-image: url("https://stateoftheart.blob.core.windows.net/wad2/366252.jpg");
+  background-image: url("https://stateoftheart.blob.core.windows.net/wad2/background.jpg");
   background-size: cover;
-  max-height: 100vh;
-  min-height: 80vh;
+  max-height: 100%;
+  min-height: 80%;
 }
 
 @media (max-width: 991px) {
@@ -11780,9 +11780,9 @@ input:checked + .slider-1-1 {
 }
 
 #four-monkey {
-  background-color: #4e1112;
-  color: white;
-  padding: 4px;
+  color: #4e1112;
+  font-weight: bold;
+  font-size: 22px;
 }
 
 svg {
@@ -11871,8 +11871,8 @@ svg {
 
 .card_wrapper {
   border-radius: 15px;
-  height: 550px;
-  /* width: 370px; */
+  height: 600px;
+  width: 370px;
   margin: 20px 10px 20px 10px;
   transition: all 0.2s ease-in-out;
 }

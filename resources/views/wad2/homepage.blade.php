@@ -5,6 +5,7 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 
+
 <body>
     <!--spotlight-->
 
@@ -26,7 +27,7 @@
                 </div>
             </div>
             <div class="d-flex col-12 col-md-5 justify-content-center mt-3">
-                <img src="{{$highest_voted_artwork->asset->asset_url}}" class="rounded img-fluid display from-right spotlight" style="width: 400px; filter: drop-shadow(1rem 1rem 0.25rem rgba(0, 0, 0, 0.4));">
+                <img src="{{$highest_voted_artwork->asset->asset_url}}" class="rounded img-fluid display from-right spotlight" style="width: 100%; object-fit:contain; filter: drop-shadow(1rem 1rem 0.25rem rgba(0, 0, 0, 0.4));">
             </div>
         </div>
     </div>  
@@ -53,16 +54,16 @@
                 <div class="owl-carousel owl-theme d-flex-justify-content-center w-100">
 
                     @foreach($all_artworks_by_votes as $artwork)
-                        <div class="card card_wrapper">
+                        <div class="card card_wrapper" style="max-width: 400px;">
 
-                            <a href="{{ route('user.account', $artwork->artist_id) }}">
-                                <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
-                            </a>
+                            <!-- <a href="{{ route('user.account', $artwork->artist_id) }}"> -->
+                                <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#ModalLabel{{$artwork->id}}" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
+                            <!-- </a> -->   
                             <div class="card-body">
                                 <h3 class="card-title"><strong>{{ $artwork->title}}</strong></h3>
                                 <p class="card-text mb-3">
                                     <span class="fw-semibold d-block">By: <a href="{{ route('user.account', $artwork->artist_id) }}"><u>{{$artwork->artist->name}}</u></a></span>
-                                    <span class="fw-light">{{ $artwork->description}}</span>
+                                    <div class="fw-light" style="height:50px;">{{ $artwork->description}}</div>
                                 </p>
                                 <div class="d-flex justify-content-between">
                                     <div class="vote">
@@ -114,11 +115,11 @@
                     @foreach($all_artworks_by_recommendations as $artwork)
                         <div class="card card_wrapper">
 
-                            <a href="{{ route('user.account', $artwork->artist_id) }}">
-                                <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#${person.name}Modal" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
-                            </a>
+                            <!-- <a href="{{ route('user.account', $artwork->artist_id) }}"> -->
+                                <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#ModalLabel{{$artwork->id}}" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
+                            <!-- </a> -->
                             <div class="card-body">
-                            <h3 class="card-title"><strong>{{ $artwork->title}}</strong></h3>
+                            <h3 class="card-title" id="textFitting"><strong>{{ $artwork->title}}</strong></h3>
                                 <p class="card-text fw-light">
                                     <span class="fw-semibold d-block">By: <a href="{{ route('user.account', $artwork->artist_id) }}"><u>{{$artwork->artist->name}}</u></a></span>
                                     <span class="fw-light">{{ $artwork->description}}</span>
@@ -148,6 +149,30 @@
             </div>
     </div>
 
+<!-- modal holder -->
+<div>
+  @foreach($all_artworks_by_votes as $artwork)
+      <div class="modal fade" id="ModalLabel{{$artwork->id}}">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                  <h5 class="modal-title" id="ModalLabel{{$artwork->id}}">{{$artwork->title}}</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                  </div>
+                  <div class="modal-body">
+                  <img src="{{$artwork->asset->asset_url}}" style="width: 100%;">
+                  </div>
+                  <div class="modal-footer">
+                  <button type="button" class="btn btn-light rounded-pill me-3" data-bs-dismiss="modal">Nope</button>
+                  <a href="{{ route('user.account', $artwork->artist_id) }}">
+                  <button type="button" class="btn btn-dark rounded-pill">Who?!?!</button>
+                  <a/>
+                  </div>
+              </div>
+          </div>
+      </div>
+  @endforeach 
+  </div>
         
 
         <!--google maps-->
@@ -168,9 +193,8 @@
 
 function postLike(event, artwork_id, user_id) {
     
-    confirm("Are you sure you want to vote for this artwork?");
-
-    axios.post("api/artwork/like", {
+    if (confirm("Are you sure you want to vote for this artwork?")) {
+        axios.post("/api/artwork/like", {
                     user_id:        user_id,
                     artwork_id:     artwork_id
                 })
@@ -190,6 +214,7 @@ function postLike(event, artwork_id, user_id) {
         .catch(error => {
             console.log(response.data.message);
         })
+    };
 
 }
 
@@ -247,7 +272,7 @@ var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};
         console.log(museum.name)
         // make it have weather info
         var key = "19c53dfa53a7b4e96f444976cf4f5152"
-        var url = "https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather"
+        var url = " https://wadiiproxy.herokuapp.com/https://api.openweathermap.org/data/2.5/weather"
         var param = {
             lat:museum.lat,
             lon:museum.long,
@@ -259,7 +284,6 @@ var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};
         .then(response => {
             // process response.dataobject
             var weather = response.data.weather[0].main
-            console.log(response.data.main.temp)
             contentString += "<div class='from-left-3'><img class='from-left-1' src='" + weather_icons[weather.toLowerCase()] + "' style='width:38px;'><span>" + response.data.main.temp +"°C</span></div> <div style='text-align:center'><div style = 'color:black; font-size:20px; font-family:copperplate; font-weight:bold; text-align:center;'><strong>Current Galleries</strong></div></div>";
             museum.artists_list.forEach(artist =>{
             console.log(artist.name)
@@ -350,15 +374,20 @@ var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};
 
          
         // make it on click
+
         google.maps.event.addListener(marker, "click", () => {
             var infowindow = new google.maps.InfoWindow({
                 content: contentString
                 });
-                    
-                infowindow.open(map,marker);
+            if (currentInfoWindow != null) {
+            currentInfoWindow.close();
+            }
+            infowindow.open(map, marker);
+            currentInfoWindow = infowindow;    
             })
         })
         //end of foreach museum_collection
+        var currentInfoWindow = null;
         };
 var myCarousel = document.querySelector('#myCarousel')
 // var carousel = new bootstrap.Carousel(myCarousel)
@@ -378,8 +407,10 @@ var myCarousel = document.querySelector('#myCarousel')
     // })
     var owl = $('.owl-carousel');
     owl.owlCarousel({
-        margin: 40,
-        loop: false,
+        margin: 30,
+        loop: true,
+        center:true,
+        autoWidth:true,
         navText:[`
         <div class='nav-btn prev-slide'>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
@@ -391,16 +422,17 @@ var myCarousel = document.querySelector('#myCarousel')
                 <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
             </svg>
         </div>`],
+        // items:2,
         responsive: {
         0: {
             items: 1,
-            nav: true
-        },
-        600: {
-            items: 2,
-            nav: true
+            nav: true,
         },
         1000: {
+            items: 2,
+            nav: true,
+        },
+        1300: {
             items: 3,
             nav: true,
         }
