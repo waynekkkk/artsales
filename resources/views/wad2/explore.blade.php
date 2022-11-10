@@ -194,7 +194,7 @@
                 <img style="cursor: pointer; object-fit:cover; width:100%; height:400px;" data-bs-toggle="modal" data-bs-target="#Modal${artwork.id}" class="card-img-top img_wrapper" src="${artwork.asset.asset_url}" alt="Card image cap">
                 <div class="card-body">
                     <h3 class="card-title text-center"><strong>${artwork.title}</strong></h3>
-                    <div class="fw-light text-center">${artwork.description}</div>
+                    <p class="fw-light text-center">${artwork.description}</p>
                     <div class="d-flex justify-content-between">
                         <div class="vote">
                             <small>Votes: ${artwork.votes}</small>
@@ -204,6 +204,7 @@
                                 onclick="${onclick_content}">
                             </div>
                         </div>
+                    </div>
                     
                     <div class="vote">
                         <small>Votes: ${artwork.votes}</small>
