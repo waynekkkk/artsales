@@ -205,6 +205,9 @@
                 <div class="card-body">
                     <h3 class="card-title text-center"><strong>${artwork.title}</strong></h3>
                     <div class="fw-light text-center">${artwork.description}</div>
+                    <div class="vote">
+                        <small>Votes: ${artwork.votes}</small>
+                    </div>
                 </div>
             </div> `
             artwork_modal += `
@@ -417,10 +420,15 @@
             var infowindow = new google.maps.InfoWindow({
                 content: contentString
                 });
-                    
-                infowindow.open(map,marker);
+                if (currentInfoWindow != null) {
+                    currentInfoWindow.close();
+                    }
+                infowindow.open(map, marker);
+                currentInfoWindow = infowindow;  
             })
         })
+        //end foreach
+        var currentInfoWindow = null;
         window.setTimeout(() => {
                                     map.setZoom(18);
                                     map.panTo({lat:c_lat, lng:c_lng});
