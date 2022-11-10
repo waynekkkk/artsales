@@ -6,29 +6,6 @@
     <script src="https://cdn.rawgit.com/coderitual/odoo/feature/codevember16/lib/odoo.js"></script>
 
 <style>
-        .heart {
-        cursor: pointer;
-        height: 50px;
-        width: 50px;
-        background-image:url( 'https://abs.twimg.com/a/1446542199/img/t1/web_heart_animation.png');
-        background-position: left;
-        background-repeat:no-repeat;
-        background-size:2900%;
-        }
-
-        .heart:hover {
-        background-position:right;
-        }
-
-        .is_animating {
-        animation: heart-burst .8s steps(28) 1;
-        }
-
-        @keyframes heart-burst {
-        from {background-position:left;}
-        to { background-position:right;}
-        }
-      
         .card_wrapper{
             width: 25rem;
             border-radius: 15px;
@@ -179,11 +156,12 @@
 
     <script>
         var works = {{ Illuminate\Support\Js::from($all_artworks_by_votes) }};
+        var authenticated = {{ Illuminate\Support\Js::from($authenticated) }};
 
         // slice to random 3 works
         shuffleWork(works)
         three_works = works.slice(0,3)
-        showAll(three_works)
+        showAll(three_works, authenticated)
         reveal()
 
         // shuffle array of artworks
@@ -195,16 +173,38 @@
         }
 
         // display artworks
-        function showAll(array){
+        function showAll(array, authenticated){
+            
             let artworks = '<div class="grids reveal">'
             let artwork_modal = ""
             array.forEach(artwork => {
+                let onclick_content = '';
+                if (authenticated && !(artwork.artist_id == authenticated)) {
+                    onclick_content = `postLike(event,${artwork.id},${authenticated})`;
+                }
+                else if (authenticated && (artwork.artist_id == authenticated)) {
+                    onclick_content = `alert('Oh dear! We know you love your own art, but let us be fair!')`
+                }
+                else {
+                    onclick_content = `alert('Please log in to start casting your votes!')`
+                }
+            
                 artworks += `
                 <div class="card card_wrapper">
                 <img style="cursor: pointer; object-fit:cover; width:100%; height:400px;" data-bs-toggle="modal" data-bs-target="#Modal${artwork.id}" class="card-img-top img_wrapper" src="${artwork.asset.asset_url}" alt="Card image cap">
                 <div class="card-body">
                     <h3 class="card-title text-center"><strong>${artwork.title}</strong></h3>
                     <div class="fw-light text-center">${artwork.description}</div>
+                    <div class="d-flex justify-content-between">
+                        <div class="vote">
+                            <small>Votes: ${artwork.votes}</small>
+                        </div>
+                        <div class="stage">
+                            <div class="heart"
+                                onclick="${onclick_content}">
+                            </div>
+                        </div>
+                    
                     <div class="vote">
                         <small>Votes: ${artwork.votes}</small>
                     </div>
@@ -257,7 +257,7 @@
         function shuffle(){
             shuffleWork(works)
             three_works = works.slice(0,3)
-            showAll(three_works)
+            showAll(three_works, authenticated)
             reveal()
         }
 
@@ -474,19 +474,34 @@
         var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
             return new bootstrap.Popover(popoverTriggerEl)
         })
-        
-        /* when a user clicks, toggle the 'is-animating' class */
-        $(".heart").on('click touchstart', function(){
-            $(this).toggleClass('is_animating');
-        });
-        
-        /*when the animation is over, remove the class*/
-        $(".heart").on('animationend', function(){
-            $(this).toggleClass('is_animating');
-        });
 
        
-        
+        function postLike(event, artwork_id, user_id) {
+    
+            if (confirm("Are you sure you want to vote for this artwork?")) {
+                axios.post("/api/artwork/like", {
+                            user_id:        user_id,
+                            artwork_id:     artwork_id
+                        })
+                .then(response => {
+                    var new_votes = response.data.result;
+                    var msg = response.data.message;
+
+                    event.target.classList.add('is-active');
+                    event.target.removeAttribute('onclick');
+
+                    var stage_parent = event.target.parentElement;
+                    var vote_div = stage_parent.parentElement.childNodes[1];
+                    vote_div.innerHTML = `<small>Votes: ${new_votes}</small>`;
+
+                    console.log(response.data.message);
+                })
+                .catch(error => {
+                    console.log(response.data.message);
+                })
+            };
+
+        }
     </script>    
 </body>
 @endsection

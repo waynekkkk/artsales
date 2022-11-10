@@ -146,6 +146,15 @@ class HomeController extends Controller
             $museum_collections[] = $museum_details;
         }
 
+        $authenticated = '';
+
+        if (Auth::check()) {
+            $authenticated = Auth::user()->id;
+        }
+        else {
+            $authenticated = false;
+        }
+
         return view(
             'wad2.explore',
             [
@@ -155,6 +164,7 @@ class HomeController extends Controller
                 'all_artworks_by_votes'               => $all_artworks_by_votes,
                 'artworks'                            => $all_artworks,
                 'museum_collections'                  => $museum_collections,
+                'authenticated'                       => $authenticated,
             ]
         );
     }

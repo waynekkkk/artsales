@@ -62,14 +62,23 @@ class UserController extends Controller
 
         $artwork_rankings = Artwork::orderBy('votes', 'DESC')->get();
 
-        $user_ranking = 1;
+        $artist_ranking_list = [];
         foreach ($artwork_rankings as $artwork_ranking) {
-            if ($artwork_ranking->artist_id == $user_id) {
-                break;
+            if (in_array($artwork_ranking->artist->name, $artist_ranking_list)) {
+                continue;
             }
             else {
-                $user_ranking++;
+                $artist_ranking_list[] = $artwork_ranking->artist->name;
             }
+        }
+
+        $user_in_ranking = array_search($user->name, $artist_ranking_list);
+
+        if ($user_in_ranking !== false) {
+            $user_ranking = $user_in_ranking + 1;
+        }
+        else {
+            $user_ranking = count($artist_ranking_list) + 1;
         }
 
         $events_details = [];

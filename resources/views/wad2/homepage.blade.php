@@ -193,9 +193,8 @@
 
 function postLike(event, artwork_id, user_id) {
     
-    confirm("Are you sure you want to vote for this artwork?");
-
-    axios.post("api/artwork/like", {
+    if (confirm("Are you sure you want to vote for this artwork?")) {
+        axios.post("/api/artwork/like", {
                     user_id:        user_id,
                     artwork_id:     artwork_id
                 })
@@ -215,6 +214,7 @@ function postLike(event, artwork_id, user_id) {
         .catch(error => {
             console.log(response.data.message);
         })
+    };
 
 }
 

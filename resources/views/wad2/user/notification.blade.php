@@ -66,7 +66,7 @@
         <script>
             function postRead(value) {
         
-                axios.post("http://localhost:8000/api/notification/read", {
+                axios.post("/api/notification/read", {
                     notification_id: value
                 })
                     .then(response => {
@@ -82,7 +82,7 @@
                         console.log(response.data.message);
                     })
                     .catch(error => {
-                        console.log(response.data.message);
+                        console.log(error.message);
                     })
 
             }
