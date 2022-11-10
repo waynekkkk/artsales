@@ -83,25 +83,108 @@
                     </div>
                 </div>
 
-                <div class=" mt-3 mx-4 row row-cols-1 row-cols-md-3 g-4">
-                    <script>
-                        var countId = 0;
-                    </script>
-                    @foreach ($artworks as $artwork)
-                        <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class=" mt-3 mx-4 row row-cols-1 row-cols-md-3 g-4" style="margin: 0 auto !important;">
+                    @if (count($artworks) == 0)
+                        <div class="col-lg-4 col-md-6 d-none d-md-block">
 
-                             <!-- Modal -->
-                             <div class="modal fade" id="artwork-modal" tabindex="-1">
-                                <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5">{{ $artwork->title }}</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="text-center fw-bold">
+                                There are currently no artworks...yet!
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 d-none d-md-block">
+
+                        </div>
+                    @else
+                        <script>
+                            var countId = 0;
+                        </script>
+                        @foreach ($artworks as $artwork)
+                            <div class="col-lg-4 col-md-6 col-sm-12">
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="artwork-modal" tabindex="-1">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5">{{ $artwork->title }}</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <img src="{{ $artwork->asset->asset_url }}" class="card-img-top">
+                                            <hr>
+                                            <p class="fw-semibold">{{ $artwork->description }}</p>
+                                            <div class="d-flex justify-content-between">
+                                                <div class="vote text-muted">
+                                                    <small>Votes: {{ $artwork->votes }}</small>
+                                                </div>
+                                                @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
+                                                    <div class="stage">
+                                                        <div class="heart" 
+                                                            @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
+                                                                onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
+                                                            @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
+                                                                onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
+                                                            @else
+                                                                onclick="alert('Please log in to start casting your votes!')"
+                                                            @endif>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                            @if (Auth::check() && (Auth::user()->id == $user->id))
+                                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                                <form action="{{ route('user.edit_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="get">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-outline-dark btn-block rounded-pill fs-6">Edit this piece?</button>
+                                                </form>
+                                                <form action="{{ route('user.delete_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="post">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-outline-dark btn-block rounded-pill fs-6">Delete master piece? D:</button>
+                                                </form>
+                                            </div>
+                                            {{-- <div class="row">
+                                                <div class="col-sm-6">
+                                                    <form action="{{ route('user.edit_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="get">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-outline-dark btn-block rounded-pill fs-6">Edit!</button>
+                                                    </form>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <form action="{{ route('user.delete_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="post">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-outline-dark btn-block rounded-pill fs-6">Delete?</button>
+                                                    </form>
+                                                </div>
+                                            </div> --}}
+                                        @endif
+                                        </div>
+                                        </div>
                                     </div>
-                                    <div class="modal-body">
-                                        <img src="{{ $artwork->asset->asset_url }}" class="card-img-top">
-                                        <hr>
-                                        <p class="fw-semibold">{{ $artwork->description }}</p>
+                                </div>
+
+                                <script>
+                                    artworkModal = document.getElementById('artwork-modal').id;
+                                    artworkModal += countId;
+                                    document.getElementById('artwork-modal').id = artworkModal;
+                                </script>
+
+                                <div class="card h-100 artwork-card">
+                                    <img style="cursor: pointer; border-radius:15px 15px 0 0;" id="artist-artwork" src="{{ $artwork->asset->asset_url }}" class="card-img-top" data-bs-target="#artwork-modal" data-bs-toggle="modal">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $artwork->title }}</h5>
+                                        <p class="card-text">{{ $artwork->description }}</p>
+                                        <div class="text-end">
+                                            <button type="button" id="targetArt" class="btn btn-white text-end" data-bs-toggle="modal" data-bs-target="#artwork-modal">
+                                                •••
+                                            </button>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="card-footer p-4">
                                         <div class="d-flex justify-content-between">
                                             <div class="vote text-muted">
                                                 <small>Votes: {{ $artwork->votes }}</small>
@@ -119,119 +202,50 @@
                                                     </div>
                                                 </div>
                                             @endif
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer justify-content-center">
-                                        @if (Auth::check() && (Auth::user()->id == $user->id))
-                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                            <form action="{{ route('user.edit_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="get">
-                                                @csrf
-                                                <button type="submit" class="btn btn-outline-dark btn-block rounded-pill fs-6">Edit this piece?</button>
-                                            </form>
-                                            <form action="{{ route('user.delete_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="post">
-                                                @csrf
-                                                <button type="submit" class="btn btn-outline-dark btn-block rounded-pill fs-6">Delete master piece? D:</button>
-                                            </form>
-                                          </div>
-                                        {{-- <div class="row">
-                                            <div class="col-sm-6">
-                                                <form action="{{ route('user.edit_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="get">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-outline-dark btn-block rounded-pill fs-6">Edit!</button>
-                                                </form>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <form action="{{ route('user.delete_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="post">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-outline-dark btn-block rounded-pill fs-6">Delete?</button>
-                                                </form>
-                                            </div>
-                                        </div> --}}
-                                    @endif
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <script>
-                                artworkModal = document.getElementById('artwork-modal').id;
-                                artworkModal += countId;
-                                document.getElementById('artwork-modal').id = artworkModal;
-                            </script>
-
-                            <div class="card h-100 artwork-card">
-                                <img style="cursor: pointer; border-radius:15px 15px 0 0;" id="artist-artwork" src="{{ $artwork->asset->asset_url }}" class="card-img-top" data-bs-target="#artwork-modal" data-bs-toggle="modal">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $artwork->title }}</h5>
-                                    <p class="card-text">{{ $artwork->description }}</p>
-                                    <div class="text-end">
-                                        <button type="button" id="targetArt" class="btn btn-white text-end" data-bs-toggle="modal" data-bs-target="#artwork-modal">
-                                            •••
-                                        </button>
-                                    </div>
-                                    
-                                </div>
-                                <div class="card-footer p-4">
-                                    <div class="d-flex justify-content-between">
-                                        <div class="vote text-muted">
-                                            <small>Votes: {{ $artwork->votes }}</small>
-                                        </div>
-                                        @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
-                                            <div class="stage">
-                                                <div class="heart" 
-                                                    @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
-                                                        onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
-                                                    @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
-                                                        onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
-                                                    @else
-                                                        onclick="alert('Please log in to start casting your votes!')"
-                                                    @endif>
-                                                </div>
-                                            </div>
-                                        @endif
-                                        
-                                    </div>
-                                    
-                                    <script>
-                                        targetModal = document.getElementById('targetArt').id;
-                                        artworkId = document.getElementById('artist-artwork').id;
-                                        artworkId += countId;
-                                        targetModal += countId;
-                                        document.getElementById('targetArt').id = targetModal;
-                                        document.getElementById('artist-artwork').id = artworkId;
-                                        targetModalImg = document.getElementById(artworkId).dataset.bsTarget;
-                                        targetModalBtn = document.getElementById(targetModal).dataset.bsTarget;
-                                        targetModalImg += countId;
-                                        targetModalBtn += countId;
-                                        document.getElementById(artworkId).dataset.bsTarget = targetModalImg;
-                                        document.getElementById(targetModal).dataset.bsTarget = targetModalBtn;
-                                    </script>
-                                    {{-- @if (Auth::check() && (Auth::user()->id == $user->id))
-                                        <div class="row">
-                                            <div class="col-lg-4"></div>
-                                            <div class="col-lg-4 text-end">
-                                                <form action="{{ route('user.edit_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="get">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-outline-dark btn-block rounded-pill mt-5">Edit this piece?</button>
-                                                </form>
-                                            </div>
-                                            <div class="col-lg-4 text-end">
-                                                <form action="{{ route('user.delete_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="post">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-outline-dark btn-block rounded-pill mt-5">Delete this piece?</button>
-                                                </form>
-                                            </div>
                                             
                                         </div>
-                                    @endif --}}
-                                    
+                                        
+                                        <script>
+                                            targetModal = document.getElementById('targetArt').id;
+                                            artworkId = document.getElementById('artist-artwork').id;
+                                            artworkId += countId;
+                                            targetModal += countId;
+                                            document.getElementById('targetArt').id = targetModal;
+                                            document.getElementById('artist-artwork').id = artworkId;
+                                            targetModalImg = document.getElementById(artworkId).dataset.bsTarget;
+                                            targetModalBtn = document.getElementById(targetModal).dataset.bsTarget;
+                                            targetModalImg += countId;
+                                            targetModalBtn += countId;
+                                            document.getElementById(artworkId).dataset.bsTarget = targetModalImg;
+                                            document.getElementById(targetModal).dataset.bsTarget = targetModalBtn;
+                                        </script>
+                                        {{-- @if (Auth::check() && (Auth::user()->id == $user->id))
+                                            <div class="row">
+                                                <div class="col-lg-4"></div>
+                                                <div class="col-lg-4 text-end">
+                                                    <form action="{{ route('user.edit_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="get">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-outline-dark btn-block rounded-pill mt-5">Edit this piece?</button>
+                                                    </form>
+                                                </div>
+                                                <div class="col-lg-4 text-end">
+                                                    <form action="{{ route('user.delete_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="post">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-outline-dark btn-block rounded-pill mt-5">Delete this piece?</button>
+                                                    </form>
+                                                </div>
+                                                
+                                            </div>
+                                        @endif --}}
+                                        
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <script>
-                            countId++;
-                        </script>
-                    @endforeach
+                            <script>
+                                countId++;
+                            </script>
+                        @endforeach
+                    @endif
 
                     <div id=""></div>
         
@@ -414,9 +428,8 @@
             <script>
                 function postLike(event, artwork_id, user_id) {
     
-                    confirm("Are you sure you want to vote for this artwork?");
-
-                    axios.post("api/artwork/like", {
+                    if (confirm("Are you sure you want to vote for this artwork?")) {
+                        axios.post("/api/artwork/like", {
                                     user_id:        user_id,
                                     artwork_id:     artwork_id
                                 })
@@ -436,6 +449,8 @@
                         .catch(error => {
                             console.log(response.data.message);
                         })
+                    };
+                    
 
                 }
             </script>
