@@ -259,7 +259,7 @@
 
                     @if (Auth::check() && (Auth::user()->id == $user->id))
 
-                        <div class="col-lg-6 offset-lg-6 text-end">
+                        <div class="col-lg-6 offset-lg-6 text-center text-md-end mb-3">
                             <div class="artist-events event-btn" style="display: inline-block">
                                 <button type="button" class="btn btn-outline-dark btn-block rounded-pill" onclick="window.location.href='{{ route('user.add_event', Auth::user()->id) }}';">Join an event here!!</button>
                             </div>
@@ -273,8 +273,8 @@
                 </div>
 
                 <!--google maps-->
-                <div class="m-5">
-                    <h4 class="mb-2">No. of Events: <span id="totalEvent"></span></h4>
+                <div class="mx-5 mb-5">
+                    <h4>No. of Events: <span id="totalEvent"></span></h4>
                     <br>
                     <div id="map" class="mx-3 w-100 border border-dark p-5"></div>
                 </div>
