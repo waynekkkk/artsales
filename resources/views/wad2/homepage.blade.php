@@ -12,9 +12,10 @@
     
     <div class="container d-flex justify-content-between pt-5 mx-auto">
         <div class="row justify-content-md-between w-100"> 
-            <div class="d-flex align-items-center text-center text-md-start justify-content-center mb-3 col-12 col-md-6">
+            <div class="from-left-1 d-md-none" style="font-size: 48px; font-weight: bold;" > Singapore's <span id="first"> First</span>  Digital Art Museum</div>
+            <div class="d-flex align-items-center text-center text-md-start justify-content-center mb-3 col-12 col-md-6 order-2 order-md-1">
                 <div class="">
-                    <div class="from-left-1" style="font-size: 48px; font-weight: bold;" > Singapore's <span id="first"> First</span>  Digital Art Musuem</div>
+                    <div class="from-left-1 d-none d-md-block" style="font-size: 48px; font-weight: bold;" > Singapore's <span id="first"> First</span>  Digital Art Museum</div>
                     <h2 class="mb-2 mt-3 from-left-2">Artwork of the Month</h2>
                     <div class="mb-2 from-left-3" style="font-size: 22px;">
                         <strong>{{ $highest_voted_artwork->title }}</strong> 
@@ -26,7 +27,7 @@
                     </div>
                 </div>
             </div>
-            <div class="d-flex col-12 col-md-5 justify-content-center mt-3">
+            <div class="d-flex col-12 col-md-5 justify-content-center mt-3 order-1 order-md-2 mb-2">
                 <img src="{{$highest_voted_artwork->asset->asset_url}}" class="rounded img-fluid display from-right spotlight" style="width: 100%; object-fit:contain; filter: drop-shadow(1rem 1rem 0.25rem rgba(0, 0, 0, 0.4));">
             </div>
         </div>
