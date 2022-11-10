@@ -194,6 +194,7 @@
                 <img style="cursor: pointer; object-fit:cover; width:100%; height:400px;" data-bs-toggle="modal" data-bs-target="#Modal${artwork.id}" class="card-img-top img_wrapper" src="${artwork.asset.asset_url}" alt="Card image cap">
                 <div class="card-body">
                     <h3 class="card-title text-center"><strong>${artwork.title}</strong></h3>
+                    <div class="fw-light text-center">${artwork.description}</div>
                     <div class="d-flex justify-content-between">
                         <div class="vote">
                             <small>Votes: ${artwork.votes}</small>
@@ -203,6 +204,9 @@
                                 onclick="${onclick_content}">
                             </div>
                         </div>
+                    
+                    <div class="vote">
+                        <small>Votes: ${artwork.votes}</small>
                     </div>
                 </div>
             </div> `
@@ -416,10 +420,15 @@
             var infowindow = new google.maps.InfoWindow({
                 content: contentString
                 });
-                    
-                infowindow.open(map,marker);
+                if (currentInfoWindow != null) {
+                    currentInfoWindow.close();
+                    }
+                infowindow.open(map, marker);
+                currentInfoWindow = infowindow;  
             })
         })
+        //end foreach
+        var currentInfoWindow = null;
         window.setTimeout(() => {
                                     map.setZoom(18);
                                     map.panTo({lat:c_lat, lng:c_lng});
