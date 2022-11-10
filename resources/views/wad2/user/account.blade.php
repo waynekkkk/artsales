@@ -47,7 +47,7 @@
                     {{ $user_ranking }}
                     <br><span class="fs-6 fw-normal">Rank</span>
                 </span>
-                <span id="artist-events" class="text-center">
+                <span id="artist-events" class="text-center me-2">
                     {{ count($museum_artists_involvement) }}<br>
                     <span class="fs-6 fw-normal">Events</span>
                 </span>
@@ -56,7 +56,7 @@
             <div id="artist-socials">
                 <button class="btn btn-outline-dark border-3 rounded-circle ms-3"><i class="social fa-brands fa-twitter"></i></button>
                 <button class="btn btn-outline-dark border-3 rounded-circle ms-3"><i class="social fa-brands fa-instagram"></i></button>
-                <button class="btn btn-outline-dark border-3 rounded-circle ms-3"><i class="social fa-solid fa-envelope"></i></button>
+                <button class="btn btn-outline-dark border-3 rounded-circle ms-3 me-2"><i class="social fa-solid fa-envelope"></i></button>
             </div>
     
             <div class="page-feature mb-2">
@@ -134,16 +134,16 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="modal-footer justify-content-center">
+                                        <div class="modal-footer ">
                                             @if (Auth::check() && (Auth::user()->id == $user->id))
-                                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                            <div class="d-grid gap-2 d-flex justify-content-end">
                                                 <form action="{{ route('user.edit_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="get">
                                                     @csrf
-                                                    <button type="submit" class="btn btn-outline-dark btn-block rounded-pill fs-6">Edit this piece?</button>
+                                                    <button type="submit" class="btn btn-light rounded-pill">Edit this piece?</button>
                                                 </form>
                                                 <form action="{{ route('user.delete_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="post">
                                                     @csrf
-                                                    <button type="submit" class="btn btn-outline-dark btn-block rounded-pill fs-6">Delete master piece? D:</button>
+                                                    <button type="submit" class="btn btn-dark rounded-pill">Delete master piece? D:</button>
                                                 </form>
                                             </div>
                                             {{-- <div class="row">

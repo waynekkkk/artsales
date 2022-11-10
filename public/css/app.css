@@ -11871,8 +11871,8 @@ svg {
 
 .card_wrapper {
   border-radius: 15px;
-  height: 550px;
-  /* width: 370px; */
+  height: 600px;
+  width: 370px;
   margin: 20px 10px 20px 10px;
   transition: all 0.2s ease-in-out;
 }
