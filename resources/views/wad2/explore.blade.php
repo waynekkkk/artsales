@@ -205,10 +205,6 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="vote">
-                        <small>Votes: ${artwork.votes}</small>
-                    </div>
                 </div>
             </div> `
             artwork_modal += `
@@ -493,6 +489,7 @@
 
                     var stage_parent = event.target.parentElement;
                     var vote_div = stage_parent.parentElement.childNodes[1];
+
                     vote_div.innerHTML = `<small>Votes: ${new_votes}</small>`;
 
                     console.log(response.data.message);
