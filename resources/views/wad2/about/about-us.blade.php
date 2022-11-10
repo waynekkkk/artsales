@@ -38,10 +38,10 @@
             </div>    
         </div> --}}
 
-        <div class="outer">
+        <div class="outer justify-content-center d-flex">
             
 
-            <div class="container h-100 py-5">
+            <div class="container h-100 py-5 inner">
                 <div class="row d-flex justify-content-center align-items-center">
                     <div class="col-xl-10">
                         <div class="card rounded-3" style="background-color: #f8fafc;">
