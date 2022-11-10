@@ -11339,7 +11339,7 @@ textarea.form-control-lg {
 }
 
 .outer {
-  background-image: url("https://raw.githubusercontent.com/waynekkkk/WAD2/master/public/images/background.jpg?token=GHSAT0AAAAAABZV475ZZO5PZBEP5GXULNSIY3NBVTA");
+  background-image: url("https://stateoftheart.blob.core.windows.net/wad2/background.jpg");
   background-size: cover;
   max-height: 100%;
   min-height: 80%;
