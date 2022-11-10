@@ -102,7 +102,18 @@ class HomeController extends Controller
         $artist_of_the_month = $highest_voted_artwork->artist;
         $highest_voted_artwork_asset = $highest_voted_artwork->asset->asset_url;
 
-        $all_artworks_by_votes = Artwork::orderBy('votes','desc')->get();
+        $all_artworks_by_votes = [];
+        foreach (Artwork::orderBy('votes','desc')->get() as $artwork) {
+            $artwork_details = new stdClass();
+
+            $artwork_details->id = $artwork->id;
+            $artwork_details->title = $artwork->title;
+            $artwork_details->description = $artwork->description;
+            $artwork_details->votes = $artwork->votes;
+            $artwork_details->artist_id = $artwork->artist_id;
+            $artwork_details->asset_url = $artwork->asset->asset_url;
+            $all_artworks_by_votes[] = $artwork_details;
+        }
         
         $all_artworks = Artwork::all()->shuffle();
 
