@@ -47,7 +47,7 @@
                     {{ $user_ranking }}
                     <br><span class="fs-6 fw-normal">Rank</span>
                 </span>
-                <span id="artist-events" class="text-center me-2">
+                <span id="artist-events" class="text-center me-3">
                     {{ count($museum_artists_involvement) }}<br>
                     <span class="fs-6 fw-normal">Events</span>
                 </span>
