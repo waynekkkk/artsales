@@ -165,8 +165,8 @@
                   <div class="modal-footer">
                   <button type="button" class="btn btn-light rounded-pill me-3" data-bs-dismiss="modal">Nope</button>
                   <a href="{{ route('user.account', $artwork->artist_id) }}">
-                  <button type="button" class="btn btn-dark rounded-pill">Who?!?!</button>
-                  <a/>
+                    <button type="button" class="btn btn-dark rounded-pill">Who?!?!</button>
+                  </a>
                   </div>
               </div>
           </div>
