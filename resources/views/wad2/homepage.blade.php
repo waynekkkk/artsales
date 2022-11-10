@@ -284,7 +284,6 @@ var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};
         .then(response => {
             // process response.dataobject
             var weather = response.data.weather[0].main
-            console.log(response.data.main.temp)
             contentString += "<div class='from-left-3'><img class='from-left-1' src='" + weather_icons[weather.toLowerCase()] + "' style='width:38px;'><span>" + response.data.main.temp +"°C</span></div> <div style='text-align:center'><div style = 'color:black; font-size:20px; font-family:copperplate; font-weight:bold; text-align:center;'><strong>Current Galleries</strong></div></div>";
             museum.artists_list.forEach(artist =>{
             console.log(artist.name)
@@ -375,15 +374,20 @@ var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};
 
          
         // make it on click
+
         google.maps.event.addListener(marker, "click", () => {
             var infowindow = new google.maps.InfoWindow({
                 content: contentString
                 });
-                    
-                infowindow.open(map,marker);
+            if (currentInfoWindow != null) {
+            currentInfoWindow.close();
+            }
+            infowindow.open(map, marker);
+            currentInfoWindow = infowindow;    
             })
         })
         //end of foreach museum_collection
+        var currentInfoWindow = null;
         };
 var myCarousel = document.querySelector('#myCarousel')
 // var carousel = new bootstrap.Carousel(myCarousel)
@@ -453,20 +457,6 @@ var myCarousel = document.querySelector('#myCarousel')
     }
     window.addEventListener("scroll", reveal);
 
-
-    
-    // if (window.addEventListener) {  // all browsers except IE before version 9
-    //   window.addEventListener ("resize", onResizeEvent, true);
-    // } else {
-    //   if (window.attachEvent) {   // IE before version 9
-    //     window.attachEvent("onresize", onResizeEvent);
-    //   }
-    // }
-    
-    // function onResizeEvent() {
-    //     var body = document.getElementsByTagName("BODY")[0];
-    //     var bodyWidth = body.offsetWidth;
-    // }
 </script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script defer
