@@ -388,8 +388,13 @@
                                 content: contentString,
                                 maxWidth: 300
                                 });
+                                if (currentInfoWindow != null) {
+                                    currentInfoWindow.close();
+                                }
                                 infowindow.open(map,marker);
+                                currentInfoWindow = infowindow;    
                             })
+                        var currentInfoWindow = null;
                     };
 
                     }
