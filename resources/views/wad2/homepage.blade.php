@@ -164,9 +164,8 @@
                   <img src="{{$artwork->asset->asset_url}}" style="width: 100%;">
                   </div>
                   <div class="modal-footer">
-                  <button type="button" class="btn btn-light rounded-pill me-3" data-bs-dismiss="modal">Nope</button>
                   <a href="{{ route('user.account', $artwork->artist_id) }}">
-                    <button type="button" class="btn btn-dark rounded-pill">Who?!?!</button>
+                    <button type="button" class="btn btn-dark rounded-pill">View the Artist</button>
                   </a>
                   </div>
               </div>
