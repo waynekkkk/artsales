@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="d-flex col-12 col-md-5 justify-content-center mt-3 order-1 order-md-2 mb-2">
-                <img src="{{$highest_voted_artwork->asset->asset_url}}" class="rounded img-fluid display from-right spotlight" style="width: 100%; object-fit:contain; filter: drop-shadow(1rem 1rem 0.25rem rgba(0, 0, 0, 0.4));">
+                <img src="{{$highest_voted_artwork->asset->asset_url}}" class="rounded img-fluid display from-right spotlight" style="width: 100%; object-fit:contain; filter: drop-shadow(1rem 1rem 0.25rem rgba(0, 0, 0, 0.4));" id="spotlight">
             </div>
         </div>
     </div>  
@@ -457,6 +457,17 @@ var myCarousel = document.querySelector('#myCarousel')
     }
     }
     window.addEventListener("scroll", reveal);
+
+    // remove animation for spotlight when small 
+    $(window).resize(function() {
+        var screen_width = document.body.clientWidth
+        var spotlight = document.getElementById("spotlight")
+        if(screen_width < 600){
+            spotlight.classList.remove("spotlight")
+        }else{
+            spotlight.classList.add("spotlight")
+        }
+    });
 
 </script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
