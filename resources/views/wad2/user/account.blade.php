@@ -177,18 +177,21 @@
                                     <div class="card-body">
                                         <h5 class="card-title">{{ $artwork->title }}</h5>
                                         <p class="card-text">{{ $artwork->description }}</p>
-                                        <div class="text-end">
-                                            <button type="button" id="targetArt" class="btn btn-white text-end" data-bs-toggle="modal" data-bs-target="#artwork-modal">
-                                                •••
-                                            </button>
-                                        </div>
-                                        
                                     </div>
-                                    <div class="card-footer p-4">
+                                    <div class="card-text p-4">
                                         <div class="d-flex justify-content-between">
                                             <div class="vote text-muted">
                                                 <small>Votes: {{ $artwork->votes }}</small>
                                             </div>
+                                            @if (Auth::check())
+                                                <div>
+                                                    @if (Auth::user()->id == $user->id)
+                                                        <button type="button" id="targetArt" class="stage btn btn-white text-end me-2 mb-1" data-bs-toggle="modal" data-bs-target="#artwork-modal">
+                                                            •••
+                                                        </button>
+                                                    @endif
+                                                </div>
+                                            @endif
                                             @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
                                                 <div class="stage">
                                                     <div class="heart" 
@@ -200,6 +203,7 @@
                                                             onclick="alert('Please log in to start casting your votes!')"
                                                         @endif>
                                                     </div>
+                                                    
                                                 </div>
                                             @endif
                                             
