@@ -185,11 +185,9 @@
                                             </div>
                                             @if (Auth::check())
                                                 <div>
-                                                    @if (Auth::user()->id == $user->id)
-                                                        <button type="button" id="targetArt" class="stage btn btn-white text-end me-2 mb-1" data-bs-toggle="modal" data-bs-target="#artwork-modal">
-                                                            •••
-                                                        </button>
-                                                    @endif
+                                                    <button type="button" id="targetArt" class="stage btn btn-white text-end me-2 mb-1 @if (Auth::user()->id != $artwork->artist_id) d-none @endif" data-bs-toggle="modal" data-bs-target="#artwork-modal">
+                                                        •••
+                                                    </button>
                                                 </div>
                                             @endif
                                             @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
