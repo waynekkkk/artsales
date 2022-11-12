@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="d-flex col-12 col-md-5 justify-content-center mt-3 order-1 order-md-2 mb-2">
-                <img src="{{$highest_voted_artwork->asset->asset_url}}" class="rounded img-fluid display from-right spotlight" style="width: 100%; object-fit:contain; filter: drop-shadow(1rem 1rem 0.25rem rgba(0, 0, 0, 0.4));">
+                <img src="{{$highest_voted_artwork->asset->asset_url}}" class="rounded img-fluid display from-right spotlight" style="width: 100%; object-fit:contain; filter: drop-shadow(1rem 1rem 0.25rem rgba(0, 0, 0, 0.4));" id="spotlight">
             </div>
         </div>
     </div>  
@@ -43,7 +43,7 @@
             </div>
             <!--see more-->
             <div class="col justify-content-end d-flex pb-3">
-                <a class="btn border-secondary border rounded-pill" href="{{ route('explore') }}">Discover more
+                <a class="btn border-secondary border rounded-pill" href="{{ route('discover') }}">Discover more
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                     </svg>
@@ -52,14 +52,12 @@
         </div>
             <!--carousel-->
             <div class="d-flex justify-content-center pt-2" style="margin-left: 30px; margin-right:30px;">
-                <div class="owl-carousel owl-theme d-flex-justify-content-center w-100">
+                <div class="owl-carousel owl-theme d-flex-justify-content-center w-100" id="carouselWidth">
 
-                    @foreach($all_artworks_by_votes as $artwork)
+                    @foreach($all_artworks_by_votes->slice(0,9) as $artwork)
                         <div class="card card_wrapper" style="max-width: 400px;">
 
-                            <!-- <a href="{{ route('user.account', $artwork->artist_id) }}"> -->
                                 <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#ModalLabel{{$artwork->id}}" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
-                            <!-- </a> -->   
                             <div class="card-body">
                                 <h3 class="card-title"><strong>{{ $artwork->title}}</strong></h3>
                                 <p class="card-text mb-3">
@@ -102,7 +100,7 @@
             <!--see more-->
 
             <div class="col justify-content-end d-flex pb-3">
-            <a class="btn border-secondary border rounded-pill" href="{{ route('explore') }}">Discover more
+            <a class="btn border-secondary border rounded-pill" href="{{ route('discover') }}">Discover more
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
@@ -113,7 +111,7 @@
             <!--carousel-->
             <div class="d-flex justify-content-center pt-2" style="margin-left: 30px; margin-right:30px;">
                 <div class="owl-carousel owl-theme w-100">
-                    @foreach($all_artworks_by_recommendations as $artwork)
+                    @foreach($all_artworks_by_recommendations->slice(0,9) as $artwork)
                         <div class="card card_wrapper">
 
                             <!-- <a href="{{ route('user.account', $artwork->artist_id) }}"> -->
@@ -456,6 +454,49 @@ var myCarousel = document.querySelector('#myCarousel')
     }
     }
     window.addEventListener("scroll", reveal);
+
+   // remove animation for spotlight when small 
+   var screen_width = document.body.clientWidth
+    if(screen_width < 600){
+        spotlight.classList.remove("spotlight")
+    }
+    $(window).resize(function() {
+        var screen_width = document.body.clientWidth
+        var spotlight = document.getElementById("spotlight")
+        if(screen_width < 600){
+            spotlight.classList.remove("spotlight")
+        }else{
+            spotlight.classList.add("spotlight")
+        }
+    });
+
+    // resize card so it will not be cut off
+    // var carousel = document.getElementById("carouselWidth")
+    // var carouselWidth = carousel.offsetWidth
+    // if(carouselWidth < 370){
+    //     var allCards = document.getElementsByClassName("card_wrapper")
+    //     for (card of allCards){
+    //         card.style.width = `${carouselWidth-2}px`
+    //         console.log("card: " +card.offsetWidth)
+    //     }
+    // }
+    // $(window).resize(function() {
+    //     var carousel = document.getElementById("carouselWidth")
+    //     var carouselWidth = carousel.offsetWidth
+    //     var allCards = document.getElementsByClassName("card_wrapper")
+    //     if(carouselWidth < 370){
+    //         for (card of allCards){
+    //             card.style.width = `${carouselWidth-2}px`
+    //             console.log("card: " +card.offsetWidth)
+    //         }
+    //     }else{
+    //         for (card of allCards){
+    //             card.style.width = `370px`
+    //             console.log("card: " +card.offsetWidth)
+    //         }
+    //     }
+    //     console.log(allCards[0].offsetWidth)
+    // });
 
 </script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>

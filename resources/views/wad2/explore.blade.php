@@ -7,7 +7,6 @@
 
 <style>
         .card_wrapper{
-            width: 25rem;
             border-radius: 15px;
         }
 
@@ -18,27 +17,25 @@
 
         .grids {
         display: grid;
-        /* margin:150px; */
-        gap: 5%;
         justify-content: center;
         }
 
         /* Screen larger than 768 2 column */
-        @media (min-width: 860px) {
+        /* @media (min-width: 860px) {
         .grids { 
             grid-template-columns: repeat(2, 1fr); 
             }
-        }
+        } */
 
         /* Screen larger than 960 3 columns */
         @media (min-width: 1330px) {
         .grids { grid-template-columns: repeat(3, 1fr); }
         }
         /* Screen larger than 1200  columns */
-        @media (min-width: 1800px) {
+        /* @media (min-width: 1800px) {
         .grids { grid-template-columns: repeat(4, 1fr); 
         }
-        }
+        } */
 
          /* for infowindow carousel nav button */
     .carousel-control-prev-style{
@@ -89,70 +86,65 @@
 </head>
 
 <body>
-    <div class="text-center pt-5">
-        <h1>Explore incredible art</h1>
-    </div>
-    <!-- suffle button -->
-    <div class="container d-flex justify-content-center pt-3 position-static">
-        <button type="button" class="btn btn-dark rounded-pill me-3" onclick="shuffle()">Shuffle Artwork
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shuffle" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.624 9.624 0 0 0 7.556 8a9.624 9.624 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.595 10.595 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.624 9.624 0 0 0 6.444 8a9.624 9.624 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1-.5-.5z"/>
-            <path d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z"/>
-        </svg>
-        </button>
-    </div>
-    
-
-  <!-- Keep modals for artworks -->
-    <div id="artworks_modal"></div>
-
-    <!--card-->
-    <div class="container" style='margin-bottom:80px; margin-top:30px;' id="artworks">
-    <!-- display artworks -->
-        <!-- <div class="grids" id="artworks"> -->
-           <!-- <h1>not working</h1> -->
-        <!-- </div> -->
-    </div>
-
-    
-    <!-- google maps -->
     <div class="container">
-            <div class="container text-center pt-3 mb-3 position-static">
-                <h3>Explore our Physical Galleries!</h3>
-                <br>
-                <button type="button" class="btn btn-dark rounded-pill mb-2 me-3" onclick="new_center()">Take me anywhere &nbsp  
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dice-2" viewBox="0 0 16 16">
-                    <path d="M13 1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h10zM3 0a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V3a3 3 0 0 0-3-3H3z"/>
-                    <path d="M5.5 4a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm8 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+        
+        <div class="row">
+            <div class="container text-center pt-5">
+                <h1>Explore incredible art</h1>
+            </div>
+        </div>
+        
+        <div class="row">
+            <!-- suffle button -->
+            <div class="container d-flex justify-content-center pt-3 position-static">
+                <button type="button" class="btn btn-dark rounded-pill me-3" onclick="shuffle()">Shuffle Artwork
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shuffle" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.624 9.624 0 0 0 7.556 8a9.624 9.624 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.595 10.595 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.624 9.624 0 0 0 6.444 8a9.624 9.624 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1-.5-.5z"/>
+                    <path d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z"/>
                 </svg>
                 </button>
             </div>
-            <!-- roulette -->
-            <div class="mb-2">
-                <!-- <div class="js-odoo mb-2" style="font-family: 'Poppins';font-size:2.5vmin;"></div> -->
-                <span class="js-odoo s0" id = 's0' style="font-family: monospace;"></span>
-                <span class="js-odoo s1" id = 's1' style="font-family: monospace;"></span>
-                <span class="js-odoo s2" id = 's2' style="font-family: monospace;"></span>
-                <span class="js-odoo s3" id = 's3' style="font-family: monospace;"></span>
-            </div>
-            
-            <div id="map" class="border border-dark mb-5" style="height: 600px;"></div>
-    </div>
-
-<!-- do not delete this commented part, it does not work without this -->
-<!-- <div class="grids">
-    @foreach($all_artworks_by_votes as $artwork)
-    <div class="card card_wrapper">
-        <img style="cursor: pointer; object-fit:cover; width:100%; height:400px;" data-bs-toggle="modal" data-bs-target="{{$artwork->id}}Modal" class="card-img-top img_wrapper" src="{{$artwork->asset->asset_url}}" alt="Card image cap">
-        <div class="card-body">
-            <h3 class="card-title">{{$artwork->title}}</h3>
-            <div class="d-flex justify-content-end">
-                <div class="heart"></div>
+             <!-- Keep modals for artworks -->
+            <div id="artworks_modal"></div>
+        </div>
+    
+        <div class="row">
+            <!--card-->
+            <div class="" id="artworks">
+                <!-- display artworks -->
+                <!-- <div class="grids" id="artworks"> -->
+                <!-- <h1>not working</h1> -->
+                <!-- </div> -->
             </div>
         </div>
-    </div> 
-    @endforeach
-</div> -->
+        
+        <div class="row">
+            <!-- google maps -->
+            <div class="container mt-5">
+                <div class="container text-center pt-3 mb-3 position-static">
+                    <h3>Explore our Physical Galleries!</h3>
+                    <br>
+                    <button type="button" class="btn btn-dark rounded-pill mb-2 me-3" onclick="new_center()">Take me anywhere &nbsp  
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dice-2" viewBox="0 0 16 16">
+                        <path d="M13 1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h10zM3 0a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V3a3 3 0 0 0-3-3H3z"/>
+                        <path d="M5.5 4a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm8 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                    </svg>
+                    </button>
+                </div>
+                <!-- roulette -->
+                <div class="mb-2">
+                    <!-- <div class="js-odoo mb-2" style="font-family: 'Poppins';font-size:2.5vmin;"></div> -->
+                    <span class="js-odoo s0" id = 's0' style="font-family: monospace;"></span>
+                    <span class="js-odoo s1" id = 's1' style="font-family: monospace;"></span>
+                    <span class="js-odoo s2" id = 's2' style="font-family: monospace;"></span>
+                    <span class="js-odoo s3" id = 's3' style="font-family: monospace;"></span>
+                </div>
+                
+                <div id="map" class="border border-dark mb-5" style="height: 600px;"></div>
+            </div>
+        </div>
+
+    </div>
 
     <script>
         var works = {{ Illuminate\Support\Js::from($all_artworks_by_votes) }};
@@ -190,8 +182,8 @@
                 }
             
                 artworks += `
-                <div class="card card_wrapper">
-                <img style="cursor: pointer; object-fit:cover; width:100%; height:400px;" data-bs-toggle="modal" data-bs-target="#Modal${artwork.id}" class="card-img-top img_wrapper" src="${artwork.asset.asset_url}" alt="Card image cap">
+                <div class="card card_wrapper mx-5">
+                <img style="cursor: pointer; object-fit:cover; width:100%; height:400px;" data-bs-toggle="modal" data-bs-target="#Modal${artwork.id}" class="card-img-top img_wrapper" src="${artwork.asset_url}" alt="Card image cap">
                 <div class="card-body">
                     <h3 class="card-title text-center"><strong>${artwork.title}</strong></h3>
                     <p class="fw-light text-center">${artwork.description}</p>
@@ -216,17 +208,19 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                    <img src="${artwork.asset.asset_url}" style="width: 100%;">
+                    <img src="${artwork.asset_url}" style="width: 100%;">
                     </div>
                     <div class="modal-footer">
                     <a href=href="{{ route('user.account', $artwork->artist_id) }}">
                     <button type="button" class="btn btn-dark rounded-pill">View the Artist</button>
+
                     <a/>
                     </div>
                 </div>
                 </div>
             </div>
             `
+            artwork_modal = artwork_modal.replace(':user_id', artwork.artist_id)
         });
         artworks += "</div>"
         document.getElementById("artworks_modal").innerHTML = artwork_modal

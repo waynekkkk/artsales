@@ -78,7 +78,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-6 offset-lg-6 text-center text-md-end">
                         @if (Auth::check() && (Auth::user()->id == $user->id))
-                            <button type="button" class="btn btn-outline-dark btn-block rounded-pill" onclick="window.location.href='{{ route('user.add_artwork', Auth::user()->id) }}';"><i class="fa-solid fa-plus"></i> Add More Wonderful Pieces!!</button>    
+                            <button type="button" class="btn btn-outline-dark btn-block btn-sm rounded-pill" onclick="window.location.href='{{ route('user.add_artwork', Auth::user()->id) }}';"><i class="fa-solid fa-plus"></i> Add More Wonderful Pieces!!</button>    
                         @endif
                     </div>
                 </div>
@@ -177,18 +177,21 @@
                                     <div class="card-body">
                                         <h5 class="card-title">{{ $artwork->title }}</h5>
                                         <p class="card-text">{{ $artwork->description }}</p>
-                                        <div class="text-end">
-                                            <button type="button" id="targetArt" class="btn btn-white text-end" data-bs-toggle="modal" data-bs-target="#artwork-modal">
-                                                •••
-                                            </button>
-                                        </div>
-                                        
                                     </div>
-                                    <div class="card-footer p-4">
+                                    <div class="card-text p-4">
                                         <div class="d-flex justify-content-between">
                                             <div class="vote text-muted">
                                                 <small>Votes: {{ $artwork->votes }}</small>
                                             </div>
+                                            @if (Auth::check())
+                                                <div>
+                                                    @if (Auth::user()->id == $user->id)
+                                                        <button type="button" id="targetArt" class="stage btn btn-white text-end me-2 mb-1" data-bs-toggle="modal" data-bs-target="#artwork-modal">
+                                                            •••
+                                                        </button>
+                                                    @endif
+                                                </div>
+                                            @endif
                                             @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
                                                 <div class="stage">
                                                     <div class="heart" 
@@ -200,6 +203,7 @@
                                                             onclick="alert('Please log in to start casting your votes!')"
                                                         @endif>
                                                     </div>
+                                                    
                                                 </div>
                                             @endif
                                             
@@ -218,32 +222,11 @@
                                             targetModalBtn += countId;
                                             document.getElementById(artworkId).dataset.bsTarget = targetModalImg;
                                             document.getElementById(targetModal).dataset.bsTarget = targetModalBtn;
+                                            countId++;
                                         </script>
-                                        {{-- @if (Auth::check() && (Auth::user()->id == $user->id))
-                                            <div class="row">
-                                                <div class="col-lg-4"></div>
-                                                <div class="col-lg-4 text-end">
-                                                    <form action="{{ route('user.edit_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="get">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-outline-dark btn-block rounded-pill mt-5">Edit this piece?</button>
-                                                    </form>
-                                                </div>
-                                                <div class="col-lg-4 text-end">
-                                                    <form action="{{ route('user.delete_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="post">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-outline-dark btn-block rounded-pill mt-5">Delete this piece?</button>
-                                                    </form>
-                                                </div>
-                                                
-                                            </div>
-                                        @endif --}}
-                                        
                                     </div>
                                 </div>
                             </div>
-                            <script>
-                                countId++;
-                            </script>
                         @endforeach
                     @endif
 
@@ -261,10 +244,10 @@
 
                         <div class="col-lg-6 offset-lg-6 text-center text-md-end mb-3">
                             <div class="artist-events event-btn" style="display: inline-block">
-                                <button type="button" class="btn btn-outline-dark btn-block rounded-pill" onclick="window.location.href='{{ route('user.add_event', Auth::user()->id) }}';">Join an event here!!</button>
+                                <button type="button" class="btn btn-outline-dark btn-block btn-sm rounded-pill" onclick="window.location.href='{{ route('user.add_event', Auth::user()->id) }}';">Join an event here!!</button>
                             </div>
                             <div class="event-btn" style="display: inline-block; padding">
-                                <button type="button" class="btn btn-outline-dark btn-block rounded-pill" onclick="window.location.href='{{ route('user.destroy_event', Auth::user()->id) }}';">Leave an event...</button>
+                                <button type="button" class="btn btn-outline-dark btn-block btn-sm rounded-pill" onclick="window.location.href='{{ route('user.destroy_event', Auth::user()->id) }}';">Leave an event...</button>
                             </div>
                         </div>
 
@@ -276,7 +259,7 @@
                 <div class="mx-5 mb-5">
                     <h4>No. of Events: <span id="totalEvent"></span></h4>
                     <br>
-                    <div id="map" class="mx-3 w-100 border border-dark p-5"></div>
+                    <div id="map" class="mx-0 mx-sm-3 w-100 border border-dark p-5"></div>
                 </div>
     
             </div>
@@ -388,8 +371,13 @@
                                 content: contentString,
                                 maxWidth: 300
                                 });
+                                if (currentInfoWindow != null) {
+                                    currentInfoWindow.close();
+                                }
                                 infowindow.open(map,marker);
+                                currentInfoWindow = infowindow;    
                             })
+                        var currentInfoWindow = null;
                     };
 
                     }
