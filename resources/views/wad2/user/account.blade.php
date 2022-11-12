@@ -332,7 +332,7 @@
                         let count = 0;
                         let museum = events['museum_name'];
                         
-                        var contentString = `<h5>${museum}</h5>
+                        let contentString = `<h5>${museum}</h5>
                         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">`;
 
