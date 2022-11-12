@@ -12,7 +12,7 @@
         var countId = 0;
     </script>
 
-    <div class="px-3 my-4 mx-auto row row-cols-1 row-cols-md-3 g-4">
+    <div class="px-5 m-4 row row-cols-1 row-cols-md-3 g-4">
         @foreach ($all_artworks as $artwork)
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <!-- Modal -->
@@ -56,7 +56,7 @@
                     document.getElementById('artwork-modal').id = artworkModal;
                 </script>
 
-                <div class="card h-100 artwork-card">
+                <div class="card h-100 artwork-card" style="width: 400px">
                     <img style="cursor: pointer; border-radius:15px 15px 0 0;" id="artist-artwork" src="{{ $artwork->asset->asset_url }}" class="card-img-top" data-bs-target="#artwork-modal" data-bs-toggle="modal">
                     <div class="card-body">
                         <h5 class="card-title">{{ $artwork->title }}</h5>
