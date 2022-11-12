@@ -29,17 +29,17 @@
 
             <section class="h-100 gradient-form">
                 <div class="border">
-                    <div class="row d-flex justify-content-center h-100 w-100">
+                    <div class="row d-flex justify-content-center h-100 w-100 mx-auto">
                     <div class="col-xl-10">
                         <div class="rounded-3" style="background-color: #f8fafc;">
                         <div class="row g-0" style="">
                             <div class="col-lg-6">           
-                                <div class="m-5">
+                                <div class="my-5 mx-0 mx-sm-5">
                                     <div id="map" class="border border-dark"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6 d-flex align-items-center justify-content-center">
-                                <form action="{{ route('user.update_event_add', $user_id) }}" method="post" enctype="multipart/form-data" class="form-group" style="">
+                                <form action="{{ route('user.update_event_add', $user_id) }}" method="post" enctype="multipart/form-data" class="form-group mt-0 mt-sm-5 mb-5" style="">
                                     @csrf
                                     <label class="form-label fs-6 fw-bolder text-dark float-start">Select an event to join here!</label>
                                     <select name="museum_id" id='selectedMuseum' class="form-select form-select-md form-select-solid @error('museum_id') is-invalid @enderror">

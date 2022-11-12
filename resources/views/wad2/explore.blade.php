@@ -182,7 +182,7 @@
                 }
             
                 artworks += `
-                <div class="card card_wrapper mx-5">
+                <div class="card card_wrapper" style="width: auto !important;">
                 <img style="cursor: pointer; object-fit:cover; width:100%; height:400px;" data-bs-toggle="modal" data-bs-target="#Modal${artwork.id}" class="card-img-top img_wrapper" src="${artwork.asset_url}" alt="Card image cap">
                 <div class="card-body">
                     <h3 class="card-title text-center"><strong>${artwork.title}</strong></h3>
@@ -212,7 +212,7 @@
                     </div>
                     <div class="modal-footer">
 
-                    <a href=href="{{ route('user.account', $artwork->artist_id) }}">
+                    <a href=href="{{ route('user.account', ':user_id') }}">
                     <button type="button" class="btn btn-dark rounded-pill">View the Artist</button>
                     <a/>
                     </div>
