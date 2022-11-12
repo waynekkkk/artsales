@@ -211,9 +211,9 @@
                     <img src="${artwork.asset_url}" style="width: 100%;">
                     </div>
                     <div class="modal-footer">
+
                     <a href=href="{{ route('user.account', $artwork->artist_id) }}">
                     <button type="button" class="btn btn-dark rounded-pill">View the Artist</button>
-
                     <a/>
                     </div>
                 </div>
