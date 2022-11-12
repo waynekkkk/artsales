@@ -283,9 +283,11 @@
                 <h6 class="text-uppercase fw-bold">Company</h6>
                 <a class="text-light text-decoration-none" href="{{ route('home') }}"> <span class="underlineHover"> Home</span></a>
                 <br>
-                <a class="text-light text-decoration-none" href="{{ route('about_us') }}"> <span class="underlineHover"> About Us</span></a>
+                <a class="text-light text-decoration-none" href="{{ route('discover') }}"> <span class="underlineHover"> Discover</span></a>
                 <br>
                 <a class="text-light text-decoration-none" href="{{ route('explore') }}"> <span class="underlineHover"> Explore</span></a>
+                <br>
+                <a class="text-light text-decoration-none" href="{{ route('about_us') }}"> <span class="underlineHover"> About Us</span></a>
               </div>
     
               <div class="col-6 col-sm-3 col-md-2 mx-auto mb-md-0 py-1">
