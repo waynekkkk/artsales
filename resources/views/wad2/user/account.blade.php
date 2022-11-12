@@ -315,7 +315,7 @@
                     // The marker, positioned at museum
                     for (events of events_collection){
                         let marker = new google.maps.Marker({
-                        position: {lat: events['lat'], lng: events['long']}, 
+                        position: {lat: parseFloat(events['lat']), lng: parseFloat(events['long'])}, 
                         map: map,
                         title: events['museum_name'],
                         icon:{
