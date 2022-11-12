@@ -218,32 +218,11 @@
                                             targetModalBtn += countId;
                                             document.getElementById(artworkId).dataset.bsTarget = targetModalImg;
                                             document.getElementById(targetModal).dataset.bsTarget = targetModalBtn;
+                                            countId++;
                                         </script>
-                                        {{-- @if (Auth::check() && (Auth::user()->id == $user->id))
-                                            <div class="row">
-                                                <div class="col-lg-4"></div>
-                                                <div class="col-lg-4 text-end">
-                                                    <form action="{{ route('user.edit_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="get">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-outline-dark btn-block rounded-pill mt-5">Edit this piece?</button>
-                                                    </form>
-                                                </div>
-                                                <div class="col-lg-4 text-end">
-                                                    <form action="{{ route('user.delete_artwork', ['user_id'=>Auth::user()->id, 'artwork_id'=>$artwork->id]) }}" method="post">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-outline-dark btn-block rounded-pill mt-5">Delete this piece?</button>
-                                                    </form>
-                                                </div>
-                                                
-                                            </div>
-                                        @endif --}}
-                                        
                                     </div>
                                 </div>
                             </div>
-                            <script>
-                                countId++;
-                            </script>
                         @endforeach
                     @endif
 
