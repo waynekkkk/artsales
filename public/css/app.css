@@ -11997,3 +11997,13 @@ svg {
   transform: translateY(0);
   opacity: 1;
 }
+
+.pagination .page-item .page-link {
+  color: #000 !important;
+}
+
+.page-item.active .page-link {
+  color: #fff !important;
+  background-color: #212529 !important;
+  border-color: #212529 !important;
+}

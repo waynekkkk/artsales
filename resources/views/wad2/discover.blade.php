@@ -3,16 +3,17 @@
 @section('content')
 <body>
 
-    <div class="text-center my-4">
-        <h1 class="mb-2">Discover All Artworks!</h1>
-        <p style="font-size: 16px" class="fw-light">Browse through the entire State Of The Art Collection</p>
+  <div class="container">
+    <div class="text-center mt-5">
+      <h1 class="mb-4">Discover All Artworks!</h1>
+      <p style="font-size: 16px" class="fw-light mb-2">Browse through the entire State Of The Art Collection</p>
     </div>
     
     <script>
         var countId = 0;
     </script>
 
-    <div class="px-5 m-4 row row-cols-1 row-cols-md-3 g-4">
+    <div class="my-4 row row-cols-1 row-cols-md-3 g-4">
         @foreach ($all_artworks as $artwork)
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <!-- Modal -->
@@ -31,19 +32,17 @@
                                     <div class="vote text-muted">
                                         <small>Votes: {{ $artwork->votes }}</small>
                                     </div>
-                                    @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
-                                        <div class="stage">
-                                            <div class="heart" 
-                                                @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
-                                                    onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
-                                                @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
-                                                    onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
-                                                @else
-                                                    onclick="alert('Please log in to start casting your votes!')"
-                                                @endif>
-                                            </div>
-                                        </div>
-                                    @endif
+                                      <div class="stage">
+                                          <div class="heart" 
+                                              @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
+                                                  onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
+                                              @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
+                                                  onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
+                                              @else
+                                                  onclick="alert('Please log in to start casting your votes!')"
+                                              @endif>
+                                          </div>
+                                      </div>
                                 </div>
                             </div>
                         </div>
@@ -56,7 +55,7 @@
                     document.getElementById('discover-modal').id = discoverModal;
                 </script>
 
-                <div class="card h-100 artwork-card" style="width: 400px">
+                <div class="card h-100 artwork-card">
                     <img style="cursor: pointer; border-radius:15px 15px 0 0;" id="discover-all" src="{{ $artwork->asset->asset_url }}" class="card-img-top" data-bs-target="#discover-modal" data-bs-toggle="modal">
                     <div class="card-body">
                         <h5 class="card-title">{{ $artwork->title }}</h5>
@@ -99,10 +98,11 @@
             </div>
        @endforeach
     
-    </div>
+      </div>
 
-    <div class="d-flex justify-content-center mt-2 mb-5">
-        {!! $all_artworks->links() !!}
+      <div class="d-flex justify-content-center mt-2 mb-5">
+          {!! $all_artworks->links() !!}
+      </div>
     </div>
 
     <script>

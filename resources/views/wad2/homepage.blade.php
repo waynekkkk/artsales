@@ -166,7 +166,7 @@
                   </div>
                   <div class="modal-footer">
                   <a href="{{ route('user.account', $artwork->artist_id) }}">
-                    <button type="button" class="btn btn-dark rounded-pill">View Artist</button>
+                    <button type="button" class="btn btn-dark rounded-pill">View the Artist</button>
                   </a>
                   </div>
               </div>
