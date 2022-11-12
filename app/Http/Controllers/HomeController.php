@@ -201,7 +201,7 @@ class HomeController extends Controller
             $all_artworks_by_votes[] = $artwork_details;
         }
         
-        $all_artworks = Artwork::all()->shuffle();
+        $all_artworks = Artwork::paginate(6);
 
         $museums = Museum::all();
 
@@ -266,9 +266,4 @@ class HomeController extends Controller
         );
     }
 
-    public function paginateData()
-    {
-        $all_artworks = Artwork::paginate(6);
-        return view('wad2.discover', compact('all_artworks'));
-    }
 }
