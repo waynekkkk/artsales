@@ -12,11 +12,11 @@
         var countId = 0;
     </script>
 
-    <div class="px-3 my-4 mx-auto row row-cols-1 row-cols-md-3 g-4">
+    <div class="px-5 m-4 row row-cols-1 row-cols-md-3 g-4">
         @foreach ($all_artworks as $artwork)
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <!-- Modal -->
-                <div class="modal fade" id="artwork-modal" tabindex="-1">
+                <div class="modal fade" id="discover-modal" tabindex="-1">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -51,24 +51,19 @@
                 </div>
 
                 <script>
-                    artworkModal = document.getElementById('artwork-modal').id;
-                    artworkModal += countId;
-                    document.getElementById('artwork-modal').id = artworkModal;
+                    discoverModal = document.getElementById('discover-modal').id;
+                    discoverModal += countId;
+                    document.getElementById('discover-modal').id = discoverModal;
                 </script>
 
-                <div class="card h-100 artwork-card">
-                    <img style="cursor: pointer; border-radius:15px 15px 0 0;" id="artist-artwork" src="{{ $artwork->asset->asset_url }}" class="card-img-top" data-bs-target="#artwork-modal" data-bs-toggle="modal">
+                <div class="card h-100 artwork-card" style="width: 400px">
+                    <img style="cursor: pointer; border-radius:15px 15px 0 0;" id="discover-all" src="{{ $artwork->asset->asset_url }}" class="card-img-top" data-bs-target="#discover-modal" data-bs-toggle="modal">
                     <div class="card-body">
                         <h5 class="card-title">{{ $artwork->title }}</h5>
                         <p class="card-text">
                             <span class="fw-semibold d-block">By: <a href="{{ route('user.account', $artwork->artist_id) }}"><u>{{$artwork->artist->name}}</u></a></span>
                             <span class="fw-light">{{ $artwork->description }}</span>
                         </p>
-                        <div class="text-end">
-                            <button type="button" id="targetArt" class="btn btn-white text-end" data-bs-toggle="modal" data-bs-target="#artwork-modal">
-                                •••
-                            </button>
-                        </div>
                         
                     </div>
                     <div class="card-footer p-4">
@@ -93,18 +88,12 @@
                         </div>
                         
                         <script>
-                            targetModal = document.getElementById('targetArt').id;
-                            artworkId = document.getElementById('artist-artwork').id;
-                            artworkId += countId;
-                            targetModal += countId;
-                            document.getElementById('targetArt').id = targetModal;
-                            document.getElementById('artist-artwork').id = artworkId;
-                            targetModalImg = document.getElementById(artworkId).dataset.bsTarget;
-                            targetModalBtn = document.getElementById(targetModal).dataset.bsTarget;
+                            discoverId = document.getElementById('discover-all').id;
+                            discoverId += countId;
+                            document.getElementById('discover-all').id = discoverId;
+                            targetModalImg = document.getElementById(discoverId).dataset.bsTarget;
                             targetModalImg += countId;
-                            targetModalBtn += countId;
-                            document.getElementById(artworkId).dataset.bsTarget = targetModalImg;
-                            document.getElementById(targetModal).dataset.bsTarget = targetModalBtn;
+                            document.getElementById(discoverId).dataset.bsTarget = targetModalImg;
                             countId++;
                         </script>
                     </div>
@@ -117,6 +106,36 @@
     <div class="d-flex justify-content-center mt-2 mb-5">
         {!! $all_artworks->links() !!}
     </div>
+
+    <script>
+        function postLike(event, artwork_id, user_id) {
+
+            if (confirm("Are you sure you want to vote for this artwork?")) {
+                axios.post("/api/artwork/like", {
+                            user_id:        user_id,
+                            artwork_id:     artwork_id
+                        })
+                .then(response => {
+                    var new_votes = response.data.result;
+                    var msg = response.data.message;
+
+                    event.target.classList.add('is-active');
+                    event.target.removeAttribute('onclick');
+
+                    var stage_parent = event.target.parentElement;
+                    var vote_div = stage_parent.parentElement.childNodes[1];
+                    vote_div.innerHTML = `<small>Votes: ${new_votes}</small>`;
+
+                    console.log(response.data.message);
+                })
+                .catch(error => {
+                    console.log(response.data.message);
+                })
+            };
+            
+
+        }
+    </script>
 
 </body>
 @endsection
