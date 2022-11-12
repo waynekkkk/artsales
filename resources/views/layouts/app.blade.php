@@ -161,6 +161,7 @@
                 </div>
             </div>
         </nav>
+    </div>
 
     {{-- <div id="app">
         <nav class="navbar sticky-top navbar-expand-md navbar-light shadow" style="background-color: #ff2800">
