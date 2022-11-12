@@ -183,14 +183,12 @@
                                             <div class="vote text-muted">
                                                 <small>Votes: {{ $artwork->votes }}</small>
                                             </div>
-                                            @if (Auth::check())
-                                                <div>
-                                                    <button type="button" id="targetArt" class="stage btn btn-white text-end me-2 mb-1 @if (Auth::user()->id != $artwork->artist_id) d-none @endif" data-bs-toggle="modal" data-bs-target="#artwork-modal">
-                                                        •••
-                                                    </button>
-                                                </div>
-                                            @endif
-                                            @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
+                                            <div>
+                                                <button type="button" id="targetArt" class="stage btn btn-white text-end me-2 mb-1 @if (!Auth::check() || (Auth::check() && (Auth::user()->id != $artwork->artist_id))) d-none @endif" data-bs-toggle="modal" data-bs-target="#artwork-modal">
+                                                    •••
+                                                </button>
+                                            </div>
+                                            @if (!Auth::check() || (Auth::check() && !($artwork->artist_id == Auth::user()->id)))
                                                 <div class="stage">
                                                     <div class="heart" 
                                                         @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
