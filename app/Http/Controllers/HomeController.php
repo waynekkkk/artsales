@@ -265,4 +265,10 @@ class HomeController extends Controller
             ]
         );
     }
+
+    public function paginateData()
+    {
+        $all_artworks = Artwork::paginate(6);
+        return view('wad2.discover', compact('all_artworks'));
+    }
 }

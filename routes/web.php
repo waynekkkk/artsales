@@ -77,6 +77,7 @@ Route::get('/explore', [HomeController::class, 'indexExplore'])->name('explore')
 
 // discover
 Route::get('/discover', [HomeController::class, 'indexDiscover'])->name('discover');
+Route::get('/discover', [HomeController::class, 'paginateData'])->name('discover');
 
 // gallery
 Route::get('/gallery/new', [GalleryController::class, 'add'])->middleware('auth')->name('add_new_gallery');
