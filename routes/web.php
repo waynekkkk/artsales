@@ -75,6 +75,9 @@ Route::get('/user/{user_id}/notifications', [NotificationController::class, 'ind
 // explore
 Route::get('/explore', [HomeController::class, 'indexExplore'])->name('explore');
 
+// discover
+Route::get('/discover', [HomeController::class, 'indexDiscover'])->name('discover');
+
 // gallery
 Route::get('/gallery/new', [GalleryController::class, 'add'])->middleware('auth')->name('add_new_gallery');
 Route::post('/gallery/updateNewGallery/{user_id}', [GalleryController::class, 'updateAdd'])->middleware('auth')->name('update_add_new_gallery');
