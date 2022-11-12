@@ -66,24 +66,22 @@
                         </p>
                         
                     </div>
-                    <div class="card-footer p-4">
+                    <div class="card-text p-4">
                         <div class="d-flex justify-content-between">
                             <div class="vote text-muted">
                                 <small>Votes: {{ $artwork->votes }}</small>
                             </div>
-                            @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
-                                <div class="stage">
-                                    <div class="heart" 
-                                        @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
-                                            onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
-                                        @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
-                                            onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
-                                        @else
-                                            onclick="alert('Please log in to start casting your votes!')"
-                                        @endif>
-                                    </div>
+                            <div class="stage">
+                                <div class="heart" 
+                                    @if (Auth::check() && !($artwork->artist_id == Auth::user()->id))
+                                        onclick="postLike(event, {{ $artwork->id }}, {{ Auth::user()->id }})"
+                                    @elseif (Auth::check() && ($artwork->artist_id == Auth::user()->id))
+                                        onclick="alert('Oh dear! We know you love your own art, but let\'s be fair!')"
+                                    @else
+                                        onclick="alert('Please log in to start casting your votes!')"
+                                    @endif>
                                 </div>
-                            @endif
+                            </div>
                             
                         </div>
                         
