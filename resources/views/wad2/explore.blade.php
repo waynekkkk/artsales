@@ -330,12 +330,12 @@
                         if (i == 0){
                             contentString += `
                             <div class="carousel-item active">
-                                <img src="${artist.images_list[i]}" style = "height:400px; width:400px;">
+                                <img src="${artist.images_list[i]}" style = "height:auto; width:100%;">
                             </div>`;     
                         }else{
                             contentString += `
                                 <div class="carousel-item">
-                                    <img src="${artist.images_list[i]}" style = "height:400px; width:400px;">
+                                    <img src="${artist.images_list[i]}" style = "height:auto; width:100%;">
                                 </div>`;     
                             }
                         }
@@ -374,12 +374,12 @@
                         if (i == 0){
                             contentString += `
                             <div class="carousel-item active">
-                                <img src="${artist.images_list[i]}" style = "height:400px; width:400px;">
+                                <img src="${artist.images_list[i]}" style = "height:auto; width:100%;">
                             </div>`;     
                         }else{
                             contentString += `
                                 <div class="carousel-item">
-                                    <img src="${artist.images_list[i]}" style = "height:400px; width:400px;">
+                                    <img src="${artist.images_list[i]}" style = "height:auto; width:100%;">
                                 </div>`;     
                             }
                         }
