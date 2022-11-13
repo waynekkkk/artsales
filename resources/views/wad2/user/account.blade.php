@@ -337,12 +337,12 @@
                             if (count == 0){
                                 contentString+= `
                                 <div class="carousel-item active">
-                                <img src="${imgLink}" style="height:250px; width:300px;">
+                                <img src="${imgLink}" style = "height:auto; width:100%;">
                                 </div>`;    
                             } else{
                                 contentString += `
                                 <div class="carousel-item">
-                                <img src="${imgLink}" style="height:250px; width:300px;">
+                                <img src="${imgLink}" style = "height:auto; width:100%;">
                                 </div>
                                 `;
                             }
