@@ -54,7 +54,7 @@
             <div class="d-flex justify-content-center pt-2" style="margin-left: 30px; margin-right:30px;">
                 <div class="owl-carousel owl-theme d-flex-justify-content-center w-100" id="carouselWidth">
 
-                    @foreach($all_artworks_by_votes->slice(0,9) as $artwork)
+                    @foreach($all_artworks_by_votes->slice(1,10) as $artwork)
                         <div class="card card_wrapper" style="max-width: 400px;">
 
                                 <img style="cursor: pointer; object-fit:cover; width:100%; height:370px;" data-bs-toggle="modal" data-bs-target="#ModalLabel{{$artwork->id}}" class="card-img-top img_wrapper" src="{{ $artwork->asset->asset_url }}" alt="Card image cap">
