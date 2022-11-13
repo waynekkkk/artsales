@@ -57,8 +57,11 @@ You can now access the server at http://localhost:8000
     //this line is required to **run webpage in localhost**
     php artisan serve
 
-**If you have followed the installation guide but it is still not working**
-Ensure that you have the latest ODBC driver installed https://learn.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server?view=sql-server-ver16
+**If you have followed the installation guide but it is still not working** <br>
+Ensure that you have the latest ODBC driver (at least version 17) installed https://learn.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server?view=sql-server-ver16
+<br>
+Check ODBC driver version <br>
+https://www.ibm.com/docs/en/db2/10.5?topic=SSEPGG_10.5.0/com.ibm.swg.im.iis.prod.install.core.doc/topics/iiypisco-sqlsvrcli.htm
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
