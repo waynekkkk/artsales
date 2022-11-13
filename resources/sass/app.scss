@@ -822,8 +822,16 @@ body{
   border-radius: 15px;
 }
 
-.artwork-card:hover{
-  transform: scale(1.05); 
+@media (min-width: 768px) {
+  .artwork-card:hover{
+    transform: scale(1.05) !important; 
+  }
+}
+
+@media (max-width: 768px) {
+  .artwork-card:hover{
+    transform: none !important; 
+  }
 }
 
 /* SEPRATOR BETWEEN SEARCH AND EXPLORE BUTTONS. PLEASE CHANGE OR EXPLORE */
