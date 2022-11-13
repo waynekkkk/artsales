@@ -1,6 +1,6 @@
 # Login Info
-The account details are as follows:
-**email** :email:: kaydong@gmail.com
+The account details are as follows: <br>
+**email** :email:: kaydong@gmail.com<br>
 **password** :key:: kl12345
 
 Creating your own account is also supported by the website - should you wish to do so.
