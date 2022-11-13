@@ -212,7 +212,7 @@
                     </div>
                     <div class="modal-footer">
 
-                    <a href=href="{{ route('user.account', ':user_id') }}">
+                    <a href="{{ route('user.account', ':user_id') }}">
                     <button type="button" class="btn btn-dark rounded-pill">View the Artist</button>
                     <a/>
                     </div>
