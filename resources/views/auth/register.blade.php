@@ -372,7 +372,6 @@
                     // login_form.addEventListener("submit", function() {
                     //     return false;
                     // })
-                    console.log(login_form)
                     e.preventDefault()
                 }
     
@@ -381,7 +380,6 @@
                     // signup_form.addEventListener("submit", function() {
                     //     return false;
                     // })
-                    console.log(signup_form)
                     e.preventDefault()
                 }
     

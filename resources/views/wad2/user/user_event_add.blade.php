@@ -135,7 +135,6 @@
                         Object.keys(museum_collection).forEach(id => {
                             if (selectedMuseumId == id){
                                 const newLatLng = {lat: parseFloat(museum_collection[id].lat), lng: parseFloat(museum_collection[id].long)};
-                                console.log(newLatLng);
                                 
                                 var marker = new google.maps.Marker({
                                     postion: newLatLng,
@@ -147,8 +146,6 @@
                                 })
                                 hideMarkers();
                                 markers.push(marker);
-                                console.log('Map focus changed!');
-                                console.log('Marker changed!');
                                 marker.setPosition(newLatLng);
                                 window.setTimeout(() => {
                                     map.setZoom(16);
