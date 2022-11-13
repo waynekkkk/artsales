@@ -75,8 +75,6 @@
                         btn.disabled = true;
                         div_parent_label.style.borderLeft = "none";
                         div_parent_label.classList.add('text-muted');
-
-                        console.log(response.data.message);
                     })
                     .catch(error => {
                         console.log(error.message);

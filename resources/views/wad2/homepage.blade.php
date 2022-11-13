@@ -209,11 +209,9 @@ function postLike(event, artwork_id, user_id) {
             var stage_parent = event.target.parentElement;
             var vote_div = stage_parent.parentElement.childNodes[1];
             vote_div.innerHTML = `<small>Votes: ${new_votes}</small>`;
-
-            console.log(response.data.message);
         })
         .catch(error => {
-            console.log(response.data.message);
+            console.log(error.message);
         })
     };
 
@@ -270,7 +268,6 @@ var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};
         <div style = 'position:absolute; bottom:10px; left:30px;color:white; font-size:20px; font-family:poppins; font-weight:bold;'>${museum.name}</div>
         </div>
         `;
-        console.log(museum.name)
         // make it have weather info
         var key = "19c53dfa53a7b4e96f444976cf4f5152"
         var url = " https://wadiiproxy.herokuapp.com/https://api.openweathermap.org/data/2.5/weather"
@@ -287,7 +284,6 @@ var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};
             var weather = response.data.weather[0].main
             contentString += "<div class='from-left-3'><img class='from-left-1' src='" + weather_icons[weather.toLowerCase()] + "' style='width:38px;'><span>" + response.data.main.temp +"°C</span></div> <div style='text-align:center'><div style = 'color:black; font-size:20px; font-family:copperplate; font-weight:bold; text-align:center;'><strong>Current Galleries</strong></div></div>";
             museum.artists_list.forEach(artist =>{
-            console.log(artist.name)
                 contentString += `<br><div style='text-align:center;'><h5 style:'text-align:center;' class='fw-light'>by ${artist.name}</h5></div>`
                 contentString += `
                 <div id="${artist.name.replaceAll(" ","")}" class="carousel slide" data-bs-ride="carousel" style="margin:10px 40px 10px 40px;">
@@ -327,12 +323,10 @@ var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};
                     </div>`; 
                 });
             })                   
-            // console.log(contentString)
          .catch(error => {
          // process error object
          contentString += "<div style='text-align:center; margin-top:10px;'><div style = 'color:black; font-size:20px; font-family:copperplate; font-weight:bold; text-align:center;'><strong>Current Galleries</strong></div></div>"
          museum.artists_list.forEach(artist =>{
-            console.log(artist.name)
                 contentString += `<br><div style='text-align:center;'><h5 style:'text-align:center;' class='fw-light'>by ${artist.name}</h5></div>`
                 contentString += `
                 <div id="${artist.name.replaceAll(" ","")}" class="carousel slide" data-bs-ride="carousel" style="margin:10px 40px 10px 40px;">
@@ -473,33 +467,6 @@ var myCarousel = document.querySelector('#myCarousel')
         }
     });
 
-    // resize card so it will not be cut off
-    // var carousel = document.getElementById("carouselWidth")
-    // var carouselWidth = carousel.offsetWidth
-    // if(carouselWidth < 370){
-    //     var allCards = document.getElementsByClassName("card_wrapper")
-    //     for (card of allCards){
-    //         card.style.width = `${carouselWidth-2}px`
-    //         console.log("card: " +card.offsetWidth)
-    //     }
-    // }
-    // $(window).resize(function() {
-    //     var carousel = document.getElementById("carouselWidth")
-    //     var carouselWidth = carousel.offsetWidth
-    //     var allCards = document.getElementsByClassName("card_wrapper")
-    //     if(carouselWidth < 370){
-    //         for (card of allCards){
-    //             card.style.width = `${carouselWidth-2}px`
-    //             console.log("card: " +card.offsetWidth)
-    //         }
-    //     }else{
-    //         for (card of allCards){
-    //             card.style.width = `370px`
-    //             console.log("card: " +card.offsetWidth)
-    //         }
-    //     }
-    //     console.log(allCards[0].offsetWidth)
-    // });
 
 </script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>

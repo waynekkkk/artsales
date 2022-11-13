@@ -33,7 +33,6 @@
             function ekUpload(){
     function Init() {
   
-      console.log("Upload Initialised");
   
       var fileSelect    = document.getElementById('file-upload'),
           fileDrag      = document.getElementById('file-drag'),
@@ -83,13 +82,11 @@
   
     function parseFile(file) {
   
-      console.log(file.name);
       output(
         '<strong>' + encodeURI(file.name) + '</strong>'
       );
       
       // var fileType = file.type;
-      // console.log(fileType);
       var imageName = file.name;
   
       var isGood = (/\.(?=gif|jpg|png|jpeg)/gi).test(imageName);

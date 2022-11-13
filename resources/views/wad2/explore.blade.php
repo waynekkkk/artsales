@@ -254,7 +254,6 @@
 
         // google maps
         var museum_collection = {{ Illuminate\Support\Js::from($museum_collections) }};     
-        console.log(museum_collection) 
         var weather_icons = {
             "thunderstorm":"http://openweathermap.org/img/wn/11d@2x.png",
             "drizzle":"http://openweathermap.org/img/wn/09d@2x.png",
@@ -319,7 +318,6 @@
         .then(response => {
             // process response.dataobject
             var weather = response.data.weather[0].main
-            // console.log(response.data.main.temp)
             contentString += "<div class='from-left-3'><img class='from-left-1' src='" + weather_icons[weather.toLowerCase()] + "' style='width:38px;'><span>" + response.data.main.temp +"°C</span></div> <div style='text-align:center'><div style = 'color:black; font-size:20px; font-family:copperplate; font-weight:bold; text-align:center;'><strong>Current Galleries</strong></div></div>";
             museum.artists_list.forEach(artist =>{
                 contentString += `<br><div style='text-align:center;'><h5 style:'text-align:center;' class='fw-light'>by ${artist.name}</h5></div>`
@@ -361,7 +359,6 @@
                     </div>`; 
                 });
             })                   
-            // console.log(contentString)
          .catch(error => {
          // process error object
          contentString += "<div style='text-align:center; margin-top:10px;'><div style = 'color:black; font-size:20px; font-family:copperplate; font-weight:bold; text-align:center;'><strong>Current Galleries</strong></div></div>"
@@ -438,7 +435,6 @@
             ];
             var random_museum = museum_location[Math.floor(Math.random()*museum_location.length)];
             var nameArr = random_museum.museum.split(" ")
-            console.log(nameArr)
             window.initMap(random_museum.lat, random_museum.lng)
             // set span to empty
             document.getElementById(`s0`).innerText = ''
@@ -447,7 +443,6 @@
             document.getElementById(`s3`).innerText = ''
             // generate slot animation for each span
             for(var i = 0; i < nameArr.length; i++){
-                console.log(i)
                 odoo.default({ el:`.js-odoo.s${i}`, from: '???????', to: nameArr[i], animationDelay: 0 });
             }
             
@@ -484,11 +479,9 @@
                     var vote_div = stage_parent.parentElement.childNodes[1];
 
                     vote_div.innerHTML = `<small>Votes: ${new_votes}</small>`;
-
-                    console.log(response.data.message);
                 })
                 .catch(error => {
-                    console.log(response.data.message);
+                    console.log(error.message);
                 })
             };
 

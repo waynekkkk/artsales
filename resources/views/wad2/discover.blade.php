@@ -123,11 +123,9 @@
                     var stage_parent = event.target.parentElement;
                     var vote_div = stage_parent.parentElement.childNodes[1];
                     vote_div.innerHTML = `<small>Votes: ${new_votes}</small>`;
-
-                    console.log(response.data.message);
                 })
                 .catch(error => {
-                    console.log(response.data.message);
+                    console.log(error.message);
                 })
             };
             

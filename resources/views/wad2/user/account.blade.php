@@ -289,7 +289,6 @@
         <!--google maps script-->
         <script>
             var events_collection = {{ Illuminate\Support\Js::from($events_details) }};
-            console.log(events_collection);
 
             // returning total event the artist is involved in
             var totalEvent = events_collection.length;
@@ -300,13 +299,6 @@
 
                 // Initialize and add the map
                 function initMap() {
-                    // var events_collection = {{ Illuminate\Support\Js::from($events_details) }};
-                    // for (events of events_collection){
-                        // console.log(events['museum_name']);
-                        // console.log(events['long']);
-                        // console.log(events['lat']);
-                        // console.log(events['images_list']);
-                    // }
 
                     // Creating map with a view of Singapore
                     var map = new google.maps.Map(
@@ -348,7 +340,6 @@
                             }
                             count++;
                         }
-                        console.log(count);
                         contentString += `
                             </div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -427,11 +418,9 @@
                             var stage_parent = event.target.parentElement;
                             var vote_div = stage_parent.parentElement.childNodes[1];
                             vote_div.innerHTML = `<small>Votes: ${new_votes}</small>`;
-
-                            console.log(response.data.message);
                         })
                         .catch(error => {
-                            console.log(response.data.message);
+                            console.log(error.message);
                         })
                     };
                     
