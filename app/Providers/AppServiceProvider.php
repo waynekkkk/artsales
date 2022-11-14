@@ -28,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
         //
         if (env('APP_ENV') !== 'local') {
             $url->forceScheme('https');
+            $this->app['request']->server->set('HTTPS','on');
         }
         Paginator::useBootstrap();
     }
