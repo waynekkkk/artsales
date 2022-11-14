@@ -6,7 +6,7 @@ The account details are as follows: <br>
 Creating your own account is also supported by the website - should you wish to do so.
 
 ## Laravel Installation guide
-
+**If you wish to checkout our webpage on locahost, please follow this guide to install Laravel framework.**
 Please check the official laravel installation guide for server requirements before you start. [Official Documentation](https://laravel.com/docs/5.4/installation#installation)
 
 Alternative installation is possible without local dependencies relying on [Docker](#docker). 
@@ -31,10 +31,6 @@ Generate a new application key
 
     php artisan key:generate
 
-Generate a new JWT authentication secret key
-
-    php artisan jwt:generate
-
 Run the database migrations (**Set the database connection in .env before migrating**)
 
     php artisan migrate
@@ -57,7 +53,15 @@ You can now access the server at http://localhost:8000
 **Make sure you set the correct database connection information before running the migrations** [Environment variables](#environment-variables)
 
     php artisan migrate
+    
+    //this line is required to **run webpage in localhost**
     php artisan serve
+
+**If you have followed the installation guide but it is still not working** <br>
+Ensure that you have the latest ODBC driver (at least version 17) installed https://learn.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server?view=sql-server-ver16
+<br>
+Check ODBC driver version <br>
+https://www.ibm.com/docs/en/db2/10.5?topic=SSEPGG_10.5.0/com.ibm.swg.im.iis.prod.install.core.doc/topics/iiypisco-sqlsvrcli.htm
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
