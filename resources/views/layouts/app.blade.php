@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/assets/owl.theme.default.min.css">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <link rel="shortcut icon" href="{{ asset('images/logo.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('images/sota.ico') }}" type="image/x-icon">
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
